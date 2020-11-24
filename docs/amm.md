@@ -1,8 +1,6 @@
 ---
 id: amm
 title: AMM
-sidebar_label: AMM
-slug: /
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).

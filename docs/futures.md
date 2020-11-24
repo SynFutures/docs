@@ -1,8 +1,6 @@
 ---
 id: futures
 title: Futures
-sidebar_label: Futures
-slug: /
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
