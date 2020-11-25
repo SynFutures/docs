@@ -33,6 +33,29 @@ NORMAL和SETTLING状态下，markPrice的计算方式不同：SETTLILNG状态会
 ## 期货机制设计
 
 
+## 限制和保护机制
+以下机制主要用于保护整个生态以及普通用户不会被设计外的使用方法攻击，包括例如通过闪电贷来操纵Oracle现货指数价格。以下限制参数均可通过`GlobalConfig`来调整。多数保护机制只在同一个block之内有效，而普通用户不会在同一个block进行复数操作，所以不会受到影响。
+
+`maxPriceSlippageRatio`
+限制一个block之内通过和AMM交易允许的最大双向滑点，等效于每一个block之内的限价机制，即在任何一个block之内，AMM的中间价不允许改变超过这个比例，来防止通过单个大单交易来扭曲AMM价格。若用户的单笔交易过大，引起了大于这个限制的滑点，交易会失败。
+
+`maxInitialDailyBasis`; // |initPrice - indexPrice| < days * maxInitialDailyBasis
+限制启动AMM的初始价格和现货指数之间的最大价差，以每日计，即在启动AMM的时候，初始价格和现货指数的价差绝对值不会超过`days` * `maxInitialDailyBasis`。通过这个限制，AMM的其实价格会被限定在一个合理范围之内
+
+`maxUserTradeOpenInterestRatio`
+限制单个用户持仓占整个市场的上限，来防止市场的风险过于集中于某些用户中。若某个用户的持仓比例高于该限制时，此用户只能进行平仓操作而不能增加仓位。虽然LP在给AMM增加流动性时不受此限制，但是如果LP增加流动性之后持仓比例突破了该限制之后，依然会只能平仓而无法加仓。
+
+`minAmmOpenInterestRatio`
+限制AMM持仓占整个市场的下限，来防止AMM的流动性过低。因为系统中的所有用户都只能和AMM交易，所以AMM必须保持一定的库存来防止产生过大的滑点。该限制对于用户和AMM交易以及LP从AMM提取流动性。
+
+`maxSpotIndexChangePerSecondRatio`
+限制AMM从上一次指数价格更新到现在为止所能接受的现货指数最大变化，以每秒计。由于标记价格`MarkPrice`每个block最多只会更新一次，所以这个限制相当于是对于MarkPrice的一个基于时间的限价机制来防止通过在一个block或者短时间内来回操纵现货指数价格来扭曲AMM的标记价格。
+
+// used when a liquidated account is already bankrupt and thus no remaining maintenance margin can be used to reward the liquidator
+// the reward would be withdraw from insurance fund in this case to keep liquidators motivated
+`bankruptcyLiquidatorRewardRatio`
+表示替一个已经破产的账户清仓时用户可以从系统获取的奖励。保险基金会支付此奖励来吸引用户清仓已经破产的账户。
+
 
 ## 期货合约实现
 
