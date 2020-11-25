@@ -1,8 +1,6 @@
 ---
 id: guide
 title: Guide
-sidebar_label: Guide
-slug: /
 ---
 
 You can write content using [GitHub-flavored Markdown syntax](https://github.github.com/gfm/).
