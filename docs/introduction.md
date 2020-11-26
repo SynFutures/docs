@@ -240,11 +240,69 @@ SynFutures@v1中如果一个账户根据当前的标记价格不再安全（acco
 `bankruptcyLiquidatorRewardRatio`
 表示替一个已经破产的账户清仓时用户可以从系统获取的奖励。保险基金会支付此奖励来吸引用户清仓已经破产的账户。
 
+## 期货合约架构
+
+相比Uniswap和当前DeFi领域的其它衍生品协议不同，SynFutures@v1中由于需要base、quote以及到期时间才能唯一确定期货合约，可以预期的是，SynFutures@v1的LP需要根据需要不断创建新的期货合约市场，这就对期货合约的整体架构提出了挑战，如何最小化每个期货合约的创建？另外考虑到当前Ethereum网络时常的拥堵带来的gas price飙升的问题，SynFutures@v1也需要尽可能减少每一项用户操作的gas消耗。
+
+### 降低期货市场创建gas消耗
+
+虽然需要base、quote以及到期时间才能唯一确定期货合约，但是所有期货合约的内部逻辑是一致的，因为利用DELEGATECALL让所有的期货合约共享相同的运行时逻辑可以显著降低每个期货市场创建是的gas消耗。相当于链上仅有一份代码，而每个期货市场合约创建时仅需要分配自己所需的链上存储空间即可。
+
+SynFutures@v1的每个期货市场合约中均涉及到sAMM、账户管理、quote的margin管理等操作，逻辑上这些都属于同一个期货市场合约，但是由于Ethereum对交易字节大小的限制，无法将所有的逻辑呈现在同一个智能合约当中，因此需要将期货市场逻辑进行拆分。SynFutures@v1采取的基本策略是：将逻辑拆分成两个大的部分：
+
+- AMM自动做市：负责维持乘法恒定乘积以及链上`MarkPriceState`状态等。
+- 账户和资产管理：负责记录更新每个账户状态、管理margin资产的存入和转出等。
+
+AMM自动做市方面，由于链上`MarkPriceState`状态的更新机制根据Oracle类型的不同有不同的逻辑，因此采用了继承机制，基类为抽象合约：`abstract contract Amm is ERC20`，其中`ERC20`是LP Token，用于追踪LP在添加和移除流动性时候的权益，而该基类中根据逻辑需要抽象除了4个虚方法。
+
+```
+// 限制Uniswap的index price的波动范围
+function indexPrice() public view virtual returns (uint price);
+// 以下三个方法为virtual主要是因为
+// Uniswap中无需SynFutures@v1内部根据时间累计价格，可直接采用Uniswap V2交易对中的信息
+// Chainlink中则SynFutures@v1内部自己完成类似于Uniswap V2交易对中的价格累积
+// 这一点差别会影响到如何累积价格计算、TWAP计算以及结算价格计算
+function _twapAfterSettling(Types.MarkPriceState memory state) internal virtual view returns (uint);
+function _cumulativePrice(
+    Types.MarkPriceState memory state, bool justEntered
+) internal virtual view returns (uint);
+function _calculateSettlementPrice() internal virtual view returns (uint);
+```
+
+依赖Uniswap作为Oracle的AMM从`Amm`派生而来：`contract UniswapAmm is Amm`；依赖Chainlink作为Oracle的AMM也从`Amm`派生而来：`contract ChainlinkAmm is Amm`。`UniswapAmm`和`ChainlinkAmm`中为上述4个虚方法提供了具体的实现，不再赘述。
+
+如前所述，为了利用DELLEGATECALL以及代理模式降低每个期货市场合约创建时的Gas消耗，SynFutures@v1实现了`AmmProxy`合约，该合约通过DELEGATECALL在利用`UniswapAmm`或者`ChainlinkAmm`的逻辑更新自己的状态。虽然`UniswapAmm`和`ChainlinkAmm`的具体实现有所不同，但是两个合约有着相同的接口，因此仅需要一个`AmmProxy`合约。
+
+账户和资产管理方面的逻辑与Oracle种类无关，SynFutures@v1通过继承体系对相关功能进行了拆分。
+
+```
+contract Futures is Account, ReentrancyGuard // 对AMM和用户暴露必要接口
+contract Account is Vault // 负责账户状态更新
+contract Vault is Storage // 管理资金出入
+contract Storage // 所有的链上存储：例如账户列表等
+```
+
+如前所述，由于资产的市值精度不同，`Vault`内部统一将所有资产的精度对齐到18，在用户存款、取款时自动转换，简化了Futures中的逻辑。同样为了用DELLEGATECALL以及代理模式，SynFutures@v1也实现了`FuturesProxy`合约。
+
+Oracle方面，相同base、quote但是不同到期时间的期货合约可以依赖同一个Oracle，这样可以避免为每个期货合约市场都创建新的Oracle合约。Uniswap的现货交易对合约以及Chainlink的Aggregator合约在SynFutures@v1中被成为feeder，这些不同的feeder在SynFutures@v1内部被包装成`OracleUniswap`或者`OracleChainlink`。SynFutures@v1不控制哪些Uniswap交易对可以作为feeder，只要可以通过Uniswap V2的`Factory`获取到，创建和使用相应期货市场的用户需要明白其中的风险。另一方面，由于Chainlink中不同Aggregator的成熟度不同，SynFutures@v1中Chainlink哪些feeder可以作为Oracle，由管理员指定。合约`OracleController`中记录所有已经创建过的`OracleUniswap`或者`OracleChainlink`，以便于Oracle的复用避免重复创建。
+
+另一方面，根据前面描述，可以注意到所有的全局参数跟具体的base、quote或者到期时间无关，因此SynFutures@v1中所有合约都有一个指向全局参数合约的`GlobalConfig`地址指针，以访问所需的配置信息。
+
+由于一个期货合约总是包括AMM自动做市与账户和资产管理两部分内容，因此创建新的期货合约时，需要创建一个`AmmProxy`以及一个`FuturesProxy`，并且两个合约都依赖对方提供的信息，因此在两个合约创建之后需要设置两个合约中的地址指针，将两个合约捆绑之后作为一个期货合约，这部分逻辑在`Factory`合约中完成。SynFutures@v1的`Factory`合约与Uniswap的`Factory`扮演了同样的角色。综上所述，SynFutures@v1最终呈现的架构如下图所示。得益于代理模式的采用，创建一个新的期货市场只耗费100w左右的gas。
 
 
-## 期货合约实现
 
 ![img](../static/img/synfutures-v1-architecture.png)
 
 
 
+### 降低用户操作Gas消耗
+
+一方面，根据Solidity合约的开发时间，链上存储读写、外部合约调用等严重消耗Gas费用的。因此SynFutures@v1在实现时侧重针对相关方面进行了优化，尤其是考虑到期货合约逻辑拆解到两个合约当中并且还需要依赖代理模式转发来完成操作。另一方面，期货合约相关逻辑要求能够及时更新`MarkPriceState`等信息以即使追踪市场变化并给出合理的标记价格，然而智能合约本身又只能通过交易驱动来进行更新。基于这些考虑，SynFutures@v1在实现时遵循了以下策略。
+
+- 在一个256比特的slot中保存多个相关字段，减少slot的读写次数，例如全局参数中的`Param`以及`MarkPriceState`等。利用`memory`缓存从链上存储中读取的信息，并在方法调用（合约内或者合约间）时传递，防止多次读取链上存储
+- 减少`AmmProxy`与`FuturesProxy`之间交互，不得不交互时，在一侧完成尽可能多的操作之后再返回。为了达到该目的就需要在跨合约调用时，传递所有的所需信息，并在执行完成后返回所有需要的信息。
+
+- NORMAL和SETTLING阶段，所有的用户操作都先根据当前区块时间和到期日期来驱动期货合约状态的更新（NORMAL --> SETTLING --> SETTLED），并且在操作中适时更新`MarkPriceState`，利用用户交互及时更新期货合约状态。可以预期的是，使用频繁的合约不会出现严重的状态滞后问题。另外为了鼓励用户发送交易触发合约状态更新，SynFutures@v1还设计了额外的奖励机制，用户可以执行`update`操作。通过将合约更新任务分散到用户操作中，我们预期SynFutures@v1的期货合约的整个生命周期之内都不需要开发团队的介入。
+
+通过上述两种操作，SynFutures@v1的用户的一次`trade`操作消耗的Gas大约是25w，对比其他永续合约操作的Gas消耗，SynFutures@v1在Gas消耗方面有着明显的改进。
