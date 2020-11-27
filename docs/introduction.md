@@ -232,7 +232,8 @@ SynFutures@v1中如果一个账户根据当前的标记价格不再安全（Acco
 `maxPriceSlippageRatio`
 限制一个block之内通过和AMM交易允许的最大双向滑点，等效于每一个block之内的限价机制，即在任何一个block之内，AMM的中间价不允许改变超过这个比例，来防止通过单个大单交易来扭曲AMM价格。若用户的单笔交易过大，引起了大于这个限制的滑点，交易会失败。
 
-`maxInitialDailyBasis`; // |initPrice - indexPrice| < days * maxInitialDailyBasis
+`uint16 maxInitialDailyBasis; // |initPrice - indexPrice| < indexPrice * days * maxInitialDailyBasis`
+
 限制启动AMM的初始价格和现货指数之间的最大价差，以每日计，即在启动AMM的时候，初始价格和现货指数的价差绝对值不会超过`days` * `maxInitialDailyBasis`。通过这个限制，AMM的其实价格会被限定在一个合理范围之内
 
 `maxUserTradeOpenInterestRatio`
