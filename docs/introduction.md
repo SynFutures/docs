@@ -156,7 +156,7 @@ SynFutures@v1对所有的`trade`按照成交金额收取固定比例的费用，
 
 在`trade`交易的最后，还会确保用户账户和AMM账户在交换完仓位之后仍然是安全的，安全意味着如果用户账户因为这笔交易有了新开的仓位，则要求用户账户在当前的标记价格（Mark Price）下是IMSafe的（`(AccountBalance + UnrealizedPnl) >= Position * MarkPrice * IMR`），否则要求该账户是MMSafe的（` AccountBalance + UnrealizedPnl >=  Position * MarkPrice * MMR`）。之外还要求AMM账户也是MMSafe的（根据机制设计，AMM总是安全的，这里只是出于谨慎的目的，再每一次交易之后强制检查一次，因为这种检查并不会消耗很多gas）。关于指数价格的计算方式下一小节再详述。
 
-### 价格与清算机制
+### 价格
 
 在上一小节，每一次通过AMM交易，都要求在交易之后账户在当前的标记价格之下是安全的，但我们尚未讨论SynFutures@v1中的价格机制。SynFutures@v1中总共有三种类型的价格：来自Oracle的指数价格（Index Price），来自AMM的公允价格（Fair Price），以及通过AMM维持并不断更新的标记价格（Mark Price）。
 
@@ -215,6 +215,9 @@ $MarkPrice_T = IndexPrice_T + MarkBasis_T$
 Uniswap类型的Oracle在NORMAL状态下会直接读取目标交易对的余额并根据相除之后的值作为指数价格，并且为此引入了额外的控制参数。在SETTLING状态下，由于SynFutures@v1切换到TWAP的方式计算标记价格，而Uniswap V2的交易对自身就有随着时间累积的价格，鉴于此，进入SETTLING状态时，会首先将进入SETTLING状态时的时间记录在`MarkPriceState`的`accIndexStartTime`字段中，并且读取此时Uniswap中合适方向的累积价格并存储到`MarkPriceState`的`accIndexPrice`字段中。SETTLING阶段随后的不再更新该字段的值。每次需要计算标记价格时，会再次读取Uniswap的累计价格，并根据`accIndexPrice`和`accIndexStartTime`计算TWAP作为标记价格。
 
 Chainlink类型的Oralce在NORMAL和SETTLING阶段都直接读取其反馈的价格作为指数价格。但是进入SETTLING阶段时，SynFutures@v1内部也会在`MarkPriceState`的`accIndexStartTime`字段中记录开始时间，并在`MarkPriceState`的`accIndexPrice`字段中记录按秒数累加的指数价格。每次需要计算标记价格时，则根据`accIndexStartTime`以及`accIndexPrice`计算自SETTLING以来的TWAP。
+
+
+### 清算机制
 
 SynFutures@v1中如果一个账户根据当前的标记价格不再安全（AccountBalance + UnrealizedPnl <  Position * MarkPrice * MMR），则当前期货合约的任意用户都可以发起针对该账户的清算操作。SynFutures@v1中支持两种形式的清算操作：
 
