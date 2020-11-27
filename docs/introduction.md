@@ -6,7 +6,7 @@ slug: /
 ---
 ## SynFutures@v1概述
 
-SynFutures@v1是参与Uniswap的现货交易模式构建的分布式期货交易平台，与Uniswap中任何人都可以创建新的现货交易对类似，SynFutures@v1允许任何人创建任意base/quote、任意到期日的期权市场，例如3天后到期的BTC/USD期权市场，当月的ETH/USDC期权市场以及当季的ETH/USDT期权市场。
+SynFutures@v1是参与Uniswap的现货交易模式构建的分布式期货交易平台，与Uniswap中任何人都可以创建新的现货交易对类似，SynFutures@v1允许任何人创建任意base/quote、任意到期日的期货市场，例如3天后到期的BTC/USD期货市场，当月的ETH/USDC期货市场以及当季的ETH/USDT期货市场。
 
 受制于当前区块链行业Oracle的发展现状，并不是所有的base/quote都有可靠的价格Oracle，SynFutures@v1目前仅支持使用Uniswap和Chainlink作为Oracle，并且要求quote是Ethereum上的原生资产，SynFutures@v1启动时允许的可以作为quote的资产包括：ETH、USDC、USDT、DAI。
 
@@ -62,7 +62,7 @@ struct MarginParam { // only takes 1 slot
 }
 ```
 
-SynFutures@v1中期权合约由base、quote、expiry唯一确定，每个期权合约都有自己的sAMM来提供流动性，也都有相应的账户列表来记录trader、LP以及sAMM的资金余额、仓位、入场成本等信息。SynFutures@v1中用结构体`Account`来记录每个账户的链上状态：
+SynFutures@v1中期货合约由base、quote、expiry唯一确定，每个期货合约都有自己的sAMM来提供流动性，也都有相应的账户列表来记录trader、LP以及sAMM的资金余额、仓位、入场成本等信息。SynFutures@v1中用结构体`Account`来记录每个账户的链上状态：
 
 - `balance`字段表示当前账户的资金余额，由于账户仓位的亏损可能超过账户的资金余额，因此该字段可能是负值；
 - `position`字段表示当前账户的多头或者空头仓位，正数表示LONG的仓位，负数表示SHORT的仓位；
@@ -117,7 +117,7 @@ wadAmojnt = initPrice * size * 2 + price * size / leverage
 size = wadAmount / (2 * price + price / leverage)
 ```
 
-为了防止LP指定的`initPrice`不合理，SynFutures@v1中通过全局参数`maxInitialDailyBasis`约束`initPrice`和Oracle给出的现货指数价格之间的价差绝对值不得超过`days * maxInitialDailyBasis`，其中`days`是期权合约以天为单位的时长。`depositAndInitPool`操作完成之后，LP会获得相应的LP Token，LP Token的名字遵循`BASE-QUOTE-EXPIRY-ORACLETYPE-V1`的模式，例如2020年12月30日到期的选用Chainlink的BTC/USD合约的的LP Token名字为`BTC-USD-20201230-LINK-V1`。除此之外，`depositAndInitPool`还会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期权合约的整个生命周期当中辅助标记价格（mark price）的计算，稍后介绍。
+为了防止LP指定的`initPrice`不合理，SynFutures@v1中通过全局参数`maxInitialDailyBasis`约束`initPrice`和Oracle给出的现货指数价格之间的价差绝对值不得超过`days * maxInitialDailyBasis`，其中`days`是期货合约以天为单位的时长。`depositAndInitPool`操作完成之后，LP会获得相应的LP Token，LP Token的名字遵循`BASE-QUOTE-EXPIRY-ORACLETYPE-V1`的模式，例如2020年12月30日到期的选用Chainlink的BTC/USD合约的的LP Token名字为`BTC-USD-20201230-LINK-V1`。除此之外，`depositAndInitPool`还会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期货合约的整个生命周期当中辅助标记价格（mark price）的计算，稍后介绍。
 
 sAMM初始化完成之后，LP可以通过`deposit`和`addLiquidity`两步操作继续向AMM中注入流动性，当然也可以通过SynFutures@v1提供的`depositAndAddLiquidity`方法一次性完成两步操作，该方法的输入参数与`depositAndInitPool`基本一致，只是少了用于指定价格的参数。这是因为sAMM初始化之后，后续的流动性注入，必须按照sAMM给出的公允价格（fair price）进行。sAMM给出的公允价格`fair price = x / y`，其中`x`表示AMM账户中的可用保证金，`y`是AMM当前持有的LONG仓位。`depositAndAddLiquidity`方法中同样可以通过`leverage`参数调整`wadAmount`中有资金注入AMM和留在LP账户中的资金量。值得提及是，`depositAndAddLiquidity`操作只允许在NORMAL状态下进行。
 
@@ -156,7 +156,7 @@ SynFutures@v1对所有的`trade`按照成交金额收取固定比例的费用，
 
 指数价格方面，对于Uniswap类型的Oracle，SynFutures@v1直接读取Uniswap中目标交易对中两种资产的余额，相除之后得到指数价格。为了减缓Uniswap的交易对提供的价格被人为操纵导致的价格距离波动，SynFutures@v1中引入了全局参数`maxSpotIndexChangePerSecondRatio`来限制通过这种方式读入的来自Uniswap交易对的指数价格。如果指数价格超过该参数允许的范围，根据允许范围内的极限值作为指数价格。对于Chainlink类型的Oralce，SynFutures@v1没有特殊处理，只是将Chainlink的USD报价视为以USDC为锚定资产的报价。
 
-初始化AMM时（第一次向AMM中添加流动性时）指定的初始价格应当位于当前指数价格的合理偏移之内，后续添加/移除流动性以及买入做多卖出做空等操作，均按照AMM给出的公允价格执行，但是判断账户安全性时则依赖标记价格。前面提到`depositAndInitPool`会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期权合约的整个生命周期当中辅助标记价格（mark price）的计算。
+初始化AMM时（第一次向AMM中添加流动性时）指定的初始价格应当位于当前指数价格的合理偏移之内，后续添加/移除流动性以及买入做多卖出做空等操作，均按照AMM给出的公允价格执行，但是判断账户安全性时则依赖标记价格。前面提到`depositAndInitPool`会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期货合约的整个生命周期当中辅助标记价格（mark price）的计算。
 
 ```
 struct MarkPriceState {
@@ -305,4 +305,4 @@ Oracle方面，相同base、quote但是不同到期时间的期货合约可以�
 
 - NORMAL和SETTLING阶段，所有的用户操作都先根据当前区块时间和到期日期来驱动期货合约状态的更新（NORMAL --> SETTLING --> SETTLED），并且在操作中适时更新`MarkPriceState`，利用用户交互及时更新期货合约状态。可以预期的是，使用频繁的合约不会出现严重的状态滞后问题。另外为了鼓励用户发送交易触发合约状态更新，SynFutures@v1还设计了额外的奖励机制，用户可以执行`update`操作。通过将合约更新任务分散到用户操作中，我们预期SynFutures@v1的期货合约的整个生命周期之内都不需要开发团队的介入。
 
-通过上述两种操作，SynFutures@v1的用户的一次`trade`操作消耗的Gas大约是25w，对比其他永续合约操作的Gas消耗，SynFutures@v1在Gas消耗方面有着明显的改进。
+通过上述两种操作，SynFutures@v1的用户的一次`trade`操作消耗的Gas大约是22w，对比其他永续合约操作的Gas消耗，SynFutures@v1在Gas消耗方面有着明显的改进。
