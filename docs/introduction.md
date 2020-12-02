@@ -43,9 +43,9 @@ NORMAL和SETTLING状态下，markPrice的计算方式不同：SETTLILNG状态会
 - 初始保证金率（Initial Margin Ratio，IMR）：
 - 维持保证金率（Maintainace Margin Ratio，MMR）：
 - 保险基金费率（Insurance Premium Ratio）：
-- 指数价格（Index Price）：
-- 标记价格（Mark Price）：
-- 公允价格（Fair price）：
+- 指数价格（Index Price）：从Oracle读取的现货价格。
+- 标记价格（Mark Price）：通过加权index price和历史基差得到，用来计算用户margin的价格。
+- 公允价格（Fair price）：Synfutures 自身市场AMM价格发现得到的价格。
 - 可用保证金（Available Margin）：
 - 入场成本（Entry Notional）：
 - 账户盈亏（Profit and Loss，PNL）：
