@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
-    Start: ["introduction"],
+    Start: ["introduction", "whitepaper"],
     Contract: [
       "guide",
       "futures",
