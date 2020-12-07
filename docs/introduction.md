@@ -31,7 +31,7 @@ SynFutures@v1在做市商机制方面采用了名为合成自动做市商“sAMM
 因此SynFutures@v1采取的策略是：LP向合约中注入的流动性中的一半作为Quote资产，另一半则用于合成仓位，即建立这个期货合约的一倍多头仓位，这也是sAMM名字的由来：“s”表示“synthetic”。 由于LP原本持有的都是Quote资产，并不持有及暴露于Base资产的价格风险，因此同时，sAMM合约会分配一个和新创建的Base多头仓位等量的空头仓位给这个LP，对冲这个风险，使得LP提供流动性这个行为本身并不会改变自己原有的整体仓位情况。不过，为sAMM增加流动性之后，流动性提供者因为建立了空头对冲仓位而同时成为了交易员（trader），需要账户中有足够的保证金来满足保证金要求。
 
 
-用户（trader）在其参与的期货合约当中有相应的账户（Account），Amm也有自己的Account。Account中记录当前用户的仓位（position）、资金余额（balance）等信息。用户可以向自己的账户中注入资金（deposit）、取回资金（withdraw）。为账户注入资金之后，trader可以通过与Amm交易（trade）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（addLiquidity）成为流动性提供者。用于提供流动性的资产，也可以被移除（removeLiquidity）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（liquidate）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了“自动清算人（Auto Liquidator” 机制：借助Amm清算目标账户（liquidateByAmm），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
+用户（trader）在其参与的期货合约当中有相应的账户（`Account`），Amm也有自己的`Account`。`Account`中记录当前用户的仓位（position）、资金余额（`balance`）等信息。用户可以向自己的账户中注入资金（`deposit`）、取回资金（`withdraw`）。为账户注入资金之后，trader可以通过与Amm交易（`trade`）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（`addLiquidity`）成为流动性提供者。用于提供流动性的资产，也可以被移除（`removeLiquidity`）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（`liquidate`）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了“自动清算人（Auto Liquidator” 机制：借助Amm清算目标账户（`liquidateByAmm`），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
 
 ### 合约生命周期
 
@@ -66,23 +66,23 @@ NORMAL和SETTLING状态下，期货合约标记价格（MarkPrice）的计算方
 
 ## Margin与Account
 
-相同base、quote，不同expiry的期货合约依赖不同的sAMM，即逐仓模式(`fixed margin`)，会导致流动性相对分散的问题。SynFutures@v2中会利用全新的sAMM模型来解决这一问题，并实现全仓模式(`cross margin`)。SynFutures@v1中为了避免流动性的过于分散，在SynFutures@v1启动时，会通过参数配置来将所有期货合约的到期时间对齐至用户指定的到期时间所在周的周五下午四点（北京时间）。视SynFutures@v1的发展情况，团队会在合适的时间点放松到期时间强制对齐的限制：届时所有期货合约的到期时间将对齐至用户指定的到期时间当日的下午四点（北京时间）。
+相同Base、Quote，不同expiry的期货合约依赖不同的sAMM，即逐仓模式(`fixed margin`)，会导致流动性相对分散的问题。SynFutures@v2中会利用全新的sAMM模型来解决这一问题，并实现全仓模式(`cross margin`)。SynFutures@v1中为了避免流动性的过于分散，在SynFutures@v1启动时，会通过参数配置来将所有期货合约的到期时间对齐至用户指定的到期时间所在周的周五下午四点（北京时间）。视SynFutures@v1的发展情况，团队会在合适的时间点放松到期时间强制对齐的限制：届时所有期货合约的到期时间将对齐至用户指定的到期时间当日的下午四点（北京时间）。根据交易活跃度和市场需求，不同期货合约的到期时间设置放松进度可能不同。
 
-可以预期的是，相同base、不同quote之间的期货合约交易量会有所不同，因此SynFutures@v1会为不同的quote分别指定和调整相应期货合约的到期时间设置，以更好的跟随市场情况调整。鉴于当前Oracle领域的进展，SynFutures@v1中最开始的支持的可以作为quote的资产包括：ETH、USDC、USDT、DAI。因此SynFutures@v1会在全局参数中为每一个支持的quote保存该margin的配置信息`MarginParam`，结构体定义如下。其中`allowed`和`alignToFriday`不再赘述，而`updateReward`则指定了当用户`update`相应期货合约状态时，可以获得的对应margin的奖励数额。
+可以预期的是，相同Base、不同Quote之间的期货合约交易量会有所不同，因此SynFutures@v1会为不同的Quote分别指定和调整相应期货合约的到期时间设置，以更好的跟随市场情况调整。鉴于当前Oracle领域的进展，SynFutures@v1中最开始的支持的可以作为Quote的资产包括：ETH、USDC、USDT、DAI。因此SynFutures@v1会在全局参数中为每一个支持的Quote保存该margin的配置信息`MarginParam`，结构体定义如下。其中`allowed`和`alignToFriday`不再赘述，而`updateReward`则指定了当用户`update`相应期货合约状态时，可以获得的对应margin的奖励数额。
 
 ```
 struct MarginParam { // only takes 1 slot
-    bool allowed;         // margin can be used as quote?
+    bool allowed;         // margin can be used as Quote?
     bool alignToFriday;   // align expiry to Friday?
     uint128 updateReward; // reward in margin's decimal to incentive user to update futures
 }
 ```
 
-SynFutures@v1中期货合约由base、quote、expiry唯一确定，每个期货合约都有自己的sAMM来提供流动性，也都有相应的账户列表来记录trader、LP以及sAMM的资金余额、仓位、入场成本等信息。SynFutures@v1中用结构体`Account`来记录每个账户的链上状态：
+SynFutures@v1中期货合约由Base、Quote、expiry唯一确定，每个期货合约都有自己的sAMM来提供流动性，也都有相应的账户列表来记录trader、LP以及sAMM的资金余额、仓位、入场成本等信息。SynFutures@v1中用结构体`Account`来记录每个账户的链上状态：
 
 - `balance`字段表示当前账户的资金余额，由于账户仓位的亏损可能超过账户的资金余额，因此该字段可能是负值；
 - `position`字段表示当前账户的多头或者空头仓位，正数表示LONG，负数表示SHORT；
-- `entryNotional`是当前账户仓位的入场成本；
+- `entryNotional`是当前账户仓位的入场成本，即开仓的价格*数量；
 - `entrySocialLoss`则表示持有当前仓位时，当前仓位方向（LONG或者SHORT）的社会化损失成本。
 
 ```
@@ -94,20 +94,20 @@ struct Account {
 }
 ```
 
-期货合约的整个生命周期中会出现多个账户破产被清算的情况，比如base相对quote的价格持续上涨时，持有SHORT仓位的账户会持续亏损，当`AccountBalance + UnrealizedPnl < Position * MarkPrice * MMR`时，该账户就不再安全可以被清算，清算可能会导致账户的`balance`为负值。
+期货合约的整个生命周期中会出现多个账户破产被清算的情况，比如Base相对Quote的价格持续上涨时，持有SHORT仓位的账户会持续亏损，当`AccountBalance + UnrealizedPnl < Position * MarkPrice * MMR`时，该账户就不再安全可以被清算，清算可能会导致账户的`balance`为负值。
 
 - 当清算导致账户的`balance`为负值时，首先用期货合约的保险基金来给予清算人一定的奖励，然后尝试用保险金来填补这部分亏空
 - 如果亏空数额超过了保险金余额，超过部分的损失累积到LONG方向的社会化损失当中，这部分损失由此刻持有LONG仓位的所有人按照持有的仓位数量按比例共同承担。
 
 为了计算一个账户的从持仓到清仓这段时间内，该账户所应承担的社会化损失，只需要知道两个时刻处累积的社会化损失的差值以及用户持仓数量即可。因此在`Account`中需要保存用户的持有`position`个仓位时刻的累积社会化损失。
 
-整个期货合约可行的关键在于sAMM的设计。代表base的LONG或者SHORT仓位的资产无需进行实物交割，而sAMM通过合成仓位的方式来解决这一问题。以ETH/USDT的期货合约整个生命周期为例，介绍具体的机制设计。期货合约创建时，会根据`MarginParam`中的配置信息，对齐到期时间。期货合约创建完成之后，LP需要向池子中注入流动性以完成期货合约的初始化。当然在注入流动性之前，首先需要将quote资产`deposit`到合约中。为了便于LP操作，SynFutures@v1为LP额外提供了两个接口函数：`depositAndInitPool`以及`depositAndAddLiquidity`，将存款和添加流动性的操作合并到一起。
+整个期货合约可行的关键在于sAMM的设计。代表Base的LONG或者SHORT仓位的资产无需进行实物交割，而sAMM通过合成仓位的方式来解决这一问题。期货合约创建时，会根据`MarginParam`中的配置信息，对齐到期时间。期货合约创建完成之后，LP需要向池子中注入流动性以完成期货合约的初始化。当然在注入流动性之前，首先需要将Quote资产`deposit`到合约中。为了便于LP操作，SynFutures@v1为LP额外提供了两个接口函数：`depositAndInitPool`，将存款和创建新的交易池并添加流动性,以及`depositAndAddLiquidity`，将存款和添加流动性的操作合并到一起。
 
-Ethereum上不同资产的精度不同，为了便于合约内部统一处理，SynFutures@v1内部将所有资产的精度放大到$18$位，这一实现细节同样影响了用户交互的合约方法的输入参数，也因此SynFutures@v1不支持精度超过$18$位的资产作为quote。SynFutures@v1中所有需要输入资产数量的地方，都默认相应输入值是被放大过的。例如$6$位精度的USDC，$1000 * 10^6$表示$1000$USDC，而同样的数值在SynFutures@v1内部记录为$1000 * 10^{18}$，在`withdraw`时SynFutures@v1根据资产精度会进行适当转换。与相应资产合约交互时，会将数值转换到合适的精度，不足$1$个最小单位资产的数量直接截断。
+Ethereum上不同资产的精度不同，为了便于合约内部统一处理，SynFutures@v1内部将所有资产的精度放大到$18$位，这一实现细节同样影响了用户交互的合约方法的输入参数，也因此SynFutures@v1不支持精度超过$18$位的资产作为Quote。SynFutures@v1中所有需要输入资产数量的地方，都默认相应输入值是被放大过的。例如$6$位精度的USDC，$1000 * 10^6$表示$1000$USDC，而同样的数值在SynFutures@v1内部记录为$1000 * 10^{18}$，在`withdraw`时SynFutures@v1根据资产精度会进行适当转换。与相应资产合约交互时，会将数值转换到合适的精度，不足$1$个最小单位资产的数量直接截断。
 
 数值精度方面，除了用于表示时间的秒数，SynFutures@v1内部也统一将其它所有数值均放大$10^{18}$，例如`Account`中的`balance`按照前述风格是$18$位精度的资产表示，而`position`、`entryNotional`和`entrySocialLoss`也同样被放大$10^{18}$，这一方面是为了用规避处理Solidity不支持浮点数的限制，SynFutures@v1内部可以认为小于$10^{18}$的整数值其实是在表示小数，例如$0.1$在$10^{18}$内部对应的值为$10^{17}$。另一方面也是为了提高精度，浮点数运算总会有精度损失的问题，而放大之后再进行最低位的四舍五入可以将误差的影响降低到最小。
 
-数值精度方面，还有一个例外，是全局参数的存储方面。由于大多数全局参数均表示某个百分比，也即值是小于1的浮点数，$4$位精度小数对于参数配置已经充分足够，并且用户与期货合约的各种交互都需要访问多个全局参数，为了降低全局参数占用的链上存储空间并且在用户与合约交互时减少gas消耗，全局参数的存储时只放大了$10^{4}$，这足够用来表示4位精度的浮点数，这种选择也可以用`uint16`表示一个配置参数，从而可以讲所有的全局参数存储到Ethereum的一个链上slot中，SynFutures@v1内部使用全局参数时，会首先将全局参数放大$10^{14}$，以使相应数值与系统内部数值表示保持一致。
+数值精度方面，还有一个例外，是全局参数的存储方面。由于大多数全局参数均表示某个百分比，也即值是小于1的浮点数，$4$位精度小数对于参数配置已经充分足够，并且用户与期货合约的各种交互都需要访问多个全局参数，为了降低全局参数占用的链上存储空间并且在用户与合约交互时减少gas消耗，全局参数的存储时只放大了$10^{4}$，这足够用来表示4位精度的浮点数，这种选择也可以用`uint16`表示一个配置参数，从而可以将所有的全局参数存储到Ethereum的一个链上slot中，SynFutures@v1内部使用全局参数时，会首先将全局参数放大$10^{14}$，以使相应数值与系统内部数值表示保持一致。
 
 一个自然的问题便是，`int128`或者`uint128`用来存储放大过的数值是否足够？`int128`的取值范围为$[-2^{127},2^{127}-1]$，`uint128`的取值范围为$[0, 2^{128}-1]$，而$\log(2^{127}-1, 10) \approx 38.23$，可以看到`int128`和`uint128`用来存储数值是足够的。SynFutures@v1内部运算都是在`uint256`或者`int256`类型的数值上展开的。为了防止被放大过的数值连乘导致数值太大发生溢出，两个被放大过的数值相乘时，会将结果缩小$10^{18}$，并在最低位进行四舍五入。同样两个被放大过的数值相除时，会首先将被除数放大$10^{18}$，然后按照四舍五入的原则进行整除截断。
 
@@ -118,7 +118,7 @@ Ethereum上不同资产的精度不同，为了便于合约内部统一处理，
 期货合约创建完成之后，LP需要通过`depositAndInitPool`方法存款并向合约中注入流动性，其输入参数分别为：
 
 - `wadAmount`表示要存入的margin的数量，注意这是采用18位精度表示的margin资产的数量。
-- `initPrice`是指定的base/quote的价格，SynFutures@v1要求该价格与当前指数价格的偏差不得超过全局参数`maxInitialDailyBasis`所限定的比例。
+- `initPrice`是指定的Base/Quote的价格，SynFutures@v1要求该价格与当前指数价格的偏差不得超过全局参数`maxInitialDailyBasis`所限定的比例。
 - `leverage`是指定的杠杆倍数，含义稍后介绍。
 - `deadline`限定了这笔交易的成交时间不得晚于该时间，与以太坊的区块时间戳同样采用UTC时间的流逝的秒数。SynFutures@v1中所有非查询操作的最后一个参数都是`deadline`，用于限定交易执行的时间不得晚于该时间。此后不再赘述。
 
@@ -126,14 +126,14 @@ Ethereum上不同资产的精度不同，为了便于合约内部统一处理，
 function depositAndInitPool(uint wadAmount, uint initPrice, uint leverage, uint deadline) public payable
 ```
 
-sAMM的机制设计中，AMM的账户中只有LONG仓位并且总是足额抵押以确保AMM的账户总是安全的。如前所述，LP添加的流动性的一半作为quote，另一半则用于合成AMM的LONG仓位。为对冲AMM的LONG仓位，LP在注入流动性之后会被动持有等量的SHORT仓位。由于持有SHORT仓位，因此为了保证LP账户的安全性，LP存入合约中的资金应当至少在账户中保留合成仓位价值IMR比例的数量作为仓位保证金。`leverage`参数就用来指定存入的`wadAmount`数量的资产的分配方式。假设LP通过该操作最终在AMM中合成了`size`个LONG仓位，则各个参数与`size`之间的关系为：
+sAMM的机制设计中，AMM的账户中只有LONG仓位并且总是足额抵押以确保AMM的账户总是安全的。如前所述，LP添加的流动性的一半作为Quote，另一半则用于合成AMM的LONG仓位。为对冲AMM的LONG仓位，LP在注入流动性之后会被动持有等量的SHORT仓位。由于持有SHORT仓位，因此为了保证LP账户的安全性，LP存入合约中的资金应当至少在账户中保留合成仓位价值IMR比例的数量作为仓位保证金。`leverage`参数就用来指定存入的`wadAmount`数量的资产的分配方式。假设LP通过该操作最终在AMM中合成了`size`个LONG仓位，则各个参数与`size`之间的关系为：
 
 ```
 wadAmount = initPrice * size * 2 + initPrice * size / leverage
 size = wadAmount / (2 * initPrice + initPrice / leverage)
 ```
 
-为了防止LP指定的`initPrice`不合理，SynFutures@v1中通过全局参数`maxInitialDailyBasis`约束`initPrice`和Oracle给出的现货指数价格之间的价差绝对值不得超过`days * maxInitialDailyBasis`，其中`days`是期货合约以天为单位的时长。`depositAndInitPool`操作完成之后，LP会获得相应的LP Token，LP Token的名字遵循`BASE-QUOTE-EXPIRY-ORACLETYPE-V1`的模式，例如2020年12月30日到期的选用Chainlink的BTC/USD合约的的LP Token名字为`BTC-USD-20201230-LINK-V1`。除此之外，`depositAndInitPool`还会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期货合约的整个生命周期当中辅助标记价格（mark price）的计算，稍后介绍。
+为了防止LP指定的`initPrice`不合理，SynFutures@v1中通过全局参数`maxInitialDailyBasis`约束`initPrice`和Oracle给出的现货指数价格之间的价差绝对值不得超过`days * maxInitialDailyBasis`，其中`days`是期货合约以天为单位的时长。`depositAndInitPool`操作完成之后，LP会获得相应的LP Token，LP Token的名字遵循`BASE-Quote-EXPIRY-ORACLETYPE`的模式，例如2020年12月30日到期的选用Chainlink的BTC/USD合约的的LP Token名字为`BTC-USD-20201230-LINK`。除此之外，`depositAndInitPool`还会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期货合约的整个生命周期当中辅助标记价格（mark price）的计算，稍后介绍。
 
 sAMM初始化完成之后，LP可以通过`deposit`和`addLiquidity`两步操作继续向AMM中注入流动性，当然也可以通过SynFutures@v1提供的`depositAndAddLiquidity`方法一次性完成两步操作，该方法的输入参数与`depositAndInitPool`基本一致，只是少了用于指定价格的参数。这是因为sAMM初始化之后，后续的流动性注入，必须按照sAMM给出的公允价格（Fair Price）进行。sAMM给出的公允价格`FairPrice = x / y`，其中`x`表示AMM账户中的可用保证金，`y`是AMM当前持有的LONG仓位。`depositAndAddLiquidity`方法中同样可以通过`leverage`参数调整`wadAmount`中有资金注入AMM和留在LP账户中的资金量。值得提及是，`depositAndAddLiquidity`操作只允许在NORMAL状态下进行。
 
@@ -141,7 +141,7 @@ sAMM初始化完成之后，LP可以通过`deposit`和`addLiquidity`两步操作
 function depositAndAddLiquidity(uint wadAmount, uint leverage, uint deadline) public payable returns (bool, uint)
 ```
 
-如前所述，LP也可以通过两步操作完成上述过程：`deposit`和`addLiquidity`，而`addLiquidity`也只允许在NORMAL状态下进行。为AMM注入流动性之后，在NORMAL和SETTLING状态下，LP可以通过`removeLiquidity`操作按照AMM当时的价格来移除流动性同时关闭仓位，并通过`withdraw`取回资产；而在SETTLED状态下，LP可以通过`settleShare`操作按照结算价格来移除流动性，并在随后通过`settle`操作关闭账户中的所有仓位（包括作为trader买入做多和卖出做空导致的仓位）并同时取回资金。NORMAL和SETTLING状态下，`removeLiquidity`会降低AMM中流动性，为了防止AMM中流动性过低引发后续交易滑点过高的问题，SynFutures@v1要求`removeLiquidity`要求在移除流动性之后，AMM持有的LONG仓位占比不得低于期货合约的未平仓量（open interests）的某个比例。全局参数`minAmmOpenInterestRatio`中规定了这一比例。
+如前所述，LP也可以通过两步操作完成上述过程：`deposit`和`addLiquidity`，而`addLiquidity`也只允许在NORMAL状态下进行。为AMM注入流动性之后，在NORMAL和SETTLING状态下，LP可以通过`removeLiquidity`操作按照AMM当时的价格来移除流动性同时关闭仓位，并通过`withdraw`取回资产；而在SETTLED状态下，LP可以通过`settleShare`操作按照结算价格来移除流动性，并在随后通过`settle`操作关闭账户中的所有仓位（包括作为trader买入做多和卖出做空导致的仓位）并同时取回资金。NORMAL和SETTLING状态下，`removeLiquidity`会降低AMM中流动性，为了防止AMM中流动性过低引发后续交易滑点过高的问题，SynFutures@v1在`removeLiquidity`操作中要求在移除流动性之后，AMM持有的LONG仓位占比不得低于期货合约的未平仓量（open interests）的某个比例。全局参数`minAmmOpenInterestRatio`中规定了这一比例。
 
 ### 买入做多/卖出做空
 
@@ -233,7 +233,7 @@ SynFutures@v1中如果一个账户根据当前的标记价格不再安全（Acco
 
 `liquidate`：清算发起人以当前标记价格强制接管被清算账户的所有仓位。被清算的账户所有仓位被关闭后，需要按照清算的总价值向保险基金（Insurance Fund）缴纳一定比例的罚金（从起当前账户余额中扣除），比例由去全局参数`insurancePremiumRatio`指定），而清算发起者则获得被清算账户的所有其他余额。然而如果被清算账户在关闭仓位后的余额不够支付罚金，则清算发起者可能无法获得额外奖励。此时从保险基金中按照清算总金额给予清算发起人一定的比例的奖励，该比例由全局参数`bankruptcyLiquidatorRewardRatio`指定。此时意味着被清算账户自身账户余额无法支付所有的亏损，则首先尝试利用保险基金覆盖损失，如果保险基金中的余额不足以填补亏空，则剩余部分由被清算账户的仓位的对手方按照持仓比例共同承担（也即更新期货合约的社会化损失）。要求清算发起人在接管所有仓位之后，其账户仍是安全的：如果清算过程中，清算发起人账户中开启了新的仓位，则要求是IMSafe的；如果清算过程中，清算发起人账户中没有开启新仓位，则要求是MMSafe的。
 
-`liquidateByAmm`：强制被清算账户与AMM进行交易，交易价格按照`trade`的逻辑计算，以关闭其保证金无法支撑的仓位。值得指出的是，如果需要被清算的仓位在交易给AMM之后导致AMM的价格波动过大，则清算过程会失败。也即`trade`中所有的约束条件在此处仍然适用。同样的在强制被清算账户关闭适量仓位之后，可能会出现被清算账户的账户余额为负值的情形。此时也是首先尝试用保险基金来覆盖亏损，仍有亏损的部分由对手方仓位持有者按比例共同承担（更新期货合约的社会化损失）。`liquidateByAmm`最后会给予清算发起者固定的奖励，与`update`合约状态一样的奖励。
+`liquidateByAmm`：强制被清算账户与AMM进行交易，交易价格按照`trade`的逻辑计算，以关闭其保证金无法支撑的仓位。值得指出的是，如果需要被清算的仓位在交易给AMM之后导致AMM的价格波动过大，则清算过程会失败。也即`trade`中所有的约束条件在此处仍然适用。同样的在强制被清算账户关闭适量仓位之后，可能会出现被清算账户的账户余额为负值的情形。此时也是首先尝试用保险基金来覆盖亏损，仍有亏损的部分由对手方仓位持有者按比例共同承担（更新期货合约的社会化损失）。`liquidateByAmm`最后会给予清算发起者固定的奖励，与`update`合约状态一样的奖励。值得提及的是，该种清算方法下，由于AMM一直在系统中保有流动性，可实现部分清算，即不同于liquidate函数下接管被清算账户全部的仓位，在liquidateByAMM时，清算的仓位size为margin/price(IMR-penalty), 也即将清算账户清算至满足初始保证金率的安全状态即可。
 
 ### 限制和保护机制总结
 
@@ -260,13 +260,13 @@ SynFutures@v1中如果一个账户根据当前的标记价格不再安全（Acco
 
 ## 期货合约架构
 
-相比Uniswap和当前DeFi领域的其它衍生品协议不同，SynFutures@v1中由于需要base、quote以及到期时间才能唯一确定期货合约，可以预期的是，SynFutures@v1的LP需要根据需要不断创建新的期货合约市场，这就对期货合约的整体架构提出了挑战，即如何最小化每个期货合约的创建。另外考虑到当前Ethereum网络时常的拥堵带来的gas price飙升的问题，SynFutures@v1也需要尽可能减少每一项用户操作的gas消耗。
+相比Uniswap和当前DeFi领域的其它衍生品协议不同，SynFutures@v1中由于需要base、Quote以及到期时间才能唯一确定期货合约，可以预期的是，SynFutures@v1的LP需要根据需要不断创建新的期货合约市场，这就对期货合约的整体架构提出了挑战，即如何最小化每个期货合约的创建。另外考虑到当前Ethereum网络时常的拥堵带来的gas price飙升的问题，SynFutures@v1也需要尽可能减少每一项用户操作的gas消耗。
 
 ### 降低期货市场创建gas消耗
 
-虽然需要base、quote以及到期时间才能唯一确定期货合约，但是所有期货合约的内部逻辑是一致的，因为利用DELEGATECALL让所有的期货合约共享相同的运行时逻辑可以显著降低每个期货市场创建是的gas消耗。相当于链上仅有一份代码，而每个期货市场合约创建时仅需要分配自己所需的链上存储空间即可。
+虽然需要base、Quote以及到期时间才能唯一确定期货合约，但是所有期货合约的内部逻辑是一致的，因为利用DELEGATECALL让所有的期货合约共享相同的运行时逻辑可以显著降低每个期货市场创建是的gas消耗。相当于链上仅有一份代码，而每个期货市场合约创建时仅需要分配自己所需的链上存储空间即可。
 
-SynFutures@v1的每个期货市场合约中均涉及到sAMM、账户管理、quote的margin管理等操作，逻辑上这些都属于同一个期货市场合约，但是由于Ethereum对交易字节大小的限制，无法将所有的逻辑呈现在同一个智能合约当中，因此需要将期货市场逻辑进行拆分。SynFutures@v1采取的基本策略是：将逻辑拆分成两个大的部分：
+SynFutures@v1的每个期货市场合约中均涉及到sAMM、账户管理、Quote的margin管理等操作，逻辑上这些都属于同一个期货市场合约，但是由于Ethereum对交易字节大小的限制，无法将所有的逻辑呈现在同一个智能合约当中，因此需要将期货市场逻辑进行拆分。SynFutures@v1采取的基本策略是：将逻辑拆分成两个大的部分：
 
 - AMM自动做市：负责维持乘法恒定乘积以及链上`MarkPriceState`状态等。
 - 账户和资产管理：负责记录更新每个账户状态、管理margin资产的存入和转出等。
@@ -302,9 +302,9 @@ contract Storage // 所有的链上存储：例如账户列表等
 
 如前所述，由于资产的市值精度不同，`Vault`内部统一将所有资产的精度对齐到18，在用户存款、取款时自动转换，简化了Futures中的逻辑。同样为了用DELLEGATECALL以及代理模式，SynFutures@v1也实现了`FuturesProxy`合约。
 
-Oracle方面，相同base、quote但是不同到期时间的期货合约可以依赖同一个Oracle，这样可以避免为每个期货合约市场都创建新的Oracle合约。Uniswap的现货交易对合约以及Chainlink的Aggregator合约在SynFutures@v1中被称为feeder，这些不同的feeder在SynFutures@v1内部被包装成`OracleUniswap`或者`OracleChainlink`。SynFutures@v1不控制哪些Uniswap交易对可以作为feeder，只要可以通过Uniswap V2的`Factory`获取到，创建和使用相应期货市场的用户需要明白其中的风险。另一方面，由于Chainlink中不同Aggregator的成熟度不同，SynFutures@v1中由管理员指定Chainlink哪些feeder可以作为Oracle。合约`OracleController`中记录所有已经创建过的`OracleUniswap`或者`OracleChainlink`，以便于Oracle的复用避免重复创建。
+Oracle方面，相同base、Quote但是不同到期时间的期货合约可以依赖同一个Oracle，这样可以避免为每个期货合约市场都创建新的Oracle合约。Uniswap的现货交易对合约以及Chainlink的Aggregator合约在SynFutures@v1中被称为feeder，这些不同的feeder在SynFutures@v1内部被包装成`OracleUniswap`或者`OracleChainlink`。SynFutures@v1不控制哪些Uniswap交易对可以作为feeder，只要可以通过Uniswap V2的`Factory`获取到，创建和使用相应期货市场的用户需要明白其中的风险。另一方面，由于Chainlink中不同Aggregator的成熟度不同，SynFutures@v1中由管理员指定Chainlink哪些feeder可以作为Oracle。合约`OracleController`中记录所有已经创建过的`OracleUniswap`或者`OracleChainlink`，以便于Oracle的复用避免重复创建。
 
-另一方面，根据前面描述，可以注意到所有的全局参数跟具体的base、quote或者到期时间无关，因此SynFutures@v1中所有合约都有一个指向全局参数合约的`GlobalConfig`地址指针，以访问所需的配置信息。
+另一方面，根据前面描述，可以注意到所有的全局参数跟具体的base、Quote或者到期时间无关，因此SynFutures@v1中所有合约都有一个指向全局参数合约的`GlobalConfig`地址指针，以访问所需的配置信息。
 
 由于一个期货合约总是包括AMM自动做市与账户和资产管理两部分内容，因此创建新的期货合约时，需要创建一个`AmmProxy`以及一个`FuturesProxy`，并且两个合约都依赖对方提供的信息，因此在两个合约创建之后需要设置两个合约中的地址指针，将两个合约捆绑之后作为一个期货合约，这部分逻辑在`Factory`合约中完成。SynFutures@v1的`Factory`合约与Uniswap的`Factory`扮演了同样的角色。综上所述，SynFutures@v1最终呈现的架构如下图所示。得益于代理模式的采用，创建一个新的期货市场只耗费90w左右的gas。
 
