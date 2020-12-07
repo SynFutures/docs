@@ -5,31 +5,41 @@ sidebar_label: Introduction
 slug: /
 ---
 ## SynFutures@v1概述
-
-SynFutures@v1是参考Uniswap的现货交易模式构建的分布式期货交易平台，与Uniswap中任何人都可以创建新的现货交易对类似，SynFutures@v1允许任何人创建任意基准/计价（base/quote）资产对、任意到期日的期货市场，例如3天后到期的BTC/USD期货市场，当月的ETH/USDC期货市场以及当季的ETH/USDT期货市场。也就是说base、quote、expiry三个对应一个独立的期货合约。
+借鉴Uniswap的现货交易模式，SynFutures构建了分布式合成资产衍生品交易平台并在V1推出期货交易市场。
+- 与Uniswap中任何人都可以创建新的现货交易对类似，SynFutures@v1允许任何人创建任意基准/计价（Base/Quote）交易对、任意到期日的期货产品。
+- SynFutures@v1采用sAMM（Synthetic Automated Market Maker），即合成自动做市商模型，以采用恒定乘积模型（Constant Product Formula）进行资产定价，同时做市商仅需提供交易对的一种资产（Quote Asset），另一资产（Base Asset）由合约自动合成，也因此可以交易除了以太坊原生资产外的、包括跨链资产和黄金、外汇等合成资产的期货产品
+- SynFutures@v1引入了自动清算人（Auto Liquidator）的概念，清算人可以仅提供流动性而被动进行清算人的职责、挣取交易手续费。V1中，sAMM同时可以成为清算人，并可为交易员的仓位首次实现部分平仓的功能。
 
 ### Oracle
 
-合约的价格会受到现货价格波动的影响，受制于当前区块链行业Oracle的发展现状，并不是所有的base/quote都有可靠的价格Oracle，SynFutures@v1目前仅支持使用Uniswap和Chainlink作为Oracle，并且要求quote是Ethereum上的原生资产，SynFutures@v1启动时允许的可以作为quote的资产包括：ETH、USDC、USDT、DAI。
+合约的价格会受到现货价格波动的影响，受制于当前区块链行业Oracle的发展现状，并不是所有的基准/计价资产交易对（Base/Quote assets，例如交易对ETH/USDT中，ETH为Base资产，以下简称“Base”, USDT为Quote资产，以下简称“Quote”）都有可靠的价格Oracle，SynFutures@v1目前仅支持使用Uniswap和Chainlink作为Oracle，并且要求Quote是Ethereum上的原生资产。
 
-- 如果base也是Ethereum上的原生资产，SynFutures@v1默认使用Uniswap作为价格Oracle。
-- 如果base不是Ethereum上的原生资产，SynFutures@v1默认使用Chainlink作为价格Oracle。
+SynFutures@v1启动时允许的可以作为Quote的资产包括：ETH、USDC、USDT、DAI。
 
-值得提及的是，SynFutures@v1并没有从合约代码层面禁止当base和quote都是Ethereum上的原生资产时选用Chainlink作为Oracle。无论是依赖Uniswap或者依赖Chainlink，SynFutures@v1都要处理与相应Oracle机制相关的特殊问题。Uniswap方面，使用Uniswap的现货交易对的Oracle容易遭受价格操控，SynFutures@v1中引入了额外的控制机制来尝试减缓这一影响，后文再做详细介绍。Chainlink方面，会出现BTC等资产的报价以USD为单位的情形，而Ethereum上的USDC、USDT、DAI等美金稳定币相对USD都会有小范围波动，为了处理这种情况，对于依赖Chainlink的期货合约，SynFutures@v1将USDC作为USD在Ethereum上锚定资产，也即SynFutures@v1中依赖Chainlink的USD报价的期货合约中的quote均为USDC。例如SynFutures@v1中依赖Chainlink作为Oracle的BTC/USD期货合约中的quote实则是USDC，也即如果Chainlink给出的BTC/USD价格为18000USD，则SynFutures@v1的BTC/USD期货合约认为BTC的当前价格为18000USDC。
+- 如果Base也是Ethereum上的原生资产，SynFutures@v1默认使用Uniswap作为价格Oracle。
+- 如果Base不是Ethereum上的原生资产，SynFutures@v1默认使用Chainlink作为价格Oracle。
+- 未来随着市场发展，SynFutures可根据市场情况陆续添加Quote资产类别并由用户自由选择Oracle的来源。
 
+一个说明是，Chainlink方面，BTC等资产的报价会以USD为单位，而Ethereum上的USDC、USDT、DAI等美金稳定币相对USD都会有小范围波动。为了应对这种情况，对于依赖Chainlink的期货合约，SynFutures@v1将USDC作为USD在Ethereum上锚定资产，也即SynFutures@v1中依赖Chainlink的USD报价的期货合约中的Quote均为USDC。例如SynFutures@v1中依赖Chainlink作为Oracle的BTC/USD期货合约中的Quote实则是USDC，也即如果Chainlink给出的BTC/USD价格为18000USD，则SynFutures@v1的BTC/USD期货合约认为BTC的当前价格为18000USDC。
+无论是依赖Uniswap或者依赖Chainlink，SynFutures@v1都要处理与相应Oracle机制相关的特殊问题。Uniswap方面，使用Uniswap的现货交易对的Oracle容易遭受价格操控，SynFutures@v1中引入了额外的控制机制来尝试减缓这一影响，后文再做详细介绍。
 ### 交易和做市机制
 
-做市商机制方面，以Uniswap、Curve为代表的恒定函数做市商证实了AMM的可行性，mcdex、perp等项目也运用AMM机制构建链上永续合约，SynFutures@v1充分借鉴了DeFi领域现货以及衍生品方面的AMM机制设计。通过将该做市商模型适配到期货合约的业务场景之中，SynFutures@v1在做市商机制方面采用了名为“sAMM”的恒定乘积自动做市商模型，来为任意期货合约提供充分的流动性。与Uniswap类似，流动性提供者（Liquidity Provider，LP）可以创建任意资产对和到期日的期货合约，并且可以为期货合约注入流动性。Uniswap的恒定乘积模型中要求LP向资金池中注入两种资产，而在期货合约的视角下，这是不必要的，因为进行差额交割即可，因此SynFutures@v1采取的策略是：LP向合约中注入的流动性中的一半作为quote资产，另一半则用于合成仓位。这也是sAMM名字的由来：“s”表示“synthetic”。
+SynFutures@v1在做市商机制方面采用了名为合成自动做市商“sAMM”(Synthetic Automated Market Maker)的恒定乘积自动做市商模型。合成自动做市商为任意期货合约提供充分的流动性，并成为交易员(trader)的对手方。
 
-用户（trader和LP）在其参与的期货合约当中都有相应的账户（`Account`），Amm也有自己的`Account`。`Account`中记录当前用户的仓位（position）、资金余额（balance）等信息。用户可以向自己的账户中注入资金（`deposit`）、取回资金（`withdraw`）。为账户注入资金之后，trader可以通过与Amm交易（`trade`）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（`addLiquidity`）成为流动性提供者。用于提供流动性的资产，也可以被移除（`removeLiquidity`）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（`liquidate`）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了**自动清算人（Auto Liquidator）**机制：借助Amm清算目标账户（`liquidateByAmm`），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
+与Uniswap类似，流动性提供者（Liquidity Provider，LP）可以创建任意资产对和到期日的期货合约，并且可以为期货合约注入流动性。Uniswap的恒定乘积模型中要求LP向资金池中注入两种资产，而在期货合约的视角下，这是不必要的，因为进行差额交割即可，
+
+因此SynFutures@v1采取的策略是：LP向合约中注入的流动性中的一半作为Quote资产，另一半则用于合成仓位，即建立这个期货合约的一倍多头仓位，这也是sAMM名字的由来：“s”表示“synthetic”。 由于LP原本持有的都是Quote资产，并不持有及暴露于Base资产的价格风险，因此同时，sAMM合约会分配一个和新创建的Base多头仓位等量的空头仓位给这个LP，对冲这个风险，使得LP提供流动性这个行为本身并不会改变自己原有的整体仓位情况。不过，为sAMM增加流动性之后，流动性提供者因为建立了空头对冲仓位而同时成为了交易员（trader），需要账户中有足够的保证金来满足保证金要求。
+
+
+用户（trader）在其参与的期货合约当中有相应的账户（Account），Amm也有自己的Account。Account中记录当前用户的仓位（position）、资金余额（balance）等信息。用户可以向自己的账户中注入资金（deposit）、取回资金（withdraw）。为账户注入资金之后，trader可以通过与Amm交易（trade）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（addLiquidity）成为流动性提供者。用于提供流动性的资产，也可以被移除（removeLiquidity）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（liquidate）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了“自动清算人（Auto Liquidator” 机制：借助Amm清算目标账户（liquidateByAmm），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
 
 ### 合约生命周期
 
-充分参考中心化交易所以及传统金融市场的期货产品逻辑，SynFutures@v1将一个期货合约的生命周期分为：NORMAL、SETTLING以及SETTLED三个阶段，并且强制期货合约在到期之前SETTLING至少一小时。刚创建并初始化完成的期货合约进入NORMAL状态，期货合约在适当时间会进入SETTLING状态，并且经过至少一个小时的SETTLING之后，合约状态变为SETTLED状态。值得提及的是，强制期货合约SETTLING一小时，有可能会导致期货合约真正的到期时间晚于合约创建时指定的到期时间。这是由于智能合约本身的状态更新只能通过交易触发导致的，具体来说可能会出现这种情况：在指定的到期时间的前一小时左右没有发生任何交易，也就导致在期货合约无法严格执行在预先设定好的到期时间前一小时进入SETTLING状态。
+充分参考中心化交易所以及传统金融市场的期货产品逻辑，SynFutures@v1将一个期货合约的生命周期分为：NORMAL、SETTLING以及SETTLED三个阶段，并且强制期货合约在到期之前SETTLING至少一小时。刚创建并初始化完成的期货合约进入NORMAL状态，期货合约在适当时间会进入由合约强制至少为一个小时的SETTLING状态，下一步合约状态即变为SETTLED状态。值得提及的是，强制期货合约SETTLING一小时，有可能会导致期货合约真正的到期时间晚于合约创建时指定的到期时间。这是由于智能合约本身的状态更新只能通过交易触发导致的，具体来说可能会出现这种情况：在指定的到期时间的前一小时左右没有发生任何交易，也就导致在期货合约无法严格执行在预先设定好的到期时间前一小时进入SETTLING状态。
 
 为了处理这种情况并且强制合约在到期之前SETTLING至少一小时，SynFutures@v1采取的策略是：NORMAL状态下处理交易时，会首先根据期货合约创建时指定的到期时间判断此时合约状态是否应该SETTLING（甚至SETTLED），如果是则将合约状态改为SETTLING，并且根据此时的区块时间重新设置到期时间为一小时之后。这种方式可以保证所有合约在到期之前都会经历至少一小时的SETTLING（由于同样的原因，期货合约的SETTLING时间可能大于一小时，不再赘述）。可以预期的是交易活跃的期货合约，真正的到期时间与合约创建时的指定的到期时间会基本保持一致。另外，为了鼓励用户通过发起交易来更新（`update`）期货合约的状态，SynFutures@v1引入了额外的奖励机制。
 
-NORMAL和SETTLING状态下，markPrice的计算方式不同：SETTLILNG状态会采用时间加权的方式计算mark price，稍后再详细介绍。不同的合约状态下，trader和LP可以执行的操作以及限制有所不同：
+NORMAL和SETTLING状态下，期货合约标记价格（MarkPrice）的计算方式不同：SETTLILNG状态会采用时间加权的方式计算mark price，稍后再详细介绍。不同的合约状态下，trader和LP可以执行的操作以及限制有所不同：
 
 - NORMAL状态下：trader可以`deposit`、`withdraw`、`update`、`trade`、`liquidate`以及`liquidateByAmm`，而LP可以`deposit`、`withdraw`、`addLiquidity`、`removeLiquidity`（LP当然也可以作为trader的角色执行`update`、`trade`、`liquidate`、以及`liquidateByAmm`操作）。
 
