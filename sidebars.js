@@ -1,11 +1,16 @@
 module.exports = {
   someSidebar: {
-    Start: ["techpaper", "techpaper_cn", "whitepaper"],
-    Contract: [
-      "guide",
+    "Introduction": ["techpaper", "techpaper_cn", "whitepaper"],
+    "Core Concepts": [
+      "samm",
+      "alq"
+    ],
+    "Smart Contract": [
+      "overview",
+      "factory",
       "futures",
       "amm",
     ],
-    Docusaurus: ["doc1", "doc2", "doc3", "mdx"],
+    "FAQ": ["faq"]
   },
 };
