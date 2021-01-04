@@ -3,7 +3,6 @@ id: faq
 title: FAQ
 ---
 
-# FAQ
 
 ## 1. What is SynFutures ?
 
