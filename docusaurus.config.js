@@ -61,11 +61,7 @@ module.exports = {
             {
               label: 'Style Guide',
               to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
+            }
           ],
         },
         {
@@ -77,16 +73,16 @@ module.exports = {
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              href: 'https://discord.com/channels/780750138229522453/780750138229522456',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              href: 'https://twitter.com/Syn_Futures',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} SynFutures, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
