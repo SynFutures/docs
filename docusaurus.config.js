@@ -4,7 +4,7 @@ module.exports = {
   title: 'SynFutures Docs',
   tagline: 'Future is here!',
   url: 'https://SynFutures.github.io',
-  baseUrl: '/',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'SynFutures', // Usually your GitHub org/user name.

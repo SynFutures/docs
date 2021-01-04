@@ -7,7 +7,7 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "gh-pages -d build",
     "serve": "docusaurus serve"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@docusaurus/theme-search-algolia": "^2.0.0-alpha.32",
     "@mdx-js/react": "^1.5.8",
     "clsx": "^1.1.1",
+    "gh-pages": "^3.1.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "rehype-katex": "^4.0.0",
