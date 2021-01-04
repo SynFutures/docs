@@ -41,7 +41,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: "https://app.synfutures.io",
+          href: "https://synfutures.io",
           label: "Exchange",
           position: "left",
         },
