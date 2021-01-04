@@ -9,6 +9,7 @@ title: FAQ
 SynFutures is a decentralized synthetic asset derivatives trading platform. In the first version, it launches a Ethereum-based Futures market for a variety of assets, including Ethereum native, cross-chain and off-chain real world assets to be synthesized and freely traded against ERC20 tokens used as margins.
 
 ## 2. Who are the ecosystem players in SynFutures
+![img](../static/img/role.png)
 
 Trader: trade Futures products on the platform and pay trading fees
 
