@@ -31,7 +31,7 @@ module.exports = {
       logo: {
         alt: 'SynFutures Logo',
         src: 'img/logo_w_24@2x.png',
-        href: '/docs/',
+        href: '/docs/docs',
       },
       items: [
         {
@@ -41,7 +41,7 @@ module.exports = {
           position: 'left',
         },
         {
-          href: "https://synfutures.io",
+          href: "https://synfutures.com",
           label: "Exchange",
           position: "left",
         },
