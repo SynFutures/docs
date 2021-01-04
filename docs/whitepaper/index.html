@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="generator" content="Docusaurus v2.0.0-alpha.66">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous"><title data-react-helmet="true">White Paper | SynFutures Docs</title><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"><meta data-react-helmet="true" name="docusaurus_language" content="en"><meta data-react-helmet="true" name="docusaurus_version" content="current"><meta data-react-helmet="true" name="docusaurus_tag" content="docs-default-current"><meta data-react-helmet="true" property="og:title" content="White Paper | SynFutures Docs"><meta data-react-helmet="true" name="description" content="Abstract"><meta data-react-helmet="true" property="og:description" content="Abstract"><meta data-react-helmet="true" property="og:url" content="https://SynFutures.github.io/docs/whitepaper"><link data-react-helmet="true" rel="shortcut icon" href="/img/favicon.ico"><link data-react-helmet="true" rel="canonical" href="https://SynFutures.github.io/docs/whitepaper"><link rel="stylesheet" href="/styles.74e702c2.css">
+<link rel="preload" href="/styles.5cfa17b1.js" as="script">
+<link rel="preload" href="/runtime~main.513db9e8.js" as="script">
+<link rel="preload" href="/main.7ab2bcaa.js" as="script">
+<link rel="preload" href="/1.042150d7.js" as="script">
+<link rel="preload" href="/2.538abc4b.js" as="script">
+<link rel="preload" href="/18.cb9bcb42.js" as="script">
+<link rel="preload" href="/f976f453.7e3023e5.js" as="script">
+<link rel="preload" href="/17896441.cbe96765.js" as="script">
+<link rel="preload" href="/72598545.522b4b78.js" as="script">
+</head>
+<body>
+<script>!function(){function t(t){document.documentElement.setAttribute("data-theme",t)}var e=function(){var t=null;try{t=localStorage.getItem("theme")}catch(t){}return t}();t(null!==e?e:"dark")}()</script><div id="__docusaurus">
+<nav class="navbar navbar--fixed-top"><div class="navbar__inner"><div class="navbar__items"><div aria-label="Navigation bar toggle" class="navbar__toggle" role="button" tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></div><a class="navbar__brand" href="/docs/"><img class="navbar__logo" src="/img/logo_w_24@2x.png" alt="SynFutures Logo"></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/docs/">Docs</a><a href="https://app.synfutures.io" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Exchange</a></div><div class="navbar__items navbar__items--right"><a href="https://github.com/SynFutures/docs" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub</a></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div><div class="navbar-sidebar"><div class="navbar-sidebar__brand"><a class="navbar__brand" href="/docs/"><img class="navbar__logo" src="/img/logo_w_24@2x.png" alt="SynFutures Logo"></a></div><div class="navbar-sidebar__items"><div class="menu"><ul class="menu__list"><li class="menu__list-item"><a aria-current="page" class="menu__link navbar__link--active" href="/docs/">Docs</a></li><li class="menu__list-item"><a href="https://app.synfutures.io" target="_blank" rel="noopener noreferrer" class="menu__link">Exchange</a></li><li class="menu__list-item"><a href="https://github.com/SynFutures/docs" target="_blank" rel="noopener noreferrer" class="menu__link">GitHub</a></li></ul></div></div></div></nav><div class="main-wrapper"><div class="docPage_2gpo"><div class="docSidebarContainer_3_JD" role="complementary"><div class="sidebar_2urC"><div class="menu menu--responsive menu_5FrY"><button aria-label="Open Menu" aria-haspopup="true" class="button button--secondary button--sm menu__button" type="button"><svg aria-label="Menu" class="sidebarMenuIcon_Dm3K" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 32 32" role="img" focusable="false"><title>Menu</title><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><ul class="menu__list"><li class="menu__list-item"><a class="menu__link menu__link--sublist menu__link--active" href="#!">Introduction</a><ul class="menu__list"><li class="menu__list-item"><a class="menu__link" tabindex="0" href="/docs/">Tech Paper</a></li><li class="menu__list-item"><a class="menu__link" tabindex="0" href="/docs/techpaper_cn">Tech Paper中文</a></li><li class="menu__list-item"><a aria-current="page" class="menu__link menu__link--active active" tabindex="0" href="/docs/whitepaper">White Paper</a></li></ul></li><li class="menu__list-item menu__list-item--collapsed"><a class="menu__link menu__link--sublist" href="#!">Core Concepts</a><ul class="menu__list"><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/samm">Synthetic AMM</a></li><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/alq">Auto Liquidator</a></li></ul></li><li class="menu__list-item menu__list-item--collapsed"><a class="menu__link menu__link--sublist" href="#!">Smart Contract</a><ul class="menu__list"><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/overview">Overview</a></li><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/factory">Factory</a></li><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/futures">Futures</a></li><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/amm">AMM</a></li></ul></li><li class="menu__list-item menu__list-item--collapsed"><a class="menu__link menu__link--sublist" href="#!">FAQ</a><ul class="menu__list"><li class="menu__list-item"><a class="menu__link" tabindex="-1" href="/docs/faq">FAQ</a></li></ul></li></ul></div></div></div><main class="docMainContainer_3EyW"><div class="container padding-vert--lg docItemWrapper_1EkI"><div class="row"><div class="col docItemCol_2ASc"><div class="docItemContainer_3QWW"><article><header><h1 class="docTitle_1Lrw">White Paper</h1></header><div class="markdown"><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="abstract"></a>Abstract<a aria-hidden="true" tabindex="-1" class="hash-link" href="#abstract" title="Direct link to heading">#</a></h2><p>This paper introduces an open and decentralized derivatives platform
+that allows a variety of assets, including Ethereum native, cross-chain
+and off-chain real world assets to be synthesized and freely traded. In
+the first version of the contract, SynFutures will launch a digital
+asset futures market to introduce (1) futures contract of arbitrary
+assets and expiration dates to be created by liquidity providers (2)
+Synthetic Automated Market Maker (sAMM), for market participants to
+provide one single digital asset of a trading pair only and the smart
+contract to synthesize the other (3) Automated Liquidator (ALQ), which
+reduces the entry barrier of liquidators and helps automate the
+liquidation process.\
+<strong>Keywords</strong>: Derivatives Market, Synthetic Automated Market Maker,
+Automated Liquidator</p><h1><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="introduction"></a>Introduction<a aria-hidden="true" tabindex="-1" class="hash-link" href="#introduction" title="Direct link to heading">#</a></h1><p>Decentralized finance has enjoyed its summer in 2020. More importantly,
+it has proved the feasibility of building open financial services based
+on blockchain and transcending their centralized institutional peers in
+terms of transaction volume and pricing offerings. When SynFutures
+launches, the latest frenzy of liquidity mining has slowly faded, but
+the decentralized finance movement just starts.</p><p>When picturing the next generation decentralized financial platform, two
+basic principles have always been kept in mind: (1) It must reflect the
+fundamental advantages of blockchain over traditional financial systems
+(2) It must serve customer demand well and have a good market potential.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="advantages-of-blockchain-in-finance"></a>Advantages of Blockchain in Finance<a aria-hidden="true" tabindex="-1" class="hash-link" href="#advantages-of-blockchain-in-finance" title="Direct link to heading">#</a></h2><p>Performance and scalability has increasingly become the bottlenecks of
+Ethereum, and will be difficult in the foreseeable future for blockchain
+to catch up with centralized systems – Democracy normally lags behind
+centralized power in terms of decision making and execution efficiency.
+To build a financial system based on blockchain, what to be exerted
+should be its competitive advantages, whose implications in finance are
+elaborated as below:</p><p>First of all, friendly regulation - in the short-term though.
+Consultation papers of digital asset regulations in various
+jurisdictions have clearly indicated that it is the case simply because
+today’s digital asset market is relatively small in scale, not yet
+impacting the overall financial stability. With the popularization of
+digital assets, regulations will only become stricter.</p><p>Secondly, the smart open finance path chosen. It is a “choice” because
+open and programmable finance can also be found in traditional
+centralized financial institutions. Most of them set up service barriers
+deliberately to protect their vested interest only, and hindered by the
+legacy system that could also be replaced. However, it does offer the
+emerging blockchain financial industry the possibility of overtaking
+their giant traditional peers .</p><p>Lastly, blockchain’s fundamental advantage, or its “trustless” property.
+In fact, many nowadays monopoly financial services can be broken down
+into (a) manual intervention, (b) automated operation plus (c) liquidity
+provision. The trustless nature of the blockchain would allow various
+services originally combined in one role to be split up and partially
+handed over to smart contracts for implementation. As a manifestation,
+Automated Market Maker (AMM) projects built by teams of 2-5 developers
+have recently earned the trust of billion-dollar worth of locked assets
+, whose “receipt”, or LP token issuance, asset custody and settlement
+are performed by the transparent smart contracts. In addition, the
+though-not-perfect models greatly reduce the entry barriers of market
+making, assuring liquidity providers that their profit and loss will be
+handled by the set of codes instead of being arbitrarily determined by
+centralized parties, and thus enable a more effective usage of idle
+liquidity across the entire network.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="derivatives-market-landscape"></a>Derivatives Market Landscape<a aria-hidden="true" tabindex="-1" class="hash-link" href="#derivatives-market-landscape" title="Direct link to heading">#</a></h2><p>In traditional finance, the market size of derivatives has long
+outstripped that of spot. According to Bank for International
+Settlements, in 2019, FX spot transactions accounted for 30.13% of the
+total trading volume, Futures (including forwards and swaps)
+transactions accounted for 65.36%, and Options 4.51%. Futures market
+size amounted to 217% of the spot market.</p><p>In the centralized digital currency trading world, as the market
+matures, derivatives trading volume has also been enjoying exponential
+growth. According to CryptoCompare, spot trading volume of
+cryptocurrencies in 2019 was US$13 trillion, and derivatives accounted
+for nearly 23% of the spot market at US$3 trillion. After only half a
+year of development, the percentage has increased to about 37% by June
+2020. However, the derivative products of centralized exchanges today
+generally face the criticism and skepticism of users, especially for its
+“blackbox” of liquidation operations.</p><p>Turning to decentralized digital exchanges, however, the derivatives
+market is negligible compared to the spot with very few service
+providers. Coupled with its openness and transparency, we see huge
+market potential ahead.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="vision-and-principles"></a>Vision and Principles<a aria-hidden="true" tabindex="-1" class="hash-link" href="#vision-and-principles" title="Direct link to heading">#</a></h2><p>SynFutures aims to build a next-generation digital asset derivative
+trading and clearing platform, adhering to the following product design
+principles:</p><ol><li><p>It should be an open and free market, offering market participants
+the power to add and trade any assets on the platform. The market,
+instead of the platform operator, will decide who are the winning
+assets. Of course, as the guidance for investor protection becomes
+clearer, we will work to further improve the fair market rules
+together with the community.</p></li><li><p>It should maximize the variety of tradable assets on the blockchain,
+from Ethereum native, cross-chain digital assets, to the real-world
+assets.</p></li><li><p>It should reflect the fundamental advantage of blockchain, i.e.
+trustlessness, to realize financial inclusiveness. The
+“inclusiveness” in this project focuses not on the users, but on the
+other role of a platform, i.e. financial service providers. We will
+strive to gain the confidence of the network’s idle liquidity by
+solid smart and open smart contracts, and continue to improve our
+models to lower the entry barrier of the originally
+professional-only financial service providers, including market
+makers, liquidators etc.. By further decomposing these roles into
+basic modules and opening up the automated and liquidity provision
+related parts, more people can participate in the financial system ,
+enjoy the return of their liquidity, while at the same time maximize
+the utilization of resources across the network and reduce systemic
+risks.</p></li></ol><h1><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="architecture"></a>Architecture<a aria-hidden="true" tabindex="-1" class="hash-link" href="#architecture" title="Direct link to heading">#</a></h1><p>The first version of the contracts starts with a Futures market,
+introducing (1) Arbitrary asset and expiration date as determined by
+liquidity providers, (2) Synthetic automated market maker (sAMM) and (3)
+Automated liquidator (ALQ). Refer to Figure [fig-architecture] for an
+illustration of the overall architecture.</p><p><img alt="img" src="/assets/images/synfutures-v1-architecture-fa8e671d64bfff81edf699b4070bee26.png"></p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="futures-contract"></a>Futures Contract<a aria-hidden="true" tabindex="-1" class="hash-link" href="#futures-contract" title="Direct link to heading">#</a></h2><p>Formally, all of the futures contracts are defined as linear
+non-deliverable contracts with 10% initial margin and 5% maintenance
+margin. The definition of a unique market consists of a Spot Index
+Oracle for a trading pair and Maturity of this contract. For the trading
+pair of the Spot Index Oracle can be further split into BASE and QUOTE
+assets, where the QUOTE asset should be an ERC20 token used as the
+margin for this Futures Contract and the BASE asset has no restriction
+as long as such oracle is available.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="synthetic-amm"></a>Synthetic AMM<a aria-hidden="true" tabindex="-1" class="hash-link" href="#synthetic-amm" title="Direct link to heading">#</a></h2><p>Built on the idea from current constant product AMM for spot trading,
+Synthetic AMM is designed to provide similar trading experience for
+futures margin trading. In essence, the sAMM is a market participant
+with its own margin account similar to other users, but always ready to
+make prices based on the constant product formula and its current
+position. Apart from trading, the sAMM contract provides users with
+interfaces to add and remove liquidity to the sAMM liquidity pool and
+the sAMM contract also acts as the gateway for users to deposit margin
+to and withdraw margin from their account.</p><p>Liquidity Pool: To add liquidity to the sAMM, a user interacts with the
+smart contract and transfers the margin token, or the QUOTE asset to the
+sAMM. Internally the sAMM creates a long position in the Futures
+Contract using half of the added margin token, effectively synthesizing
+the BASE asset of a trading pair, and keeps the remaining half as
+available margin. At the same time, the sAMM would allocate a short
+position of the same size as the newly created long position to the same
+user. As a liquidity provider, the user owns a share of the total long
+position and the available margin of the liquidity pool in the sAMM. The
+total risk position of a liquidity provider equals the share of the long
+position of the sAMM plus the position in their own account. Thus the
+action of adding liquidity to the sAMM does not change the total risk of
+the liquidity provider as the newly created long and short positions
+offset each other. However, the liquidity provider does need to ensure
+sufficient margin in their margin account to meet the margin requirement
+after adding liquidity to the sAMM. Removing liquidity from the sAMM
+follows a similar but reverse process where the sAMM would reduce its
+long position and allocate the reduced long position to the user
+requesting to remove liquidity and return the margin token to the user.
+Similarly, the action of removing liquidity from the sAMM does not
+change the total risk of the liquidity provider.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="liquidation"></a>Liquidation<a aria-hidden="true" tabindex="-1" class="hash-link" href="#liquidation" title="Direct link to heading">#</a></h2><p>When the margin balance of an account is lower than its maintenance
+margin requirement, the account needs to be liquidated. Two approaches
+for liquidation are provided.</p><p>Conventional DeFi Approach: Liquidator takes over the position of the
+liquidated account and provides the required initial margin at current
+Mark Price. After successful liquidation, the liquidator will receive
+the balance of the maintenance margin of the liquidated account as
+reward. This approach has no market impact as the only change to the
+system as a whole is the extra margin provided by the liquidator.
+However, a liquidator willing to provide such margin and take over a
+risky position might not always be available. Thus full liquidation is
+desired when such a liquidator appears.</p><p>Automated Liquidator (ALQ) Approach: In both traditional financial
+market and CeFi exchanges, liquidations are normally handled by
+executing trades in the market to partially reverse the position of an
+account failing below its maintenance margin requirement. The difficulty
+of this partial liquidation approach in DeFi is the availability of a
+counterparty, before the invention of AMM. With the AMM, accounts that
+need to be liquidated can be forced to trade with the ALQ, or in this
+version at the same time the respective AMM to partially reduce their
+positions to meet margin requirements. In this approach, liquidation
+would have some market impact, similar to traditional financial market
+and CeFi exchanges. Compared to the conventional approach, this approach
+hugely reduces the entry barrier for liquidation as it only requires an
+initiator to send a transaction to the smart contract, without providing
+any margin or taking any risky positions. The successful initiator will
+be rewarded by the ecosystem.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="mark-basis-and-price"></a>Mark Basis and Price<a aria-hidden="true" tabindex="-1" class="hash-link" href="#mark-basis-and-price" title="Direct link to heading">#</a></h2><p>Similar to the traditional financial markets, convergence of futures
+price to spot index is only guaranteed at the maturity for settlement.
+Prior to that, futures price follows its own price discovery of the
+market, although a high correlation is expected with spot price. Thus,
+the difference or basis between Futures price and Spot Index is an
+important factor in determining the fair price or Mark Price of Futures.</p><p>For risk management purposes, a near real time mark price with a stable
+basis is desirable. The Mark Price for a Futures Contract is defined as
+Spot Index + Mark Basis, where the Spot Index provides the near
+realtimeness while the Mark Basis keeps the relationship between futures
+price and spot index stable by applying exponential moving average on
+past basis.</p><p>Before the last hour of a Futures Contract, Mark Price is defined as
+below: </p><p><span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>Basis</mtext><mi>T</mi></msub><mo>=</mo><msub><mtext>FuturesPrice</mtext><mi>T</mi></msub><mo>−</mo><msub><mtext>SpotIndex</mtext><mi>T</mi></msub></mrow><annotation encoding="application/x-tex">\text{Basis}_T = \text{FuturesPrice}_T - \text{SpotIndex}_T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">Basis</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">FuturesPrice</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em"></span><span class="mord"><span class="mord text"><span class="mord">SpotIndex</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.23419099999999995em"><span style="top:-2.4558600000000004em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em"><span></span></span></span></span></span></span></span></span></span></span>
+<span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>MarkBasis</mtext><mi>T</mi></msub><mo>=</mo><mi>α</mi><mo>⋅</mo><msub><mtext>Basis</mtext><mi>T</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><mo>⋅</mo><msub><mtext>MarkBasis</mtext><mrow><mi>T</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><mtext> where </mtext><mi>α</mi><mo>=</mo><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mi mathvariant="normal">Δ</mi><mi>T</mi><mi mathvariant="normal">/</mi><mi>τ</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\text{MarkBasis}_T =\alpha \cdot \text{Basis}_T + (1 - \alpha) \cdot \text{MarkBasis}_{T-1},\ \text{where}\ \alpha = 1 - e^{-\Delta T/\tau}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">MarkBasis</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height:0.44445em;vertical-align:0em"></span><span class="mord mathnormal" style="margin-right:0.0037em">α</span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">Basis</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em"></span><span class="mord mathnormal" style="margin-right:0.0037em">α</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em"></span><span class="mord"><span class="mord text"><span class="mord">MarkBasis</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.328331em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.16666666666666666em"></span><span class="mord text"><span class="mord">where</span></span><span class="mspace"> </span><span class="mord mathnormal" style="margin-right:0.0037em">α</span><span class="mspace" style="margin-right:0.2777777777777778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:0.8879999999999999em;vertical-align:0em"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8879999999999999em"><span style="top:-3.063em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">Δ</span><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.1132em">τ</span></span></span></span></span></span></span></span></span></span></span></span></span>
+<span class="math math-inline"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext>MarkPrice</mtext><mi>T</mi></msub><mo>=</mo><msub><mtext>SpotIndex</mtext><mi>T</mi></msub><mo>+</mo><msub><mtext>MarkBasis</mtext><mi>T</mi></msub></mrow><annotation encoding="application/x-tex">\text{MarkPrice}_T = \text{SpotIndex}_T + \text{MarkBasis}_T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">MarkPrice</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em"></span></span><span class="base"><span class="strut" style="height:0.93858em;vertical-align:-0.24414em"></span><span class="mord"><span class="mord text"><span class="mord">SpotIndex</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.23419099999999995em"><span style="top:-2.4558600000000004em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24414em"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em"></span><span class="mord"><span class="mord text"><span class="mord">MarkBasis</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em"><span style="top:-2.5500000000000003em;margin-right:0.05em"><span class="pstrut" style="height:2.7em"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em"><span></span></span></span></span></span></span></span></span></span></span></p><p>In the last hour of a Futures Contract, basis is assumed to be 0 and the
+Mark Price will be the TWAP of Spot Index to facilitate the price
+convergence to the spot and the eventual settlement.</p><p>Whenever the state of the system changes, the Mark Price is updated. The
+system also allows voluntary mark price updates without trading or
+liquidity changes and the initiator of such updates will be updated by
+the ecosystem.</p><h2><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="settlement"></a>Settlement<a aria-hidden="true" tabindex="-1" class="hash-link" href="#settlement" title="Direct link to heading">#</a></h2><p>In the last hour before maturity, the AMM enters the settling mode. In
+this mode, users are only allowed to reduce position and not allowed to
+open or increase position. This is to ensure a smooth settlement of the
+futures contract. The final settlement price will be the TWAP of the
+Spot Index during the settling period. In addition, Mark Price used for
+liquidation in the settling period will also be the TWAP of the Spot
+Index to be consistent and avoid the situation where some accounts need
+to be liquidated after settlement. After the maturity, users will be
+able to settle their position into margin and withdraw their margin
+balance from the AMM</p><h1><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="governance"></a>Governance<a aria-hidden="true" tabindex="-1" class="hash-link" href="#governance" title="Direct link to heading">#</a></h1><h1><a aria-hidden="true" tabindex="-1" class="anchor enhancedAnchor_2cZh" id="road-map"></a>Road Map<a aria-hidden="true" tabindex="-1" class="hash-link" href="#road-map" title="Direct link to heading">#</a></h1><ul><li><p>Nov 2020: Testnet and contract audit for v1 fixed margin futures</p></li><li><p>Dec 2020: Mainnet launch of v1</p></li><li><p>Feb 2021: Testnet and contract audit for v2 cross margin futures</p></li><li><p>Mar 2021: Mainnet launch of v2 and governance</p></li><li><p>Jun 2021: Futures basis trading</p></li><li><p>Sep 2021: Option trading</p></li><li><p>Dec 2021: Portfolio margin</p></li></ul></div></article><div class="margin-vert--xl"><div class="row"><div class="col"><a href="https://github.com/SynFutures/docs/edit/master/docs/docs/whitepaper.md" target="_blank" rel="noreferrer noopener"><svg fill="currentColor" height="1.2em" width="1.2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 40 40" style="margin-right:0.3em;vertical-align:sub"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div></div></div><div class="margin-vert--lg"><nav class="pagination-nav" aria-label="Blog list page navigation"><div class="pagination-nav__item"><a class="pagination-nav__link" href="/docs/techpaper_cn"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">« Introduction</div></a></div><div class="pagination-nav__item pagination-nav__item--next"><a class="pagination-nav__link" href="/docs/samm"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Synthetic AMM »</div></a></div></nav></div></div></div><div class="col col--3"><div class="tableOfContents_3SO_"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#abstract" class="table-of-contents__link">Abstract</a></li><li><a href="#advantages-of-blockchain-in-finance" class="table-of-contents__link">Advantages of Blockchain in Finance</a></li><li><a href="#derivatives-market-landscape" class="table-of-contents__link">Derivatives Market Landscape</a></li><li><a href="#vision-and-principles" class="table-of-contents__link">Vision and Principles</a></li><li><a href="#futures-contract" class="table-of-contents__link">Futures Contract</a></li><li><a href="#synthetic-amm" class="table-of-contents__link">Synthetic AMM</a></li><li><a href="#liquidation" class="table-of-contents__link">Liquidation</a></li><li><a href="#mark-basis-and-price" class="table-of-contents__link">Mark Basis and Price</a></li><li><a href="#settlement" class="table-of-contents__link">Settlement</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container"><div class="row footer__links"><div class="col footer__col"><h4 class="footer__title">Docs</h4><ul class="footer__items"><li class="footer__item"><a class="footer__link-item" href="/docs/">Style Guide</a></li></ul></div><div class="col footer__col"><h4 class="footer__title">Community</h4><ul class="footer__items"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow</a></li><li class="footer__item"><a href="https://discord.com/channels/780750138229522453/780750138229522456" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord</a></li><li class="footer__item"><a href="https://twitter.com/Syn_Futures" target="_blank" rel="noopener noreferrer" class="footer__link-item">Twitter</a></li></ul></div></div><div class="text--center"><div>Copyright © 2021 SynFutures, Inc. Built with Docusaurus.</div></div></div></footer></div>
+<script src="/styles.5cfa17b1.js"></script>
+<script src="/runtime~main.513db9e8.js"></script>
+<script src="/main.7ab2bcaa.js"></script>
+<script src="/1.042150d7.js"></script>
+<script src="/2.538abc4b.js"></script>
+<script src="/18.cb9bcb42.js"></script>
+<script src="/f976f453.7e3023e5.js"></script>
+<script src="/17896441.cbe96765.js"></script>
+<script src="/72598545.522b4b78.js"></script>
+</body>
+</html>
