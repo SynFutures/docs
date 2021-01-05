@@ -50,19 +50,19 @@ NORMAL和SETTLING状态下，期货合约标记价格（MarkPrice）的计算方
 
 ## 术语列表
 
-- 初始保证金率（Initial Margin Ratio，IMR）：
-- 维持保证金率（Maintainace Margin Ratio，MMR）：
-- 保险基金费率（Insurance Premium Ratio）：
-- 指数价格（Index Price）：从Oracle读取的现货价格。
-- 标记价格（Mark Price）：通过加权index price和历史基差得到，用来计算用户margin的价格。
-- 公允价格（Fair price）：Synfutures 自身市场AMM价格发现得到的价格。
-- 可用保证金（Available Margin）：
-- 入场成本（Entry Notional）：
-- 账户盈亏（Profit and Loss，PNL）：
-- 指数移动平均值（Exponential Moving Average，EMA）：
-- 社会化损失（Social Loss）：
-- 时间加权平均价格（Time Weighted Average Price，TWAP）：
-- 未平仓量（Open Interests）：
+- 初始保证金率（Initial Margin Ratio，IMR）：初始保证金对仓位价值的比例。
+- 维持保证金率（Maintainace Margin Ratio，MMR）：维持保证金对仓位价值的比例。
+- 保险基金费率（Insurance Premium Ratio）：仓位被清算是受到的罚金比例，罚金会进入保险基金。
+- 指数价格（Index Price）：从Oracle读取的标的现货价格。
+- 标记价格（Mark Price）：用来标记所有仓位并盯市的价格。
+- 公允价格（Fair price）：自身市场AMM价格发现得到的价格。
+- 可用保证金（Available Margin）：可以取走或者用来开仓的保证金
+- 入场成本（Entry Notional）：当前仓位的持仓成本
+- 账户盈亏（Profit and Loss，PNL）：根据标记价格计算的当前仓位的浮盈或者浮亏
+- 指数移动平均值（Exponential Moving Average，EMA）：用来平滑标记基差变化的方法，详情参见 https://en.wikipedia.org/wiki/Exponential_smoothing
+- 社会化损失（Social Loss）：由于对手方被清算而引起的损失，由这一侧持仓所有的用户一起承担
+- 时间加权平均价格（Time Weighted Average Price，TWAP）：根据时间来加权平均的价格
+- 未平仓量（Open Interests）：某一侧所有仓位的综合。多头的未平仓量永远于空投未平仓量相等。
 
 ## Margin与Account
 
