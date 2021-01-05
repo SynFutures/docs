@@ -21,7 +21,7 @@ module.exports = {
   themeConfig: {
     colorMode: {
       // "light" | "dark"
-      defaultMode: 'dark',
+      defaultMode: 'light',
 
       // Hides the switch in the navbar
       // Useful if you want to support a single color mode
@@ -30,7 +30,7 @@ module.exports = {
     navbar: {
       logo: {
         alt: 'SynFutures Logo',
-        src: 'img/logo_w_24@2x.png',
+        src: 'img/logo_dark.png',
         href: '/docs/docs',
       },
       items: [
