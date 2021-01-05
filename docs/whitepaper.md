@@ -273,26 +273,29 @@ to be liquidated after settlement. After the maturity, users will be
 able to settle their position into margin and withdraw their margin
 balance from the AMM
 
-Governance
+Product Road Map
 ==========
+Fixed margin futures (v1) will be launched as the first product and also serves as a proof of concept. To fully realized the potential of AMM based derivatives,  we index futures products that have no natural market makers will be launched next, for example, Bitcoin minging difficulty index futures. As not all such index futures products have readily available oracles on Ethereum network, we will also work with the ecosystem to build the necessary oracles.
 
-Road Map
+Cross margin futures (v2) will be launched as the next major upgrade and ready for full adoption by the entire network. With cross margin futures, decentralized futures basis trading will be feasible and margin friendly. After decentralized futures trading becomes common and widely adopted, these futures AMM becomes oracles for futures prices that can be used by decentralized options, which will be the next focus. When enough market data can be oberved from the AMM based oracles, decentralized portfolio margin can be achieve as the ultimate product of this project.
+
+Timeline
 ========
 
--   Nov 2020: Testnet and contract audit for v1 fixed margin futures
+-   Dec 2020: Contract audit for v1 fixed margin futures
 
--   Dec 2020: Mainnet launch of v1
+-   Jan 2021: Testnet launch of v1 fixed margin futures
 
--   Feb 2021: Testnet and contract audit for v2 cross margin futures
+-   Feb 2021: Mainnet launch of v1 fixed margin futures and Testnet launch of mining difficulty index futures
 
--   Mar 2021: Mainnet launch of v2 and governance
+-   Mar 2021: Mainnet launch of mining difficulty index futures
+
+-   Apr 2021: Testnet launch of v2 cross margin futures
+
+-   May 2021: Mainnet launch of v2 cross margin futures and Governance
 
 -   Jun 2021: Futures basis trading
 
 -   Sep 2021: Option trading
 
 -   Dec 2021: Portfolio margin
-
-
-
-
