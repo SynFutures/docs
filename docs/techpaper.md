@@ -62,19 +62,19 @@ In addition, SynFutures@v1 also introduces a state named EMERGENCY in order to d
 
 ## Glossary
 
-- Initial Margin Ratio (IMR):
-- Maintenance Margin Ratio (Maintenance Margin Ratio, MMR):
-- Insurance Premium Ratio (Insurance Premium Ratio):
-- Index Price:
-- Mark Price:
-- Fair price (Fair price):
-- Available Margin (Available Margin):
-- Entry cost (Entry Notional):
-- Account profit and loss ( PNL):
-- Exponential Moving Average (EMA):
-- Social Loss:
-- Time Weighted Average Price (TWAP):
-- Open Interests:
+- Initial Margin Ratio (IMR): initial margin amount as a ratio to the position value
+- Maintenance Margin Ratio (Maintenance Margin Ratio, MMR): maintenance margin amount as a ratio to the position value
+- Insurance Premium Ratio (Insurance Premium Ratio): penalty ratio charged to an account when its position is liquidated, the penalty is sent to insurance fund
+- Index Price: price of the underlying spot trading pair
+- Mark Price: price used to mark to market positions of all accounts
+- Fair price (Fair price): current mid price as implied by the AMM inventories
+- Available Margin (Available Margin): margin amount that can be withdraw or used to open new positions
+- Entry cost (Entry Notional): entry cost of the current position in the account
+- Account profit and loss ( PNL): unrealized profit and loss of the current position as of its entry, valued against marked price
+- Exponential Moving Average (EMA): a technic used to smooth the change in marked basis, please refer to https://en.wikipedia.org/wiki/Exponential_smoothing
+- Social Loss: losses incurred due to liquidation for one side of the trade that is shared by the entire counterparty side
+- Time Weighted Average Price (TWAP): average price based on time weights
+- Open Interests: number of all open positions of the same side. Note that open interest of long side is always the same as the open interest of the short side
 
 ## Margin and Account
 
