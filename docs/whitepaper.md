@@ -275,9 +275,9 @@ balance from the AMM
 
 Product Road Map
 ==========
-Fixed margin futures (v1) will be launched as the first product and also serves as a proof of concept. To fully realized the potential of AMM based derivatives,  we index futures products that have no natural market makers will be launched next, for example, Bitcoin minging difficulty index futures. As not all such index futures products have readily available oracles on Ethereum network, we will also work with the ecosystem to build the necessary oracles.
+Fixed margin futures (v1) will be launched as the first product and also serves as a proof of concept. To fully realize the potential of AMM based derivatives, index futures products that have no natural market makers will be launched next, for example, Bitcoin mining diﬀiculty index futures. As not all such index futures products have readily available oracles, we will also work with the ecosystem to build the necessary ones.
 
-Cross margin futures (v2) will be launched as the next major upgrade and ready for full adoption by the entire network. With cross margin futures, decentralized futures basis trading will be feasible and margin friendly. After decentralized futures trading becomes common and widely adopted, these futures AMM becomes oracles for futures prices that can be used by decentralized options, which will be the next focus. When enough market data can be oberved from the AMM based oracles, decentralized portfolio margin can be achieve as the ultimate product of this project.
+Cross margin futures (v2) will be launched as the next major product and ready for full adoption and integration to the DeFi world as a piece of the puzzle. With cross margin futures, decentralized futures basis trading will be feasible and margin friendly. After decentralized futures trading becomes common and widely adopted, its pricing can become oracles to be used by decentralized options, which will be the next focus. Ultimately, when enough market data can be observed from the AMM based oracles, decentralized portfolio margin can be achieved.
 
 Timeline
 ========
@@ -286,15 +286,17 @@ Timeline
 
 -   Jan 2021: Testnet launch of v1 fixed margin futures
 
--   Feb 2021: Mainnet launch of v1 fixed margin futures and Testnet launch of mining difficulty index futures
+-   Feb 2021: Mainnet launch of v1 fixed margin futures 
 
--   Mar 2021: Mainnet launch of mining difficulty index futures
+-   Mar 2021: Testnet launch of mining difficulty index futures
 
--   Apr 2021: Testnet launch of v2 cross margin futures
+-   Apr 2021: Mainnet launch of mining difficulty index futures
 
--   May 2021: Mainnet launch of v2 cross margin futures and Governance
+-   May 2021: Testnet launch of v2 cross margin futures
 
--   Jun 2021: Futures basis trading
+-   Jun 2021: Mainnet launch of v2 cross margin futures and Governance
+
+-   Jul 2021: Futures basis trading
 
 -   Sep 2021: Option trading
 
