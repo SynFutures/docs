@@ -162,7 +162,7 @@ LP创建期货合约并提供流动性之后，trader可以通过AMM进行买入
 
 考虑到通过智能合约来实现期货合约这一特殊现实，为了保护用户利益，SynFutures@v1在执行交易时还引入了另外一个约束参数`maxPriceSlippageRatio`，该参数用来限制在一个区块的中通过和AMM交易允许的最大双向滑点，等价于每个区块内的所有交易都有一个限价，保证该区块内AMM的价格波动在一定的范围内。这可以防止通过单笔大额交易来扭曲AMM的价格。因此`trade`操作中，在完成用户与AMM的仓位交换之后，会根据AMM最新状态确认区块价格滑点限制没有被破坏，否则整笔交易失败。
 
-SynFutures@v1对所有的`trade`按照成交金额收取固定比例的费用，包括两部分费用，一部分为开发者费用，一部分为交易池费用，收取比例分别有全局参数`poolDevFeeRatio`和`poolFeeRatio`指定。
+SynFutures@v1对所有的`trade`按照成交金额收取固定比例的费用，包括两部分费用，一部分为开发者费用，一部分为交易池费用，收取比例分别有全局参数`poolReserveFeeRatio`和`poolFeeRatio`指定。
 
 在`trade`交易的最后，还会确保用户账户和AMM账户在交换完仓位之后仍然是安全的，安全意味着如果用户账户因为这笔交易有了新开的仓位，则要求用户账户在当前的标记价格（Mark Price）下是IMSafe的（`(AccountBalance + UnrealizedPnl) >= Position * MarkPrice * IMR`），否则要求该账户是MMSafe的（` AccountBalance + UnrealizedPnl >=  Position * MarkPrice * MMR`）。之外还要求AMM账户也是MMSafe的（根据机制设计，AMM总是安全的，这里只是出于谨慎的目的，再每一次交易之后强制检查一次，因为这种检查并不会消耗很多gas）。关于指数价格的计算方式下一小节再详述。
 
