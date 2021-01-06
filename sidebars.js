@@ -1,6 +1,7 @@
 module.exports = {
   someSidebar: {
-    "Introduction": ["techpaper", "techpaper_cn", "whitepaper"],
+    "FAQ": ["faq"],
+    "Whitepaper": ["whitepaper"],
     "Core Concepts": [
       "samm",
       "alq"
@@ -10,7 +11,6 @@ module.exports = {
       "factory",
       "futures",
       "amm",
-    ],
-    "FAQ": ["faq"]
+    ]
   },
 };
