@@ -164,25 +164,15 @@ To simplify the process, SynFutures App combines the process into one click, so 
 
 (3) The rest would become the margin of your short position, which could be calculated as Initial Price * Position size/ Leverage Ratio 
 
- 
-
 The relationship between each parameter and size is: 
-
- 
 
 Amount (X) = initial Price * Position size (Y) * 2 + initial Price * Position size (Y) / Leverage ratio, or  
 
 Position size (Y) =  Amount (X) / (2 * initial Price + initial Price / Leverage ratio) 
 
- 
-
 ### 19. What is the reward I can get by supplying liquidity?  
 
- 
-
 You could receive trading fees according to your share of the liquidity pool. Additionally, SynFutures plans to launch onchain governance in the future, when early large LPs could also be rewarded with governance token. Exact details to be finalized. 
-
- 
 
 ### 20. What is the market risk associated with providing liquidity and being an AMM?  
 
