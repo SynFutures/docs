@@ -1,6 +1,7 @@
 ---
 id: faq
 title: FAQ
+slug: /
 ---
 
 

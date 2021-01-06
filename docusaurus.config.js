@@ -6,7 +6,7 @@ module.exports = {
   url: 'https://SynFutures.github.io',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
   organizationName: 'SynFutures', // Usually your GitHub org/user name.
   projectName: 'docs', // Usually your repo name.
   stylesheets: [
@@ -35,17 +35,6 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
-          position: 'left',
-        },
-        {
-          href: "https://synfutures.com",
-          label: "Exchange",
-          position: "left",
-        },
-        {
           href: 'https://github.com/SynFutures/docs',
           label: 'GitHub',
           position: 'right',
@@ -55,34 +44,8 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            }
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discord.com/channels/780750138229522453/780750138229522456',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/Syn_Futures',
-            },
-          ],
-        },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} SynFutures, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} SynFutures. Built with Docusaurus.`,
     },
   },
   presets: [

@@ -2,7 +2,6 @@
 id: techpaper
 title: Introduction
 sidebar_label: Tech Paper
-slug: /
 ---
 
 ## SynFutures@V1 Overview
