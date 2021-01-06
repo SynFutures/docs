@@ -85,7 +85,7 @@ Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](h
 
 ### 11. How to open/close a trade ? 
 
-When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position * MarkPrice * Initial Margin.
+When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position \* MarkPrice \* Initial Margin.
 
 With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
 
