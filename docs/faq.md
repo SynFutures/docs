@@ -107,7 +107,7 @@ Note that trader can only trade with a pair that have existing market makers, th
 
  
 
-When Account Balance + Unrealized Pnl < Position * MarkPrice * Maintenance Margin (MMR), the account is no longer safe and can be liquidated.
+When Account Balance + Unrealized Pnl < Position \* MarkPrice \* Maintenance Margin (MMR), the account is no longer safe and can be liquidated.
 
  
 
@@ -167,9 +167,9 @@ To simplify the process, SynFutures App combines the process into one click, so 
 
 The relationship between each parameter and size is: 
 
-Amount (X) = initial Price * Position size (Y) * 2 + initial Price * Position size (Y) / Leverage ratio, or  
+Amount (X) = initial Price \* Position size (Y) \* 2 + initial Price \* Position size (Y) \/ Leverage ratio, or  
 
-Position size (Y) =  Amount (X) / (2 * initial Price + initial Price / Leverage ratio) 
+Position size (Y) =  Amount (X) / (2 \* initial Price + initial Price / Leverage ratio) 
 
 ### 19. What is the reward I can get by supplying liquidity?  
 
@@ -193,7 +193,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
  
 
-In SynFutures@v1, if an account is no longer safe according to the current mark price (Account Balance + Unrealized Pnl <Position * Mark Price * Maintenance Margin), any user of the current futures contract can initiate a liquidation operation for the account. SynFutures@v1 supports two types of liquidate operations: 
+In SynFutures@v1, if an account is no longer safe according to the current mark price (Account Balance + Unrealized Pnl < Position \* Mark Price \* Maintenance Margin), any user of the current futures contract can initiate a liquidation operation for the account. SynFutures@v1 supports two types of liquidate operations: 
 
  
 
