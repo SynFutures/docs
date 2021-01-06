@@ -50,7 +50,7 @@ And an additional “Emergency” state would be entered into if unforeseen abno
 
 There are three types of price in SynFutures contracts.
 
-1. **Fair Price**: SynFutures market trading price. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k.
+1. **Fair Price**: SynFutures market trading price as implied by AMM inventories. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k.
 
 2. **Index Price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price
 
@@ -234,7 +234,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
 ### 20. What is the market risk associated with providing liquidity and being an AMM?  
 
-  
+
 1) At the start, the action of adding liquidity to the sAMM does not change the total risk profile of the liquidity provider, as the newly created long and short positions exactly offset each other.  
 
  
@@ -267,7 +267,7 @@ Automated Liquidator Approach: To lower the liquidity requirement, liquidation i
 
  
 
-It is worth mentioning that since AMM has always maintained liquidity in the system, partial liquidation becomes feasible under this operation:  the size of liquidated position would be Margin/Price (Initial Margin Requirement - Penalty) instead, that is, the account will be liquidated to a safe state that meets the initial margin requirement. 
+It is worth mentioning that since AMM has always maintained liquidity in the system, partial liquidation becomes feasible under this operation: the account will be liquidated to a safe state that meets the initial margin requirement. 
 
  
 
