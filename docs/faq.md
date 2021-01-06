@@ -34,7 +34,7 @@ The Quote asset should be an ERC 20 token used as the margin for the Futures Con
 
 Though in design and theory, SynFutures could support any ERC 20 token as Quote asset, for liquidity to be more concentrated, the assets that can be used as Quote when SynFutures@v1 launches include: ETH, USDC, USDT, and DAI.
 
-### 5. What is the life cycle of a trade
+### 5. What is the life cycle of a trade?
 
 A futures trade typically goes through **three stages**:
 
