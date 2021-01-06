@@ -10,19 +10,19 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 ### 2. Who are the ecosystem players in SynFutures?
 ![img](../static/img/role.png)
 
-**Trader**: trades Futures products on the platform
+**Trader**: trades Futures products on the platform.
 
-**Liquidity Provider (AMM)**: creates trading pairs, supplies liquidity to the system, always ready to make prices based on model and earn majority of the trading fees
+**Liquidity Provider (AMM)**: creates trading pairs, supplies liquidity to the system, always ready to make prices based on model and earn majority of the trading fees.
 
-**Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators (1) initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin (2) initiate a transaction for trader to close its position with Auto Liquidator ( in V1, the AMM itself) and earn system rewards
+**Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators (1) initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin (2) initiate a transaction for trader to close its position with Auto Liquidator ( in V1, the AMM itself) and earn system rewards.
 
 **System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc as the system develops in a later stage, and earn rewards.
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
-**System Reserve Fund**: part of the trader’s trading fees would go to System Reserve Fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers
+**System Reserve Fund**: part of the trader’s trading fees would go to System Reserve Fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers.
 
-**Oracle**: supplies pricing data to the system
+**Oracle**: supplies pricing data to the system.
 
 ### 3. What are the instruments traded on SynFutures?
 
@@ -50,11 +50,11 @@ And an additional “Emergency” state would be entered into if unforeseen abno
 
 There are three types of price in SynFutures contracts.
 
-1. **Fair Price**: SynFutures market trading price as implied by AMM inventories. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k
+1. **Fair Price**: SynFutures market trading price as implied by AMM inventories. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k.
 
-2. **Index Price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price
+2. **Index Price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price.
 
-3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement
+3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
 For detailed calculation of the pricings, please check [advance topics: How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
 
@@ -64,17 +64,17 @@ For detailed calculation of the pricings, please check [advance topics: How is F
 For SynFutures V1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
 ### 8. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check [Advance Topics: “How do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check advance topics: [how do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
 
 ### 9. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
-Forcing a futures contract to enter Settling or Settled state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of Futures contracts by initiating transactions. [Check here What other system reward I might potentially earn？](#25-what-other-system-reward-i-might-potentially-earn？) for details 
+Forcing a futures contract to enter Settling or Settled state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of Futures contracts by initiating transactions. Check out [what other system reward I might potentially earn？](#25-what-other-system-reward-i-might-potentially-earn？) for details.
 
  
 
 ### 10. Has the contract been audited? 
 
-Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf) 
+Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
 
  
 
@@ -84,11 +84,11 @@ Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](h
 
 ### 11. How to open/close a trade ? 
 
- When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position * MarkPrice * Initial Margin  
+When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position * MarkPrice * Initial Margin.
 
 With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
 
- To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite positions of existing trades, and margin plus your pnl would be released to your account. Alternatively, you could go to Pool Page to view the list of trades you have and close the positions  
+ To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite positions of existing trades, and margin plus your pnl would be released to your account. Alternatively, you could go to Pool Page to view the list of trades you have and close the positions. 
 
 Note that trader can only trade with a pair that have existing market makers, that is, the pair should have been created and provided liquidity by LP. 
 
@@ -106,7 +106,7 @@ Note that trader can only trade with a pair that have existing market makers, th
 
  
 
-When Account Balance + Unrealized Pnl < Position * MarkPrice * Maintenance Margin (MMR), the account is no longer safe and can be liquidated 
+When Account Balance + Unrealized Pnl < Position * MarkPrice * Maintenance Margin (MMR), the account is no longer safe and can be liquidated.
 
  
 
@@ -118,7 +118,7 @@ When your account becomes insolvent, liquidators would come and initiate liquida
 
  If the liquidator uses Auto Liquidator approach, your position will be partially liquidated to a safe state that meets the initial margin requirement. 
 
- For details of the different liquidation approaches, check here [How could I become a liquidator](#21-how-do-i-become-a-liquidator) for details 
+ For details of the different liquidation approaches, check out [how could I become a liquidator](#21-how-do-i-become-a-liquidator) for details.
 
  
 
@@ -180,7 +180,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
 2) After adding liquidity to sAMM, the liquidity provider has also become a trader due to the short hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated.  
 
-3) With sufficient margin for the short hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible impermeant loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advance topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
+3) With sufficient margin for the short hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible impermeant loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advance topics: [what is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
 
  
 
@@ -196,7 +196,7 @@ In SynFutures@v1, if an account is no longer safe according to the current mark 
 
  
 
-Traditional Defi Approach: The liquidator takes over all positions of the liquidated account at the current mark price. Note that in this case the liquidator should ensure it has sufficient balance in the account to meet the position’s maintenance margin requirement. After all positions of the liquidated account are closed, a penalty (deducted from the current account balance) is paid to the Insurance fund according to the total value of the liquidation 
+Traditional Defi Approach: The liquidator takes over all positions of the liquidated account at the current mark price. Note that in this case the liquidator should ensure it has sufficient balance in the account to meet the position’s maintenance margin requirement. After all positions of the liquidated account are closed, a penalty (deducted from the current account balance) is paid to the Insurance fund according to the total value of the liquidation.
 
  
 
@@ -212,7 +212,7 @@ It is worth mentioning that since AMM has always maintained liquidity in the sys
 
   
 
-When the balance of the account becomes negative resulting from liquidation, the insurance fund of the futures contract will be firstly used to reward the liquidator, and cover the shortfall 
+When the balance of the account becomes negative resulting from liquidation, the insurance fund of the futures contract will be firstly used to reward the liquidator, and cover the shortfall.
 
  
 
@@ -309,27 +309,27 @@ At “Settling” stage, basis is assumed to be 0 and the Mark Price will be the
 
  
 
-To protect user interest and avoid unintended price volatility, SynFutures imposes below restrictions, which would not affect normal users but mainly be triggered when there’s large movement in a Single block or from a Single user. 
+To protect user interest and avoid unintended price volatility, SynFutures imposes below restrictions, which would not affect normal users but mainly be triggered when there’s large movement in a single block or from a single user. 
 
  
 
-**Max Price Slippage Ratio**:  maximum price deviation in a single block for either direction from the mid-price at the start of the current block. This serves as a limit of price slippage for the AMM and protects the system from attacks distorting the market within the same block. A trade would be reverted if it results in a price breaching this limit of this block  
+**Max Price Slippage Ratio**:  maximum price deviation in a single block for either direction from the mid-price at the start of the current block. This serves as a limit of price slippage for the AMM and protects the system from attacks distorting the market within the same block. A trade would be reverted if it results in a price breaching this limit of this block.  
 
  
 
-**Max Initial Daily Basis**:  maximum deviation of initial futures price to spot index per day to limit the initial price for AMM in a reasonable range. 
+**Max Initial Daily Basis**:  maximum deviation of initial futures price to spot index per day to limit the initial price for AMM in a reasonable range.
 
  
 
-**Max User Trade Open Interest Ratio**: maximum open interest ratio of the entire market for a single user(address) to prevent concentration of risk in a single account. When a user's account has a higher open interest ratio than this limit, the user can only execute trades to reduce position but not increase position. This limit does not apply to the action of LP adding liquidity to the AMM. But if an LP's position breaches the limit after adding liquidity to the AMM, they cannot increase their position further through trade 
+**Max User Trade Open Interest Ratio**: maximum open interest ratio of the entire market for a single user(address) to prevent concentration of risk in a single account. When a user's account has a higher open interest ratio than this limit, the user can only execute trades to reduce position but not increase position. This limit does not apply to the action of LP adding liquidity to the AMM. But if an LP's position breaches the limit after adding liquidity to the AMM, they cannot increase their position further through trade. 
 
  
 
-**Min Amm Open Interest Ratio**: minimum open interest ratio of the entire market for the AMM to prevent a drain of liquidity. The AMM needs to maintain a certain level of inventory to prevent large slippages as every user can only trade with the AMM. This limit applies to both users buying from the AMM and LPs removing liquidity 
+**Min Amm Open Interest Ratio**: minimum open interest ratio of the entire market for the AMM to prevent a drain of liquidity. The AMM needs to maintain a certain level of inventory to prevent large slippages as every user can only trade with the AMM. This limit applies to both users buying from the AMM and LPs removing liquidity.
 
  
 
-**Max Spot Index Change Per Second Ratio**:maximum spot index change that can be accepted since the last update, measuring in seconds. As mark price is updated at most once per block, this serves as a limit of the mark price change per block and protects the system from attacks distorting the underlying oracle in a short period of time  
+**Max Spot Index Change Per Second Ratio**:maximum spot index change that can be accepted since the last update, measuring in seconds. As mark price is updated at most once per block, this serves as a limit of the mark price change per block and protects the system from attacks distorting the underlying oracle in a short period of time.
 
  
 
