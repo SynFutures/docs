@@ -56,7 +56,7 @@ There are three types of price in SynFutures contracts.
 
 3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
-For detailed calculation of the pricings, please check [Advance Topics: How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
+For detailed calculation of the pricings, please check Advance Topics: [How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
 
 
 ### 7. What is my futures contract’s expiration time? 
@@ -64,7 +64,7 @@ For detailed calculation of the pricings, please check [Advance Topics: How is F
 For SynFutures V1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
 ### 8. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check [Advance Topics: How do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check Advance Topics: [How do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
 
 ### 9. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
