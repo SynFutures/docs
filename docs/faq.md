@@ -7,7 +7,7 @@ title: FAQ
 ### 1. What is SynFutures?
 
 SynFutures is a decentralized synthetic asset derivatives trading platform. In the first version, it launches a Ethereum-based Futures market for a variety of assets, including Ethereum native, cross-chain and off-chain real world assets to be synthesized and freely traded against ERC20 tokens used as margin.
-### 2. Who are the ecosystem players in SynFutures ?
+### 2. Who are the ecosystem players in SynFutures?
 ![img](../static/img/role.png)
 
 **Trader**: trades Futures products on the platform
@@ -176,16 +176,11 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
 ### 20. What is the market risk associated with providing liquidity and being an AMM?  
 
-
 1) At the start, the action of adding liquidity to the sAMM does not change the total risk profile of the liquidity provider, as the newly created long and short positions exactly offset each other.  
 
- 
+2) After adding liquidity to sAMM, the liquidity provider has also become a trader due to the short hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated.  
 
-2) After adding liquidity to sAMM, the liquidity provider has also become a trader due to the short hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated. 
-
- 
-
-3) With sufficient margin for the short hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible impermeant loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check Advance Topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
+3) With sufficient margin for the short hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible impermeant loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advance topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
 
  
 
@@ -353,7 +348,7 @@ The impermanent loss would be calculated as below
 
 Note that for simplicity, we use the term ETH/USDC price to represent futures fair price and spot price: the two might be different but if as LP you wait until settlement to withdraw LP token, settlement price and spot price would convert.  
 
- 
+
 
 Everything else equals, the potential impermanent loss is the same as supplying to other CFMM such as Uniswap. 
 
