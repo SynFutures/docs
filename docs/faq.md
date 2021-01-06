@@ -4,10 +4,10 @@ title: FAQ
 ---
 
 
-### 1. What is SynFutures ?
+### 1. What is SynFutures?
 
 SynFutures is a decentralized synthetic asset derivatives trading platform. In the first version, it launches a Ethereum-based Futures market for a variety of assets, including Ethereum native, cross-chain and off-chain real world assets to be synthesized and freely traded against ERC20 tokens used as margin.
-### 2. Who are the ecosystem players in SynFutures
+### 2. Who are the ecosystem players in SynFutures ?
 ![img](../static/img/role.png)
 
 **Trader**: trades Futures products on the platform
@@ -20,9 +20,9 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
-**System Reserve Fund**: part of the trader’s trading fees would go to System Reserve Fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers.
+**System Reserve Fund**: part of the trader’s trading fees would go to System Reserve Fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers
 
-**Oracle**: supplies pricing data to the system.
+**Oracle**: supplies pricing data to the system
 
 ### 3. What are the instruments traded on SynFutures?
 
@@ -50,13 +50,13 @@ And an additional “Emergency” state would be entered into if unforeseen abno
 
 There are three types of price in SynFutures contracts.
 
-1. **Fair Price**: SynFutures market trading price as implied by AMM inventories. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k.
+1. **Fair Price**: SynFutures market trading price as implied by AMM inventories. The futures price trader/market maker execute for a transaction which follows a Constant Product Formula model x*y=k
 
 2. **Index Price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price
 
-3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
+3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement
 
-For detailed calculation of the pricings, please check [Advance Topics: How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
+For detailed calculation of the pricings, please check [advance topics: How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
 
 
 ### 7. What is my futures contract’s expiration time? 
@@ -74,11 +74,7 @@ Forcing a futures contract to enter Settling or Settled state may lead to the ac
 
 ### 10. Has the contract been audited? 
 
- 
-
 Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf) 
-
- 
 
  
 
@@ -88,19 +84,11 @@ Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](h
 
 ### 11. How to open/close a trade ? 
 
- 
-
-When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position * MarkPrice * Initial Margin  
-
- 
+ When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position * MarkPrice * Initial Margin  
 
 With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
 
- 
-
-To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite positions of existing trades, and margin plus your pnl would be released to your account. Alternatively, you could go to Pool Page to view the list of trades you have and close the positions  
-
- 
+ To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite positions of existing trades, and margin plus your pnl would be released to your account. Alternatively, you could go to Pool Page to view the list of trades you have and close the positions  
 
 Note that trader can only trade with a pair that have existing market makers, that is, the pair should have been created and provided liquidity by LP. 
 
@@ -108,17 +96,13 @@ Note that trader can only trade with a pair that have existing market makers, th
 
 ### 12. How to add/withdraw margin ? 
 
- 
+ You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
 
-You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
-
- 
-
-Note that when you “withdraw” margin, your PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And your original trade’s Entry price would be reset to the current Mark Price. 
+ Note that when you “withdraw” margin, your PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And your original trade’s Entry price would be reset to the current Mark Price. 
 
  
 
-### 13. How to determine whether a trade’s position should be liquidated  
+### 13. How to determine whether a trade’s position should be liquidated ?
 
  
 
@@ -128,33 +112,19 @@ When Account Balance + Unrealized Pnl < Position * MarkPrice * Maintenance Margi
 
 ### 14. What happen if my position doesn’t have sufficient margin? 
 
- 
-
 When your account becomes insolvent, liquidators would come and initiate liquidation process. 
 
- 
+ If the liquidator uses traditional Defi approach, your full position would be taken over so you will lose all of your position and margin token. 
 
-If the liquidator uses traditional Defi approach, your full position would be taken over so you will lose all of your position and margin token. 
+ If the liquidator uses Auto Liquidator approach, your position will be partially liquidated to a safe state that meets the initial margin requirement. 
 
- 
-
-If the liquidator uses Auto Liquidator approach, your position will be partially liquidated to a safe state that meets the initial margin requirement. 
-
- 
-
-For details of the different liquidation approaches, check here [How could I become a liquidator](#21-how-do-i-become-a-liquidator) for details 
+ For details of the different liquidation approaches, check here [How could I become a liquidator](#21-how-do-i-become-a-liquidator) for details 
 
  
 
 ### 15. What is the fee charged when trading？ 
 
- 
-
-SynFutures charges a fixed %  of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
-
- 
-
- 
+ SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
 
   
 
@@ -164,47 +134,29 @@ SynFutures charges a fixed %  of fees for all trades based on the transaction am
 
 ### 16. How does Syn Futures’ sAMM model work if I would like to add/remove liquidity? 
 
- 
-
-To add liquidity, LP transfers the Quote asset token only to the sAmm, among which half is used as Quote asset, and the other half to synthesize the position of the Base asset, that is, to create a 1x long position of the Base Asset for this futures contract. LP would then receive the respective LP tokens. 
-
- 
+ To add liquidity, LP transfers the Quote asset token only to the sAmm, among which half is used as Quote asset, and the other half to synthesize the position of the Base asset, that is, to create a 1x long position of the Base Asset for this futures contract. LP would then receive the respective LP tokens. 
 
 Since LP originally held Quote assets only and did not have any exposure to the price risk of Base assets, the sAMM contract will at the same time allocate a short position of the same size as the newly created long position to the same user to hedge this risk. 
 
-  
-
-Removing liquidity from the sAMM follows a similar process where the sAMM would reduce its long position and allocate the reduced long position to the user requesting to remove liquidity and return the margin token to the user. Similarly, the action of removing liquidity from the sAMM does not change the total risk of the liquidity provider. 
+  Removing liquidity from the sAMM follows a similar process where the sAMM would reduce its long position and allocate the reduced long position to the user requesting to remove liquidity and return the margin token to the user. Similarly, the action of removing liquidity from the sAMM does not change the total risk of the liquidity provider. 
 
  
 
 ### 17. How could I add liquidity to a trading pair? 
 
- 
-
-To provide liquidity, a LP interacts with the smart contracts via “Add Liquidity” button on “Pool” page from its account balance or “Add liquidity from Margin” button on “Account” Page from its available margin. Note that if the LP is adding liquidity from its existing trade’s available margin,  its PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And the original trade’s Entry price would be reset to the current Mark Price. 
-
- 
+ To provide liquidity, a LP interacts with the smart contracts via “Add Liquidity” button on “Pool” page from its account balance or “Add liquidity from Margin” button on “Account” Page from its available margin. Note that if the LP is adding liquidity from its existing trade’s available margin,  its PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And the original trade’s Entry price would be reset to the current Mark Price. 
 
  LP could only add liquidity to an existing pool, otherwise, it could firstly go to “Pool” page and click on “Create Pool” to create and initialize a new trading pair. 
 
- 
+
 
 ### 18. What is “Adjust your leverage ratio” means and what position size would I get when adding X amount of liquidity? 
 
- 
-
 As mentioned earlier, when adding liquidity, half of the tokens is used as Quote, and the other half to synthesize AMM's long Base positions. In order to hedge AMM's Long positions, LP will passively be assigned the same amount of short positions after providing liquidity.  
 
- 
+Thus, when adding liquidity, an LP automatically also becomes a trader with a short position. To ensure the safety of the LP account’s short position, the LP should at the same time have margin available in its account to at least meet the initial margin requirement of the synthetic position. The leverage ratio parameter is used to specify the leverage of the short hedge position.   
 
-Thus, when adding liquidity, an LP automatically also becomes a trader with a short position. To ensure the safety of the LP account’s short position, the LP should at the same time have margin available in its account to at least meet the initial margin requirement of the synthetic position. The leverage ratio parameter is used to specify the leverage of the short hedge position.  
-
- 
-
-To simplify the process, SynFutures App combines the process into one click, so when you add X Amount of Quote asset, the amount would be divided into three parts:  
-
- 
+To simplify the process, SynFutures App combines the process into one click, so when you add X Amount of Quote asset, the amount would be divided into three parts:   
 
 (1) Y position size would be supplied as the Quote assets  
 
