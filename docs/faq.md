@@ -59,38 +59,31 @@ There are three types of price in SynFutures contracts.
 3. **Mark Price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At normal state, it is defined as spot Index Price + Mark Basis, where the Mark Basis keeps the relationship between futures price and spot index stable by applying exponential moving average (EMA) on past basis. While In the last hour of a Futures Contract, basis is assumed to be 0 and the Mark Price will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
 For detailed calculation of the pricings, please check Advance Topics: [How is Fair Price/Index Price/Mark Price determined?](#advance-topics)
- 
-
-### 7. Has the contract been audited? 
-
-Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
-
- 
-
-## For Traders  
-
- 
-### 8. What is my futures contract’s expiration time? 
 
 
 
-For SynFutures v1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
 
-
-
-### 9. Why did my transaction fail?
-
-
-
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check advance topics: [how do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
-
-
-
-### 10. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
+### 7. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
 Forcing a futures contract to enter Settling or Settled state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of Futures contracts by initiating transactions. Check out [what other system reward I might potentially earn？](#25-what-other-system-reward-i-might-potentially-earn？) for details.
 
-### 11. How to open/close a trade ? 
+
+
+
+## For Traders  
+
+
+
+
+### 8. How to add/withdraw margin ? 
+
+ You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
+
+ Note that when you “withdraw” margin, your PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And your original trade’s Entry price would be reset to the current Mark Price. 
+
+
+
+### 9. How to open/close a trade ? 
 
 When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position \* MarkPrice \* Initial Margin.
 
@@ -100,15 +93,25 @@ With the available margin, a trader could go to “Trade” page to input the tr
 
 Note that trader can only trade with a pair that have existing market makers, that is, the pair should have been created and provided liquidity by LP. 
 
- 
 
-### 12. How to add/withdraw margin ? 
 
- You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
+### 10. What is the fee charged when trading？ 
 
- Note that when you “withdraw” margin, your PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And your original trade’s Entry price would be reset to the current Mark Price. 
+ SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
 
- 
+  
+
+### 11. Has the contract been audited? 
+
+Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
+
+
+
+### 12. Why did my transaction fail?
+
+
+
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check advance topics: [how do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
 
 ### 13. How to determine whether a trade’s position should be liquidated ?
 
@@ -130,11 +133,12 @@ When your account becomes insolvent, liquidators would come and initiate liquida
 
  
 
-### 15. What is the fee charged when trading？ 
+### 15. What is my futures contract’s expiration time? 
 
- SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
 
-  
+
+For SynFutures v1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
+
 
 ## For Automated Market Maker/Liquidity Providers  
 

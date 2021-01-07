@@ -31,11 +31,11 @@ module.exports = {
       logo: {
         alt: 'SynFutures Logo',
         src: 'img/logo_dark.png',
-        href: '/docs/docs',
+        href: 'https://synfutures.com',
       },
       items: [
         {
-          href: 'https://github.com/SynFutures/docs',
+          href: 'https://github.com/SynFutures',
           label: 'GitHub',
           position: 'right',
         },
