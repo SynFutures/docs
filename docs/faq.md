@@ -79,7 +79,7 @@ Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](h
 
  
 
-### For Traders  
+## For Traders  
 
  
 
@@ -129,7 +129,7 @@ When your account becomes insolvent, liquidators would come and initiate liquida
 
   
 
-### For Automated Market Maker/Liquidity Providers  
+## For Automated Market Maker/Liquidity Providers  
 
  
 
@@ -185,7 +185,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
  
 
-### For liquidator and system maintainer 
+## For liquidator and system maintainer 
 
  
 
@@ -253,7 +253,7 @@ You might also earn system reward by updating an inactive futures contract’s t
 
  
 
-### Advance Topics:  
+## Advance Topics:  
 
  
 
