@@ -62,8 +62,13 @@ For detailed calculation of the pricings, please check Advance Topics: [How is F
 
 
 
+### 7. Has the contract been audited? 
 
-### 7. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
+Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
+
+
+
+### 8. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
 Forcing a futures contract to enter Settling or Settled state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of Futures contracts by initiating transactions. Check out [what other system reward I might potentially earn？](#25-what-other-system-reward-i-might-potentially-earn？) for details.
 
@@ -74,8 +79,7 @@ Forcing a futures contract to enter Settling or Settled state may lead to the ac
 
 
 
-
-### 8. How to add/withdraw margin ? 
+### 9. How to add/withdraw margin ? 
 
  You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
 
@@ -83,7 +87,7 @@ Forcing a futures contract to enter Settling or Settled state may lead to the ac
 
 
 
-### 9. How to open/close a trade ? 
+### 10. How to open/close a trade ? 
 
 When open a new position, a trader should transfer the margin token (Quote Asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnl) >= Position \* MarkPrice \* Initial Margin.
 
@@ -95,16 +99,11 @@ Note that trader can only trade with a pair that have existing market makers, th
 
 
 
-### 10. What is the fee charged when trading？ 
+### 11. What is the fee charged when trading？ 
 
  SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
 
   
-
-### 11. Has the contract been audited? 
-
-Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
-
 
 
 ### 12. Why did my transaction fail?
