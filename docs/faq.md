@@ -15,7 +15,7 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 
 **Liquidity Provider (AMM)**: creates trading pairs, supplies liquidity to the system, always ready to make prices based on model and earn majority of the trading fees.
 
-**Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators (1) initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin (2) initiate a transaction for trader to close its position with Auto Liquidator ( in V1, the AMM itself) and earn system rewards.
+**Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators (1) initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin (2) initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself) and earn system rewards.
 
 **System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc as the system develops in a later stage, and earn rewards.
 
@@ -62,7 +62,7 @@ For detailed calculation of the pricings, please check Advance Topics: [How is F
 
 ### 7. What is my futures contract’s expiration time? 
 
-For SynFutures V1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
+For SynFutures v1, when launched, the expiration time of all futures contracts will be aligned to 8 am UTC time on every Friday of the week where the expiration time specified by the user is located. The restriction on the mandatory expiration time alignment will be relaxed at an appropriate time and the expiration time of all futures contracts will be aligned to the user-specified expiration date at 8 am UTC time, subject to the development of the market and could be varied by different trading pairs with different trading volumes and requirements. 
 ### 8. Why did my transaction fail?
 
 A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc , check advance topics: [how do you protect users from large price movement?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
