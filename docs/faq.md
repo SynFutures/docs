@@ -40,7 +40,7 @@ In its first version, SynFutures supports trading of linear non-deliverable futu
 The Quote asset should be an ERC 20 token used as the margin for the futures contract and the BASE asset has no restriction as long as such Oracle is available.
 
 
-### 4. What Quote Assets does SynFutures currently support?
+### 4. What Quote assets does SynFutures currently support?
 
 Though in design and theory, SynFutures could support any ERC 20 token as Quote asset, for liquidity to be more concentrated, the assets that can be used as Quote when SynFutures@v1 launches include: ETH, USDC, USDT, and DAI.
 
