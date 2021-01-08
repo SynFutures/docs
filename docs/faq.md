@@ -71,7 +71,7 @@ For detailed calculation of the pricings, please check [Advance Topics](#advance
 
 ### 7. Has the contract been audited? 
 
-Yes, SynFutures V1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
+Yes, SynFutures@v1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
 
 
 ## For Trader
