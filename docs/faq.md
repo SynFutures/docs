@@ -66,7 +66,7 @@ There are three types of price in SynFutures contracts.
 2. **Index price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price.
 3. **Mark price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At NORMAL state, it is defined as spot IndexPrice + MarkBasis, where the MarkBasis keeps the relationship between futures price and spot index stable by applying Exponential Moving Average (EMA) on past basis. While In the last hour of a futures contract, basis is assumed to be 0 and the MarkPrice will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
-For detailed calculation of the pricings, please check [Advance Topics](#advance-topics).
+For detailed calculation of the pricings, please check [Advanced Topics](#advanced-topics).
 
 
 ### 7. Has the smart contracts been audited?
@@ -130,7 +130,7 @@ For details of the different liquidation approaches, check out [How do I become 
 
 ### 15. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advance topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
 
 
 ## For Liquidity Provider
@@ -183,7 +183,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
 2. After adding liquidity to sAMM, the liquidity provider has also become a trader due to the SHORT hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated.  
 
-3. With sufficient margin for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advance topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
+3. With sufficient margin for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advanced topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
 
 ## For Liquidator and System Maintainer 
 
@@ -231,7 +231,7 @@ It is on a “first come first served” basis. In practice, whoever initiates t
 
 You might also earn system reward by updating an inactive futures contract’s trade state: for inactive futures contract where there’s no trading activity at the pre-set time when it should have entered Settling or Settled state, you could call the `update()` method, send a transaction to help update the trade state and earn the reward. This system reward is also paid out on a first-come-first-served basis. 
 
-## Advance Topics
+## Advanced Topics
 
 
 ### 26. How is SynFutures’s market trading price, or fair price determined?  
