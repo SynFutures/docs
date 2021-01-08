@@ -24,7 +24,7 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 - Initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin.
 - Initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself) and earn system rewards.
 
-**System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc as the system develops in a later stage, and earn rewards.
+**System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc. as the system develops in a later stage, and earn rewards.
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
@@ -55,7 +55,7 @@ A futures trade typically goes through **three stages**:
 
 3. SETTLED: The state the trade enters after futures expiry, where only settlement of the trade is allowed. Trader can only close its own position and settle funds according to the settlement price; and LP can only withdraw assets provided to the liquidity pool with the LP Token.
 
-And an additional “EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
+And an additional “EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc.) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
 
 
 ### 6. How are prices determined?
@@ -98,7 +98,7 @@ Note that trader can only trade with a pair that have existing market makers, th
 
 ### 10. What is the fee charged when trading? 
 
-SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc) and the rest would be paid out to transaction pool for LPs.  
+SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc.) and the rest would be paid out to transaction pool for LPs.  
 
 
 ### 11. What is my futures contract’s expiration time?
@@ -117,7 +117,7 @@ When (AccountBalance + UnrealizedPnl) < Position \* MarkPrice \* MaintenanceMarg
 
 
 ### 14. What happen if my position doesn't have sufficient margin?
- 
+
 
 When your account becomes insolvent, liquidators would come and initiate liquidation process. 
 
@@ -135,7 +135,7 @@ A transaction might be failed due to insufficient gas fee, exceeding pricing sli
 
 ## For Liquidity Provider
 
- 
+
 ### 16. How does SynFutures' sAMM model work if I would like to add/remove liquidity?
 
 To add liquidity, LP transfers the Quote asset token only to the sAMM, among which half is used as Quote asset, and the other half to synthesize the position of the Base asset, that is, to create a 1x LONG position of the Base asset for this futures contract. LP would then receive the respective LP tokens. 
@@ -188,7 +188,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 ## For Liquidator and System Maintainer 
 
 
- 
+
 ### 21. How do I become a liquidator?
 
 
@@ -201,13 +201,13 @@ In SynFutures@v1, if an account is no longer safe according to the current mark 
 
 It is worth mentioning that since AMM has always maintained liquidity in the system, partial liquidation becomes feasible under this operation: the account will be liquidated to a safe state that meets the initial margin requirement. 
 
- 
+
 ### 22. What would happen if the system becomes insolvent, i.e., balance of the account becomes negative due to liquidation?
 
 
 When the balance of the account becomes negative resulting from liquidation, the insurance fund of the futures contract will be firstly used to reward the liquidator, and cover the shortfall.
 
- 
+
 ### 23. What could liquidator benefit from initiating liquidations ?
 
 
@@ -219,13 +219,13 @@ With traditional DeFi approach, liquidators supply liquidity, take over traders�
 
 With Auto Liquidator approach, the system reserve fund would pay out a system reward to liquidation initiator who forced the traders to close its position with AMM. 
 
- 
+
 ### 24. How to determine who could be the liquidator if there are multiple liquidators targeting the same account?
 
 
 It is on a “first come first served” basis. In practice, whoever initiates trade with sufficient gas fee and be the first to successfully completed the liquidation transaction would be the final liquidator of an insolvent position.  
 
- 
+
 ### 25. What other system reward I might potentially earn? 
 
 
@@ -282,7 +282,7 @@ To protect user interest and avoid unintended price volatility, SynFutures impos
 **Max Spot Index Change Per Second Ratio**:maximum spot index change that can be accepted since the last update, measuring in seconds. As mark price is updated at most once per block, this serves as a limit of the mark price change per block and protects the system from attacks distorting the underlying Oracle in a short period of time.
 
 
-  
+
 ### 30. What is the potential impermanent loss I might have as an LP? Could you walk me through an example?
 
 Assuming you have 1 synthetic ETH position and 700 USDC position as a liquidity provider and ETH/USDC = 700 when you supply liquidity, and separately, you have sufficient margin to safely cover your ETH SHORT hedging position. 
