@@ -181,7 +181,7 @@ You could receive trading fees according to your share of the liquidity pool. Ad
 
 2. After adding liquidity to sAMM, the liquidity provider has also become a trader due to the SHORT hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated.  
 
-3. With sufficient margin, that is, to ensure Account Balance + Unrealized Pnl > Position * MarkPrice * Maintenance Margin (MMR), for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss, with the amount of loss the same as supplying to Uniswap should everything else equal. Check advanced topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
+3. With sufficient margin, that is, with Account Balance + Unrealized Pnl > Position * MarkPrice * Maintenance Margin (MMR) for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss, with the amount of loss the same as supplying to Uniswap should everything else equal. Check advanced topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
 
 ## For Liquidator and System Maintainer 
 
