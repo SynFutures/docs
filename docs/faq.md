@@ -9,7 +9,7 @@ slug: /
 ### 1. What is SynFutures?
 
 
-SynFutures is a decentralized synthetic asset derivatives trading platform. In the first version, it launches a Ethereum-based futures market for a variety of assets, including Ethereum native, cross-chain and off-chain real world assets to be synthesized and freely traded against ERC 20 tokens used as margin.
+SynFutures is a decentralized synthetic asset derivatives trading platform. In the first version, it launches a Ethereum-based futures market for a variety of assets, including Ethereum native, cross-chain, and off-chain real world assets to be synthesized and freely traded against ERC 20 tokens as margin.
 
 
 ### 2. Who are the ecosystem players in SynFutures?
@@ -66,7 +66,7 @@ There are three types of price in SynFutures contracts.
 2. **Index price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price.
 3. **Mark price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At NORMAL state, it is defined as spot IndexPrice + MarkBasis, where the MarkBasis keeps the relationship between futures price and spot index stable by applying Exponential Moving Average (EMA) on past basis. While In the last hour of a futures contract, basis is assumed to be 0 and the MarkPrice will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
-For detailed calculation of the pricings, please check [Advanced Topics](#advanced-topics).
+For detailed calculation of the pricings, please check [advanced topics](#advanced-topics).
 
 
 ### 7. Has the smart contracts been audited?
@@ -176,14 +176,12 @@ or,  $y = x / \left(2 \times \text{\small{InitialPrice}} + \frac{\text{InitialPr
 
 You could receive trading fees according to your share of the liquidity pool. Additionally, SynFutures plans to launch onchain governance in the future, when early large LPs could also be rewarded with governance token. Exact details to be finalized. 
 
-
 ### 20. What is the market risk associated with providing liquidity and being an LP? 
-
 1. At the start, the action of adding liquidity to the sAMM does not change the total risk profile of the liquidity provider, as the newly created LONG and SHORT positions exactly offset each other.  
 
 2. After adding liquidity to sAMM, the liquidity provider has also become a trader due to the SHORT hedging position, and needs to maintain sufficient margin in the account to meet the margin requirement or might face the risk of its short hedging position being liquidated.  
 
-3. With sufficient margin for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss (IM), with the amount of loss the same as supplying to Uniswap should everything else equal. Check advanced topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
+3. With sufficient margin, that is, to ensure Account Balance + Unrealized Pnl > Position * MarkPrice * Maintenance Margin (MMR), for the SHORT hedge position, the risk of being an AMM is similar to other protocol such as Uniswap adopting Constant Product Formula pricing model with possible Impermeant Loss, with the amount of loss the same as supplying to Uniswap should everything else equal. Check advanced topics: [What is the potential impermanent loss I might have as an LP?](#30-what-is-the-potential-impermanent-loss-i-might-have-as-an-lp-could-you-walk-me-through-an-example) 
 
 ## For Liquidator and System Maintainer 
 
@@ -292,6 +290,6 @@ The impermanent loss would be calculated as below
 
 Note that for simplicity, we use the term ETH/USDC price to represent futures fair price and spot price: the two might be different but if as LP you wait until settlement to withdraw LP token, settlement price and spot price would convert.  
 
-Everything else equals, the potential impermanent loss is the same as supplying to other CFMM such as Uniswap. 
+ Everything else equals, the potential impermanent loss is the same as supplying to other CFMM such as Uniswap. 
 
 ![img](../static/img/ip_loss2.png)
