@@ -35,15 +35,15 @@ SynFutures@v1在做市商机制方面采用了名为合成自动做市商“sAMM
 
 ### 合约生命周期
 
-充分参考中心化交易所以及传统金融市场的期货产品逻辑，SynFutures@v1将一个期货合约的生命周期分为：NORMAL、SETTLING以及SETTLED三个阶段，并且强制期货合约在到期之前SETTLING至少一小时。刚创建并初始化完成的期货合约进入NORMAL状态，期货合约在适当时间会进入由合约强制至少为一个小时的SETTLING状态，下一步合约状态即变为SETTLED状态。值得提及的是，强制期货合约SETTLING一小时，有可能会导致期货合约真正的到期时间晚于合约创建时指定的到期时间。这是由于智能合约本身的状态更新只能通过交易触发导致的，具体来说可能会出现这种情况：在指定的到期时间的前一小时左右没有发生任何交易，也就导致在期货合约无法严格执行在预先设定好的到期时间前一小时进入SETTLING状态。
+充分参考中心化交易所以及传统金融市场的期货产品逻辑，SynFutures@v1将一个期货合约的生命周期分为：TRADING、SETTLING以及SETTLED三个阶段，并且强制期货合约在到期之前SETTLING至少一小时。刚创建并初始化完成的期货合约进入TRADING状态，期货合约在适当时间会进入由合约强制至少为一个小时的SETTLING状态，下一步合约状态即变为SETTLED状态。值得提及的是，强制期货合约SETTLING一小时，有可能会导致期货合约真正的到期时间晚于合约创建时指定的到期时间。这是由于智能合约本身的状态更新只能通过交易触发导致的，具体来说可能会出现这种情况：在指定的到期时间的前一小时左右没有发生任何交易，也就导致在期货合约无法严格执行在预先设定好的到期时间前一小时进入SETTLING状态。
 
-为了处理这种情况并且强制合约在到期之前SETTLING至少一小时，SynFutures@v1采取的策略是：NORMAL状态下处理交易时，会首先根据期货合约创建时指定的到期时间判断此时合约状态是否应该SETTLING（甚至SETTLED），如果是则将合约状态改为SETTLING，并且根据此时的区块时间重新设置到期时间为一小时之后。这种方式可以保证所有合约在到期之前都会经历至少一小时的SETTLING（由于同样的原因，期货合约的SETTLING时间可能大于一小时，不再赘述）。可以预期的是交易活跃的期货合约，真正的到期时间与合约创建时的指定的到期时间会基本保持一致。另外，为了鼓励用户通过发起交易来更新（`update`）期货合约的状态，SynFutures@v1引入了额外的奖励机制。
+为了处理这种情况并且强制合约在到期之前SETTLING至少一小时，SynFutures@v1采取的策略是：TRADING状态下处理交易时，会首先根据期货合约创建时指定的到期时间判断此时合约状态是否应该SETTLING（甚至SETTLED），如果是则将合约状态改为SETTLING，并且根据此时的区块时间重新设置到期时间为一小时之后。这种方式可以保证所有合约在到期之前都会经历至少一小时的SETTLING（由于同样的原因，期货合约的SETTLING时间可能大于一小时，不再赘述）。可以预期的是交易活跃的期货合约，真正的到期时间与合约创建时的指定的到期时间会基本保持一致。另外，为了鼓励用户通过发起交易来更新（`update`）期货合约的状态，SynFutures@v1引入了额外的奖励机制。
 
-NORMAL和SETTLING状态下，期货合约标记价格（MarkPrice）的计算方式不同：SETTLILNG状态会采用时间加权的方式计算mark price，稍后再详细介绍。不同的合约状态下，trader和LP可以执行的操作以及限制有所不同：
+TRADING和SETTLING状态下，期货合约标记价格（MarkPrice）的计算方式不同：SETTLILNG状态会采用时间加权的方式计算mark price，稍后再详细介绍。不同的合约状态下，trader和LP可以执行的操作以及限制有所不同：
 
-- NORMAL状态下：trader可以`deposit`、`withdraw`、`update`、`trade`、`liquidate`以及`liquidateByAmm`，而LP可以`deposit`、`withdraw`、`addLiquidity`、`removeLiquidity`（LP当然也可以作为trader的角色执行`update`、`trade`、`liquidate`、以及`liquidateByAmm`操作）。
+- TRADING状态下：trader可以`deposit`、`withdraw`、`update`、`trade`、`liquidate`以及`liquidateByAmm`，而LP可以`deposit`、`withdraw`、`addLiquidity`、`removeLiquidity`（LP当然也可以作为trader的角色执行`update`、`trade`、`liquidate`、以及`liquidateByAmm`操作）。
 
-- SETTLLING状态下：该状态下，所有操作都减少相应账户中的仓位，而不能增大仓位。因此trader可以执行在NORMAL状态下的各种操作，但有了额外的约束条件：`trade`时只能关闭自己的已有仓位，不能增加自己的仓位；而LP方面则不允许`addLiquidity`，只能`removeLiquidity`，这是因为`addLiquidity`会导致AMM账户中的仓位增加。
+- SETTLLING状态下：该状态下，所有操作都减少相应账户中的仓位，而不能增大仓位。因此trader可以执行在TRADING状态下的各种操作，但有了额外的约束条件：`trade`时只能关闭自己的已有仓位，不能增加自己的仓位；而LP方面则不允许`addLiquidity`，只能`removeLiquidity`，这是因为`addLiquidity`会导致AMM账户中的仓位增加。
 - SETTLED状态下：trader只能根据结算价格关闭自己的仓位（`settle`）；LP方面则需要通过LP Token取回向资金池中注入的资产，然后通过`settle`来关闭仓位。值得提及的是，`settle`时用户的资金会自动从`Account`中转出。
 
 另外为了对应当下不可预见的链上异常情况（Oracle失效等问题），SynFutures@v1中还额外引入了名为EMERGENCY的状态，EMERGENCY状态下，普通用户和LP均不得进行操作，而系统管理员可以根据实际情况，以合理的结算价格（Settlement Price）引导期货合约进入SETTLED状态。
@@ -135,13 +135,13 @@ size = wadAmount / (2 * initPrice + initPrice / leverage)
 
 为了防止LP指定的`initPrice`不合理，SynFutures@v1中通过全局参数`maxInitialDailyBasis`约束`initPrice`和Oracle给出的现货指数价格之间的价差绝对值不得超过`days * maxInitialDailyBasis`，其中`days`是期货合约以天为单位的时长。`depositAndInitPool`操作完成之后，LP会获得相应的LP Token，LP Token的名字遵循`BASE-Quote-EXPIRY-ORACLETYPE`的模式，例如2020年12月30日到期的选用Chainlink的BTC/USD合约的的LP Token名字为`BTC-USD-20201230-LINK`。除此之外，`depositAndInitPool`还会初始化`MarkPriceState`的状态，`MarkPriceState`用于辅助在期货合约的整个生命周期当中辅助标记价格（mark price）的计算，稍后介绍。
 
-sAMM初始化完成之后，LP可以通过`deposit`和`addLiquidity`两步操作继续向AMM中注入流动性，当然也可以通过SynFutures@v1提供的`depositAndAddLiquidity`方法一次性完成两步操作，该方法的输入参数与`depositAndInitPool`基本一致，只是少了用于指定价格的参数。这是因为sAMM初始化之后，后续的流动性注入，必须按照sAMM给出的公允价格（Fair Price）进行。sAMM给出的公允价格`FairPrice = x / y`，其中`x`表示AMM账户中的可用保证金，`y`是AMM当前持有的LONG仓位。`depositAndAddLiquidity`方法中同样可以通过`leverage`参数调整`wadAmount`中有资金注入AMM和留在LP账户中的资金量。值得提及是，`depositAndAddLiquidity`操作只允许在NORMAL状态下进行。
+sAMM初始化完成之后，LP可以通过`deposit`和`addLiquidity`两步操作继续向AMM中注入流动性，当然也可以通过SynFutures@v1提供的`depositAndAddLiquidity`方法一次性完成两步操作，该方法的输入参数与`depositAndInitPool`基本一致，只是少了用于指定价格的参数。这是因为sAMM初始化之后，后续的流动性注入，必须按照sAMM给出的公允价格（Fair Price）进行。sAMM给出的公允价格`FairPrice = x / y`，其中`x`表示AMM账户中的可用保证金，`y`是AMM当前持有的LONG仓位。`depositAndAddLiquidity`方法中同样可以通过`leverage`参数调整`wadAmount`中有资金注入AMM和留在LP账户中的资金量。值得提及是，`depositAndAddLiquidity`操作只允许在TRADING状态下进行。
 
 ```
 function depositAndAddLiquidity(uint wadAmount, uint leverage, uint deadline) public payable returns (bool, uint)
 ```
 
-如前所述，LP也可以通过两步操作完成上述过程：`deposit`和`addLiquidity`，而`addLiquidity`也只允许在NORMAL状态下进行。为AMM注入流动性之后，在NORMAL和SETTLING状态下，LP可以通过`removeLiquidity`操作按照AMM当时的价格来移除流动性同时关闭仓位，并通过`withdraw`取回资产；而在SETTLED状态下，LP可以通过`settleShare`操作按照结算价格来移除流动性，并在随后通过`settle`操作关闭账户中的所有仓位（包括作为trader买入做多和卖出做空导致的仓位）并同时取回资金。NORMAL和SETTLING状态下，`removeLiquidity`会降低AMM中流动性，为了防止AMM中流动性过低引发后续交易滑点过高的问题，SynFutures@v1在`removeLiquidity`操作中要求在移除流动性之后，AMM持有的LONG仓位占比不得低于期货合约的未平仓量（open interests）的某个比例。全局参数`minAmmOpenInterestRatio`中规定了这一比例。
+如前所述，LP也可以通过两步操作完成上述过程：`deposit`和`addLiquidity`，而`addLiquidity`也只允许在TRADING状态下进行。为AMM注入流动性之后，在TRADING和SETTLING状态下，LP可以通过`removeLiquidity`操作按照AMM当时的价格来移除流动性同时关闭仓位，并通过`withdraw`取回资产；而在SETTLED状态下，LP可以通过`settleShare`操作按照结算价格来移除流动性，并在随后通过`settle`操作关闭账户中的所有仓位（包括作为trader买入做多和卖出做空导致的仓位）并同时取回资金。TRADING和SETTLING状态下，`removeLiquidity`会降低AMM中流动性，为了防止AMM中流动性过低引发后续交易滑点过高的问题，SynFutures@v1在`removeLiquidity`操作中要求在移除流动性之后，AMM持有的LONG仓位占比不得低于期货合约的未平仓量（open interests）的某个比例。全局参数`minAmmOpenInterestRatio`中规定了这一比例。
 
 ### 买入做多/卖出做空
 
@@ -158,7 +158,7 @@ LP创建期货合约并提供流动性之后，trader可以通过AMM进行买入
 
 可以看到，BUY/LONG时分母为`(y - size)`，为了保证运算正确性要求`size < y`。BUY/LONG时会降低AMM的LONG仓位数量，因此与`removeLiquidity`类似，在BUY/LONG时，SynFutures@v1同样要求在交易完成后，AMM持有的LONG仓位占比不得低于期货合约的未平仓量的`minAmmOpenInterestRatio`比例。如果该要求不满足，则整笔交易失败。
 
-为了防止市场的某个仓位过于集中在某些用户手中，以防止市场风险过于集中于某些用户（在清算这些账户时会引发问题），SynFutures@v1要求若某个用户的持仓比例过高（由全局参数`maxUserTradeOpenInterestRatio`指定的），该用户只能进行平仓操作而不能增加仓位。与AMM交换完仓位之后，如果这笔交易在用户账户中导致了新开了仓位，则会检查这一约束条件，不满足则整笔交易失败。值得提及的是，仅需要在NORMAL状态下执行这项检查，SETTLING阶段由于之前的检查不会出现在trader账户中新开仓位的现象。
+为了防止市场的某个仓位过于集中在某些用户手中，以防止市场风险过于集中于某些用户（在清算这些账户时会引发问题），SynFutures@v1要求若某个用户的持仓比例过高（由全局参数`maxUserTradeOpenInterestRatio`指定的），该用户只能进行平仓操作而不能增加仓位。与AMM交换完仓位之后，如果这笔交易在用户账户中导致了新开了仓位，则会检查这一约束条件，不满足则整笔交易失败。值得提及的是，仅需要在TRADING状态下执行这项检查，SETTLING阶段由于之前的检查不会出现在trader账户中新开仓位的现象。
 
 考虑到通过智能合约来实现期货合约这一特殊现实，为了保护用户利益，SynFutures@v1在执行交易时还引入了另外一个约束参数`maxPriceSlippageRatio`，该参数用来限制在一个区块的中通过和AMM交易允许的最大双向滑点，等价于每个区块内的所有交易都有一个限价，保证该区块内AMM的价格波动在一定的范围内。这可以防止通过单笔大额交易来扭曲AMM的价格。因此`trade`操作中，在完成用户与AMM的仓位交换之后，会根据AMM最新状态确认区块价格滑点限制没有被破坏，否则整笔交易失败。
 
@@ -184,15 +184,15 @@ struct MarkPriceState {
 }
 ```
 
-在NORMAL和SETTLING阶段，除`deposit`之外所有的操作（包括`withdraw`、`update`、`trade`、`addLiquidity`、`removeLiquidity`、`liquidate`、`liquidateByAmm`)都会首先根据的当前时间与合约到期时间来尝试更新期货合约的状态（NORMAL --> SETTLILNG --> SETTLED），也会根据当前的指数价格、当前时间更新`MarkPriceState`。其中当从SETTLLING状态切换至SETTELD状态时，会计算期货合约的结算价格。进入SETTLED状态，无需再更新期货合约状态，也无需进一步更新`MarkPriceState`。
+在TRADING和SETTLING阶段，除`deposit`之外所有的操作（包括`withdraw`、`update`、`trade`、`addLiquidity`、`removeLiquidity`、`liquidate`、`liquidateByAmm`)都会首先根据的当前时间与合约到期时间来尝试更新期货合约的状态（TRADING --> SETTLILNG --> SETTLED），也会根据当前的指数价格、当前时间更新`MarkPriceState`。其中当从SETTLLING状态切换至SETTELD状态时，会计算期货合约的结算价格。进入SETTLED状态，无需再更新期货合约状态，也无需进一步更新`MarkPriceState`。
 
-- NORMAL状态下，只会更新`MarkPriceState`中以`last`开头的字段并按照指数移动平均方式根据当前`MarkPriceState`和Oracle提供的信息计算标记价格。
+- TRADING状态下，只会更新`MarkPriceState`中以`last`开头的字段并按照指数移动平均方式根据当前`MarkPriceState`和Oracle提供的信息计算标记价格。
 - SETTLING状态下，则会更新`MarkPriceState`中以`acc`开头的字段，并按照带时间权重的平均价格方式根据当前`MarkPriceState`和Oracle提供的信息计算标记价格。
 - SETTLED状态下，无需更新`MarkPriceState`，并且标记价格就是结算价格。
 
 ```
 function _markPriceWithState(Types.MarkPriceState memory state) internal view returns (uint) {
-    if (status == Types.Status.NORMAL) {
+    if (status == Types.Status.TRADING) {
         int index = uint(state.lastIndexPrice).toInt256();
         int p = index.add((state.lastEmaBasis));
         return p.max(0).toUint256();
@@ -204,9 +204,9 @@ function _markPriceWithState(Types.MarkPriceState memory state) internal view re
 }
 ```
 
-**NORMAL状态下EMA方式更新`MarkPriceState`**
+**TRADING状态下EMA方式更新`MarkPriceState`**
 
-SynFutures@v1中NORMAL状态下标记价格的定义为现货指数加上标记基差。现货指数为标记价格提供了实时变化而标记基差通过使用指数移动平均（EMA）来让期货和现货之间保持稳定关系。NORMAL状态下，时刻$T$的标记价格$MarkPrice_T$按照以下过程计算：
+SynFutures@v1中TRADING状态下标记价格的定义为现货指数加上标记基差。现货指数为标记价格提供了实时变化而标记基差通过使用指数移动平均（EMA）来让期货和现货之间保持稳定关系。TRADING状态下，时刻$T$的标记价格$MarkPrice_T$按照以下过程计算：
 
 $Basis_T = FairPrice_T - IndexPrice_T$
 
@@ -222,9 +222,9 @@ $MarkPrice_T = IndexPrice_T + MarkBasis_T$
 
 在SETTLING状态下，SynFutures@v1中标记价格的计算采用时间权重加权平均的方式，会不断更新`accIndexStartTime`和`accIndexPrice`用于辅助TWAP方式的的标记价格计算，更新方式根据Oracle类型的不同有所不同。
 
-Uniswap类型的Oracle在NORMAL状态下会直接读取目标交易对的余额并根据相除之后的值作为指数价格，并且为此引入了额外的控制参数。在SETTLING状态下，由于SynFutures@v1切换到TWAP的方式计算标记价格，而Uniswap V2的交易对自身就有随着时间累积的价格，鉴于此，进入SETTLING状态时，会首先将进入SETTLING状态时的时间记录在`MarkPriceState`的`accIndexStartTime`字段中，并且读取此时Uniswap中合适方向的累积价格并存储到`MarkPriceState`的`accIndexPrice`字段中。SETTLING阶段随后的不再更新该字段的值。每次需要计算标记价格时，会再次读取Uniswap的累计价格，并根据`accIndexPrice`和`accIndexStartTime`计算TWAP作为标记价格。
+Uniswap类型的Oracle在TRADING状态下会直接读取目标交易对的余额并根据相除之后的值作为指数价格，并且为此引入了额外的控制参数。在SETTLING状态下，由于SynFutures@v1切换到TWAP的方式计算标记价格，而Uniswap V2的交易对自身就有随着时间累积的价格，鉴于此，进入SETTLING状态时，会首先将进入SETTLING状态时的时间记录在`MarkPriceState`的`accIndexStartTime`字段中，并且读取此时Uniswap中合适方向的累积价格并存储到`MarkPriceState`的`accIndexPrice`字段中。SETTLING阶段随后的不再更新该字段的值。每次需要计算标记价格时，会再次读取Uniswap的累计价格，并根据`accIndexPrice`和`accIndexStartTime`计算TWAP作为标记价格。
 
-Chainlink类型的Oralce在NORMAL和SETTLING阶段都直接读取其反馈的价格作为指数价格。但是进入SETTLING阶段时，SynFutures@v1内部也会在`MarkPriceState`的`accIndexStartTime`字段中记录开始时间，并在`MarkPriceState`的`accIndexPrice`字段中记录按秒数累加的指数价格。每次需要计算标记价格时，则根据`accIndexStartTime`以及`accIndexPrice`计算自SETTLING以来的TWAP。
+Chainlink类型的Oralce在TRADING和SETTLING阶段都直接读取其反馈的价格作为指数价格。但是进入SETTLING阶段时，SynFutures@v1内部也会在`MarkPriceState`的`accIndexStartTime`字段中记录开始时间，并在`MarkPriceState`的`accIndexPrice`字段中记录按秒数累加的指数价格。每次需要计算标记价格时，则根据`accIndexStartTime`以及`accIndexPrice`计算自SETTLING以来的TWAP。
 
 
 ### 清算机制
@@ -321,6 +321,6 @@ Oracle方面，相同base、Quote但是不同到期时间的期货合约可以�
 - 在一个256比特的slot中保存多个相关字段，减少slot的读写次数，例如全局参数中的`Param`以及`MarkPriceState`等。利用`memory`缓存从链上存储中读取的信息，并在方法调用（合约内或者合约间）时传递，防止多次读取链上存储
 - 减少`AmmProxy`与`FuturesProxy`之间交互，不得不交互时，在一侧完成尽可能多的操作之后再返回。为了达到该目的就需要在跨合约调用时，传递所有的所需信息，并在执行完成后返回所有需要的信息。
 
-- NORMAL和SETTLING阶段，所有的用户操作都先根据当前区块时间和到期日期来驱动期货合约状态的更新（NORMAL --> SETTLING --> SETTLED），并且在操作中适时更新`MarkPriceState`，利用用户交互及时更新期货合约状态。可以预期的是，使用频繁的合约不会出现严重的状态滞后问题。另外为了鼓励用户发送交易触发合约状态更新，SynFutures@v1还设计了额外的奖励机制，用户可以执行`update`操作。通过将合约更新任务分散到用户操作中，我们预期SynFutures@v1的期货合约的整个生命周期之内都不需要开发团队的介入。
+- TRADING和SETTLING阶段，所有的用户操作都先根据当前区块时间和到期日期来驱动期货合约状态的更新（TRADING --> SETTLING --> SETTLED），并且在操作中适时更新`MarkPriceState`，利用用户交互及时更新期货合约状态。可以预期的是，使用频繁的合约不会出现严重的状态滞后问题。另外为了鼓励用户发送交易触发合约状态更新，SynFutures@v1还设计了额外的奖励机制，用户可以执行`update`操作。通过将合约更新任务分散到用户操作中，我们预期SynFutures@v1的期货合约的整个生命周期之内都不需要开发团队的介入。
 
 通过上述两种操作，SynFutures@v1的用户的一次`trade`操作消耗的Gas大约是22w，对比其他永续合约操作的Gas消耗，SynFutures@v1在Gas消耗方面有着明显的改进。

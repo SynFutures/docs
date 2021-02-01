@@ -81,9 +81,9 @@ interface IAmm {
     function getSellPrice(uint size) external view returns (uint);
 
     // update AMM state, including status and mark price state
-    function update() external; // onlyNormalOrSettling
+    function update() external; // onlyTradingOrSettling
     // trade with AMM given direction, size in base asset, limit price and deadline
-    function trade(bool buy, uint size, uint limitPrice, uint deadline) external returns (bool); // onlyNormalOrSettling
+    function trade(bool buy, uint size, uint limitPrice, uint deadline) external returns (bool); // onlyTradingOrSettling
 
     // deposit margin and initialize the pool given the margin token amount in 10^18,
     // initial price, leverage for hedging position for LP and deadline
@@ -94,18 +94,18 @@ interface IAmm {
     // leverage for hedging position for LP and deadline
     function depositAndAddLiquidity(
         uint wadAmount, uint leverage, uint deadline
-    ) external payable returns (bool, uint); // onlyNormalOrSettling
+    ) external payable returns (bool, uint); // onlyTradingOrSettling
     // add liquidity to pool using existing margin from LP's account given margin token amount in 10^18 and deadline
-    function addLiquidity(uint wadAmount, uint deadline) external returns (bool, uint); // onlyNormal
+    function addLiquidity(uint wadAmount, uint deadline) external returns (bool, uint); // onlyTrading
     // remove liquidity from pool to margin and transfer LP's account
-    function removeLiquidity(uint shareAmount, uint deadline) external returns (bool, uint); // onlyNormalOrSettling
+    function removeLiquidity(uint shareAmount, uint deadline) external returns (bool, uint); // onlyTradingOrSettling
     // settle LP's pool share to margin and transfer to LP's account
     function settleShare() external; // onlySettled
 
     // fully liquidate account by taking over position and provide additional margin
-    function liquidate(address trader, uint deadline) external; // onlyNormalOrSettling
+    function liquidate(address trader, uint deadline) external; // onlyTradingOrSettling
     // partially liquidate account by force the account to trade with AMM to reduce position
-    function liquidateByAmm(address trader, uint deadline) external returns (uint); // onlyNormalOrSettling
+    function liquidateByAmm(address trader, uint deadline) external returns (uint); // onlyTradingOrSettling
 }
 
 ```

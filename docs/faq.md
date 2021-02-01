@@ -49,7 +49,7 @@ Though in design and theory, SynFutures could support any ERC 20 token as Quote 
 
 A futures trade typically goes through **three stages**:
 
-1. NORMAL: A futures contract enters the NORMAL state when newly created and initialized until the SETTLING state. During this state system players could perform all available functions.
+1. TRADING: A futures contract enters the TRADING state when newly created and initialized until the SETTLING state. During this state system players could perform all available functions.
 
 2. SETTLING: last hour before contract expiry. This state is to prepare for the smooth settlement of contracts. Users are only allowed to reduce but not open or increase position. This implies that a trader can only close outstanding position and LP can remove but not add liquidity.
 
@@ -64,7 +64,7 @@ There are three types of price in SynFutures contracts.
 
 1. **Fair price**: SynFutures market trading price as implied by AMM inventories. he futures trader execute for a transaction which follows a Constant Product Formula model $x*y=k$.
 2. **Index price**: Spot price of the trading pairs as supplied by Oracles. Currently we use Uniswap and Chainlink for index price.
-3. **Mark price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At NORMAL state, it is defined as spot IndexPrice + MarkBasis, where the MarkBasis keeps the relationship between futures price and spot index stable by applying Exponential Moving Average (EMA) on past basis. While In the last hour of a futures contract, basis is assumed to be 0 and the MarkPrice will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
+3. **Mark price**: Price to determine whether a futures position should be liquidated and the settlement price at expiry. At TRADING state, it is defined as spot IndexPrice + MarkBasis, where the MarkBasis keeps the relationship between futures price and spot index stable by applying Exponential Moving Average (EMA) on past basis. While In the last hour of a futures contract, basis is assumed to be 0 and the MarkPrice will be the Time-Weighted Average Price (TWAP) of Spot Index to facilitate the price convergence to the spot and the eventual settlement.
 
 For detailed calculation of the pricings, please check [advanced topics](#advanced-topics).
 
@@ -253,7 +253,7 @@ For Chainlink as Oralce, SynFutures@v1 has no special handling but treats Chainl
 ### 28. How is the mark price determined? 
 
 
-At NORMAL Stage of a trade, mark price is defined as below
+At TRADING Stage of a trade, mark price is defined as below
 
 $\text{\small{Basis}}_T = \text{\small{FairPrice}}_T-\text{\small{IndexPrice}}_T$
 

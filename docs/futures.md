@@ -69,9 +69,9 @@ interface IFutures {
     function withdrawFromInsuranceFund(uint wadAmount) external; // onlyOwner nonReentrant
 
     // deposit margin into trader's own account, margin amount in 10^18
-    function deposit(uint wadAmount) external returns (uint); // payable onlyNormalOrSettling nonReentrant
+    function deposit(uint wadAmount) external returns (uint); // payable onlyTradingOrSettling nonReentrant
     // withdraw margin from trader's own account, margin amount in 10^18
-    function withdraw(uint wadAmount) external; // onlyNormalOrSettling nonReentrant
+    function withdraw(uint wadAmount) external; // onlyTradingOrSettling nonReentrant
     // settle trader's own position into margin and withdraw entire balance
     function settle() external; // onlySettled nonReentrant
     // return detailed account information given a trader's address
