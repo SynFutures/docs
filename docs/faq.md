@@ -1,7 +1,7 @@
 ---
 id: faq
 title: FAQ
-slug: /
+slug: /faq
 ---
 
 ## About SynFutures
