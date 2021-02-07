@@ -4,8 +4,6 @@ title: General
 slug: /
 ---
 
-## About SynFutures
-
 ### 1. What is SynFutures?
 
 
