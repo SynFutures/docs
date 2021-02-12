@@ -26,7 +26,7 @@ Note that trader can only trade with a pair that have existing market makers, th
 
 ### 10. What is the fee charged when trading? 
 
-SynFutures charges a fixed % of fees for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc.) and the rest would be paid out to transaction pool for LPs.  
+SynFutures charges a fixed % of trading fee([check key parameters](/docs/docs/parameters)) for all trades based on the transaction amount, to be split into two parts, one is system reserve fees (for trade state update and liquidation initiator, etc.) and the rest would be paid out to transaction pool for LPs.  
 
 
 ### 11. What is my futures contract’s expiration time?
