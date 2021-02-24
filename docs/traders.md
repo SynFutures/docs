@@ -15,7 +15,7 @@ Note that when you “withdraw” margin, your PnL would be calculated based on 
 ### 9. How to open/close a position?
 
 
-When open a new position, a trader should transfer the margin token (Quote asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnL) >= Position \* MarkPrice \* InitialMarginRatio.
+When open a new position, a trader should transfer the margin token (Quote asset) to its account to ensure its margin is sufficient, that is `(AccountBalance + UnrealizedPnL) >= Position * MarkPrice * InitialMarginRatio`.
 
 With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
 
