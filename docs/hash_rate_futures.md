@@ -1,6 +1,6 @@
 ---
 id: hash_rate_futures
-title: Hash Rate Futures Contract Specs
+title: Hash Rate Futures
 ---
 
 

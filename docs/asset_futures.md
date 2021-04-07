@@ -1,6 +1,6 @@
 ---
 id: asset_futures
-title: Asset Futures Contract Specs
+title: Asset Futures
 ---
 
 
