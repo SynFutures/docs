@@ -5,12 +5,12 @@ slug: /advanced
 ---
 
 
-### 26. How is SynFutures’s market trading price, or fair price determined?  
+### 42. How is SynFutures’s market trading price, or fair price determined?  
 
 For fair price SynFutures follows a Constant Product Formula model. Market prices are determined by the amount of sAMM’s asset position in a pool with function: $x*y=k$, where $x$ and $y$ are the amount of AMM’s Base and Quote asset positions of a trading pair, and $k$ is a constant number. To maintain $k$, the balances are adjusted during the execution of the trade, therefore changing the price. 
 
 
-### 27. How is the spot index price determined? 
+### 43. How is the spot index price determined? 
 
 
 SynFutures@v1 currently only introduces Uniswap and Chainlink as Oracle and requires Quote to be a native asset on Ethereum: recall a trading pair consist of Base/Quote asset. For example, for ETH/USDC, ETH is the Base asset and USDC is the Quote asset. 
@@ -23,7 +23,7 @@ For Uniswap as Oracle, SynFutures@v1 directly reads the quantity numbers of two 
 
 For Chainlink as Oralce, SynFutures@v1 has no special handling but treats Chainlink's USD price quotation as the quotation for USDC. For example, If the BTC/USD pricing fed by Chainlink is 30,000, the BTC/USDC futures contract of SynFutures@v1 treats the current pricing of BTC as 30,000 USDC. 
 
-### 28. How is the mark price determined? 
+### 44. How is the mark price determined? 
 
 
 At TRADING Stage of a trade, mark price is defined as below
@@ -37,7 +37,7 @@ $\text{\small{MarkPrice}}_T = \text{\small{IndexPrice}}_T + \text{\small{MarkBas
 
 At SETTLING stage, basis is assumed to be 0 and the mark price will be the time-weighted average price (TWAP) of spot index price to facilitate the price convergence to the spot and the eventual settlement.  
 
-### 29. How do you protect users from large price movement? or what are the restrictions imposed by SynFutures? 
+### 45. How do you protect users from large price movement? or what are the restrictions imposed by SynFutures? 
 
 
 To protect user interest and avoid unintended price volatility, SynFutures imposes below restrictions, which would not affect normal users but mainly be triggered when there’s large movement in a single block or from a single user. 
@@ -54,7 +54,7 @@ To protect user interest and avoid unintended price volatility, SynFutures impos
 
 
 
-### 30. What is the potential impermanent loss I might have as an LP? Could you walk me through an example?
+### 46. What is the potential impermanent loss I might have as an LP? Could you walk me through an example?
 
 Assuming you have 1 synthetic ETH position and 700 USDC position as a liquidity provider and ETH/USDC = 700 when you supply liquidity, and separately, you have sufficient margin to safely cover your ETH SHORT hedging position. 
 

@@ -58,4 +58,4 @@ For details of the different liquidation approaches, check out [How do I become 
 
 ### 15. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](/docs/docs/advanced#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](/docs/docs/advanced#45-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
