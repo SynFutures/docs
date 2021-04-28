@@ -25,10 +25,10 @@ Maturity date for Hash Rate Futures can only be estimated, as the exact time for
 BTC mining difficulty only resets at blocks of multiple of 2016 and stays constant for blocks in between. However, for derivative products to have a meaningful spot index, a continuous and (near) real time spot index is preferred. Thus, we use a moving window of past 2016 blocks to calculate a block weighted difficulty to be used as the spot difficulty index. Note that this block weighted difficulty converges to actual difficulty at resetting blocks.
 
 ### 32. How often does spot difficulty index get updated?
-The Bitcoin mining difficulty index oracle is updated by uploading Bitcoin block headers and thus it could be updated after every block is produced. However, in order to prevent roll back and other edge cases, current it is scheduled to be updated at least every 12 blocks or 2 hours.
+The Bitcoin mining difficulty index oracle is updated by uploading Bitcoin block headers and thus in theory it could be updated after every block is mined. However, as the estimated spot index is quite stable, the update frequency is currently scheduled to be updated at least every 12 blocks or 2 hours for cost efficiency considerations.
 
 ### 33. Is the mining difficulty oracle for BTCHASH centralized? Can it be manipulated by the SynFutures Team?
-To support the hash rate futures, SynFutures team has developed a completely trustless smart contract based onchain oracle for Bitcoin mining difficulty. The oracle only depends on the Bitcoin block headers for all the computation and anyone can submit latest block headers to the smart contract. The oracle contract has implemented the Nakamoto consensus and only accept block headers that pass the validation.
+To support the hash rate futures, SynFutures team has developed a completely trustless onchain oracle for Bitcoin mining difficulty. The oracle only depends on the Bitcoin block headers for all the computation and anyone can submit latest block headers to the smart contract. The oracle contract has implemented the Nakamoto consensus and only accept block headers that pass the validation.
 
 ### 34. What is mark price used for?
 Similar to our asset futures, hash rate futures uses mark price to mark to market all traders' positions, and thus to determine whether a trader’s position should be liquidated.
