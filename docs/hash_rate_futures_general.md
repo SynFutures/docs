@@ -51,13 +51,13 @@ Like all other futures instrument, the futures price already reflects market exp
 ### 37. What is the exact definition of the underlying for one BTCHASH futures contract?
 With 1 PH/s of hash rate, the mining reward is calculated as 
 
-$MiningReward = BlockReward * 14 * 86400 * 10^{15} * Target / 2^{256}$.
+$\text{MiningReward} = \text{BlockReward} * 14 * 86400 * 10^{15} * \text{Target} / 2^{256}$.
 
 The formula can be simplified to 
 
-$MiningReward = BlockReward * 14 * 86400 * 10^{15} / (Difficulty * 2^{32})$ 
+$\text{MiningReward} = \text{BlockReward} * 14 * 86400 * 10^{15} / (\text{Difficulty} * 2^{32})$ 
 
-as $Target = (0x00000000ffff << 208) / Difficulty \approx 2^{224} / Difficulty$.
+as $\text{Target} = (0x00000000ffff << 208) / \text{Difficulty} \approx 2^{224} / \text{Difficulty}$.
 
 Note that the hash rate futures contract uses the exact formula to calculate the reward from Target. Also, BTCHASH only include the block reward, 6.25 BTC per block at the moment, but not the transaction fees in each block. Electricity and other operational cost are also omitted.
 
