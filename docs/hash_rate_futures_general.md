@@ -3,8 +3,8 @@ id: hash_rate_futures_general
 title: Hash Rate Futures
 ---
 
-### 26. What is SynFutures' BTC hash rate（BTCHASH）futures? Is it a cloud mining token?
-BTC hash rate futures contract represents the expected block mining reward in BTC for a difficulty resetting period (roughly 14 days, for simplicity, we would refer to one period as 14 days hereafter) per PH/s hash rate at a given difficulty level. In contrast to a cloud mining token, it is purely on-chain based futures for trading BTC mining difficulty and no physical mining activity is performed.
+### 26. What is SynFutures' BTC Hash Rate（BTCHASH）Futures? Is it a cloud mining token?
+BTC Hash Rate Futures contract represents the expected block mining reward in BTC for a difficulty resetting period (roughly 14 days, for simplicity, we would refer to one period as 14 days hereafter) per PH/s hash rate at a given difficulty level. In contrast to a cloud mining token, it is purely on-chain based futures for trading BTC mining difficulty and no physical mining activity is performed.
 
 ### 27. What does 1 long position of BTCHASH represent? What is being "longed"?
 Long position of BTCHASH means longing the block mining reward in BTC, while shorting the mining difficulty, as the block mining reward is negatively proportional to the mining difficulty. Long 1 BTCHASH at a certain maturity date means long the block mining reward for 1 PH/s hash rate for the next difficulty resetting period (2016 blocks, roughly 14 days) following the maturity date.
@@ -78,10 +78,10 @@ BTC mining difficulty only resets at blocks of multiple of 2016 and stays consta
 The Bitcoin mining difficulty index oracle is updated by uploading Bitcoin block headers and thus in theory it could be updated after every block is mined. However, as the estimated spot index is quite stable, the update frequency is currently scheduled to be updated at least every 12 blocks or 2 hours for cost efficiency considerations.
 
 ### 39. Is the mining difficulty oracle for BTCHASH centralized? Can it be manipulated by the SynFutures Team?
-To support the hash rate futures, SynFutures team has developed a completely trustless onchain oracle for Bitcoin mining difficulty. The oracle only depends on the Bitcoin block headers for all the computation and anyone can submit latest block headers to the smart contract. The oracle contract has implemented the Nakamoto consensus and only accept block headers that pass the validation.
+To support the Hash Rate Futures, SynFutures team has developed a completely trustless onchain oracle for Bitcoin mining difficulty. The oracle only depends on the Bitcoin block headers for all the computation and anyone can submit latest block headers to the smart contract. The oracle contract has implemented the Nakamoto consensus and only accept block headers that pass the validation.
 
 ### 40. What is mark price used for?
-Similar to our asset futures, hash rate futures uses mark price to mark to market all traders' positions, and thus to determine whether a trader’s position should be liquidated.
+Similar to our asset futures, Hash Rate Futures uses mark price to mark to market all traders' positions, and thus to determine whether a trader’s position should be liquidated.
 
 ### 41. What is the exact definition of the underlying for one BTCHASH futures contract?
 With 1 PH/s of hash rate, the mining reward is calculated as 
@@ -96,4 +96,4 @@ as
 
 $\text{Target} = \frac{\text{0x00000000ffff << 208} }{\text{Difficulty}} \approx \frac{2^{224}}{ \text{Difficulty}}$.
 
-Note that the hash rate futures contract uses the exact formula to calculate the reward from Target. Also, BTCHASH only include the block reward, 6.25 BTC per block at the moment, but not the transaction fees in each block. Electricity and other operational cost are also omitted.
+Note that the Hash Rate Futures contract uses the exact formula to calculate the reward from Target. Also, BTCHASH only include the block reward, 6.25 BTC per block at the moment, but not the transaction fees in each block. Electricity and other operational cost are also omitted.
