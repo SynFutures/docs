@@ -49,7 +49,7 @@ A futures trade typically goes through **three stages**:
 
 1. TRADING: A futures contract enters the TRADING state when newly created and initialized until the SETTLING state. During this state system players could perform all available functions.
 
-2. SETTLING: last hour before contract expiry. This state is to prepare for the smooth settlement of contracts. Users are only allowed to reduce but not open or increase position. This implies that a trader can only close outstanding position and LP can remove but not add liquidity.
+2. SETTLING: This state is to prepare for the smooth settlement of contracts. Users are only allowed to reduce but not open or increase position. This implies that a trader can only close outstanding position and LP can remove but not add liquidity. Please refer to contract specs for specific timing for SETTLING period.
 
 3. SETTLED: The state the trade enters after futures expiry, where only settlement of the trade is allowed. Trader can only close its own position and settle funds according to the settlement price; and LP can only withdraw assets provided to the liquidity pool with the LP Token.
 
