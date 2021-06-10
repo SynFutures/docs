@@ -22,13 +22,13 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 **Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators:
 
 - Initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin.
-- Initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself) and earn system rewards.
+- Initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself).
 
 **System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc. as the system develops in a later stage, and earn rewards.
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
-**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers.
+**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to pay out rewards to system maintainers.
 
 **Oracle**: supplies pricing data to the system.
 
@@ -55,7 +55,7 @@ A futures trade typically goes through **three stages**:
 
 3. SETTLED: The state the trade enters after futures expiry, where only settlement of the trade is allowed. Trader can only close its own position and settle funds according to the settlement price; and LP can only withdraw assets provided to the liquidity pool with the LP Token.
 
-And an additional “EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc.) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
+And an additional "EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc.) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
 
 
 ### 6. How are prices determined?
@@ -79,9 +79,9 @@ Yes, SynFutures@v1 was audited by PeckShield. [Check here for the full report](h
 
 ### 8. How to add/withdraw margin?
 
-You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
+You could go to "Trade” page and select the contract you have traded,  or "Pool” page to view the list of existing trades and perform "Deposit” or "Withdraw” function under "Margin Operations”. 
 
-Note that when you “withdraw” margin, your PnL would be calculated based on current MarkPrice and the excess would become available for withdrawal. And your original trade’s entry price would be reset to the current Mark Price. 
+Note that when you "withdraw” margin, your PnL would be calculated based on current MarkPrice and the excess would become available for withdrawal. And your original trade’s entry price would be reset to the current Mark Price. 
 
 
 ### 9. How to open/close a position?
@@ -89,9 +89,9 @@ Note that when you “withdraw” margin, your PnL would be calculated based on 
 
 When open a new position, a trader should transfer the margin token (Quote asset to its account to ensure its margin is sufficient, that is (AccountBalance + UnrealizedPnL) >= Position \* MarkPrice \* InitialMarginRatio.
 
-With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
+With the available margin, a trader could go to "Trade” page to input the trading pairs, click on "Buy/Long” or "Sell/Short” button to create a trade.  
 
-To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite position of existing trades, and margin plus your PnL would be released to your account. Alternatively, you could go to “Pool” page to view the list of trades you have and close the position. 
+To close a trade, just follow the reverse procedure – go to "Trade” page , select the contract you have traded, execute opposite position of existing trades, and margin plus your PnL would be released to your account. Alternatively, you could go to "Pool” page to view the list of trades you have and close the position. 
 
 Note that trader can only trade with a pair that have existing market makers, that is, the pair should have been created and provided liquidity by LP. 
 
@@ -108,7 +108,7 @@ For SynFutures@v1, when launched, the expiration time of all futures contracts w
 
 ### 12. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
-Forcing a futures contract to enter SETTLING or SETTLED state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of futures contracts by initiating transactions. Check out [What other system reward I might potentially earn?](#25-what-other-system-reward-i-might-potentially-earn？) for details.
+Forcing a futures contract to enter SETTLING or SETTLED state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of futures contracts by initiating transactions.
 
 
 ### 13. How to determine whether a trader's position should be liquidated?
@@ -130,7 +130,7 @@ For details of the different liquidation approaches, check out [How do I become 
 
 ### 15. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](#29-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on "View on Etherscan " for more details. 
 
 
 ## For Liquidity Provider
@@ -146,9 +146,9 @@ Removing liquidity from the sAMM follows a similar process where the sAMM would 
 
 ### 17. How could I add liquidity to a trading pair?
 
-To provide liquidity, a LP interacts with the smart contracts via “Add Liquidity” button on “Pool” page from its account balance or “Add liquidity from Margin” button on “Account” Page from its available margin. Note that if the LP is adding liquidity from its existing trade’s available margin,  its PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And the original trade’s Entry price would be reset to the current Mark Price. 
+To provide liquidity, a LP interacts with the smart contracts via "Add Liquidity” button on "Pool” page from its account balance or "Add liquidity from Margin” button on "Account” Page from its available margin. Note that if the LP is adding liquidity from its existing trade’s available margin,  its PnL would be calculated based on current Mark Price and the excess would become available for withdrawal. And the original trade’s Entry price would be reset to the current Mark Price. 
 
-LP could only add liquidity to an existing pool, otherwise, it could firstly go to “Pool” page and click on “Create Pool” to create and initialize a new trading pair. 
+LP could only add liquidity to an existing pool, otherwise, it could firstly go to "Pool” page and click on "Create Pool” to create and initialize a new trading pair. 
 
 
 ### 18. What does "Adjust your leverage ratio" mean and what position size would I get when adding $x$ amount of liquidity? 
@@ -212,22 +212,14 @@ When the balance of the account becomes negative resulting from liquidation, the
 If the amount of the deficit exceeds the insurance fund balance, the excess loss will accumulate in the socialized loss in the opposite direction, and the loss will be shared in proportion to the positions held by all holders of the that side at this time. 
 
 
-With traditional DeFi approach, liquidators supply liquidity, take over traders’ whole positions, and could be rewarded with the rest of the traders’ margin token after deduction of penalty. In the case where the traders’ margin is insufficient, the system’s insurance fund and social loss mechanism would firstly ensure payout of a minimum reward (as defined by `bankruptcyLiquidatorRewardRatio` parameter) to the liquidator.  
-
-
-With Auto Liquidator approach, the system reserve fund would pay out a system reward to liquidation initiator who forced the traders to close its position with AMM. 
+With traditional DeFi approach, liquidators supply liquidity, take over traders’ whole positions, and could be rewarded with the rest of the traders’ margin token after deduction of penalty. In the case where the traders’ margin is insufficient, the system’s insurance fund and social loss mechanism would firstly ensure payout of a minimum reward (as defined by `bankruptcyLiquidatorRewardRatio` parameter) to the liquidator.
 
 
 ### 24. How to determine who could be the liquidator if there are multiple liquidators targeting the same account?
 
 
-It is on a “first come first served” basis. In practice, whoever initiates trade with sufficient gas fee and be the first to successfully completed the liquidation transaction would be the final liquidator of an insolvent position.  
-
-
-### 25. What other system reward I might potentially earn? 
-
-
-You might also earn system reward by updating an inactive futures contract’s trade state: for inactive futures contract where there’s no trading activity at the pre-set time when it should have entered Settling or Settled state, you could call the `update()` method, send a transaction to help update the trade state and earn the reward. This system reward is also paid out on a first-come-first-served basis. 
+It is on a "first come first served” basis. In practice, whoever initiates trade with sufficient gas fee and be the first to successfully completed the liquidation transaction would be the final liquidator of an insolvent position.  
+ 
 
 ## Advanced Topics
 

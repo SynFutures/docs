@@ -3,11 +3,9 @@ id: tutorial_settlement
 title: Settlement
 ---
 
-SynFutures is a decentralized derivatives platform that allows various digital assets pairs to be freely created and traded. This tutorial will show you how to handle settlement on SynFutures with our dapp deployed on [kovan testnet](https://kovan.synfutures.com).
-
 After the pair is settled, we can settle our shares to get margins back from AMM and settle all our positions according to the settlement price in the [Account page](https://kovan.synfutures.com/#/account) to withdraw all margins from the pair. 
 
-For our example above, after QQQ-DAI-20210430-UNI pair matures, “Operations” for this pair in the account page “Operations” for this pair will become “Settle” instead of “Deposit/Withdraw” as shown currently in the following pictures.
+For our example above, after QQQ-DAI-20210430-UNI pair matures, "Operations” for this pair in the account page "Operations” for this pair will become "Settle” instead of "Deposit/Withdraw” as shown currently in the following pictures.
 
 ![img](../static/img/trade11.png)
 

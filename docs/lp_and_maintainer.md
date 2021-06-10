@@ -33,16 +33,7 @@ If the amount of the deficit exceeds the insurance fund balance, the excess loss
 With traditional DeFi approach, liquidators supply liquidity, take over traders’ whole positions, and could be rewarded with the rest of the traders’ margin token after deduction of penalty. In the case where the traders’ margin is insufficient, the system’s insurance fund and social loss mechanism would firstly ensure payout of a minimum reward (as defined by `bankruptcyLiquidatorRewardRatio` parameter) to the liquidator.  
 
 
-With Auto Liquidator approach, the system reserve fund would pay out a system reward to liquidation initiator who forced the traders to close its position with AMM. 
-
-
 ### 24. How to determine who could be the liquidator if there are multiple liquidators targeting the same account?
 
 
-It is on a “first come first served” basis. In practice, whoever initiates trade with sufficient gas fee and be the first to successfully completed the liquidation transaction would be the final liquidator of an insolvent position.  
-
-
-### 25. What other system reward I might potentially earn? 
-
-
-You might also earn system reward by updating an inactive futures contract’s trade state: for inactive futures contract where there’s no trading activity at the pre-set time when it should have entered Settling or Settled state, you could call the `update()` method, send a transaction to help update the trade state and earn the reward. This system reward is also paid out on a first-come-first-served basis. 
+It is on a "first come first served” basis. In practice, whoever initiates trade with sufficient gas fee and be the first to successfully completed the liquidation transaction would be the final liquidator of an insolvent position.  

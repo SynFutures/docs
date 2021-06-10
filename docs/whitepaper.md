@@ -52,7 +52,7 @@ today’s digital asset market is relatively small in scale, not yet
 impacting the overall financial stability. With the popularization of
 digital assets, regulations will only become stricter.
 
-Secondly, the smart open finance path chosen. It is a “choice” because
+Secondly, the smart open finance path chosen. It is a "choice” because
 open and programmable finance can also be found in traditional
 centralized financial institutions. Most of them set up service barriers
 deliberately to protect their vested interest only, and hindered by the
@@ -60,7 +60,7 @@ legacy system that could also be replaced. However, it does offer the
 emerging blockchain financial industry the possibility of overtaking
 their giant traditional peers .
 
-Lastly, blockchain’s fundamental advantage, or its “trustless” property.
+Lastly, blockchain’s fundamental advantage, or its "trustless” property.
 In fact, many nowadays monopoly financial services can be broken down
 into (a) manual intervention, (b) automated operation plus (c) liquidity
 provision. The trustless nature of the blockchain would allow various
@@ -68,7 +68,7 @@ services originally combined in one role to be split up and partially
 handed over to smart contracts for implementation. As a manifestation,
 Automated Market Maker (AMM) projects built by teams of 2-5 developers
 have recently earned the trust of billion-dollar worth of locked assets
-, whose “receipt”, or LP token issuance, asset custody and settlement
+, whose "receipt”, or LP token issuance, asset custody and settlement
 are performed by the transparent smart contracts. In addition, the
 though-not-perfect models greatly reduce the entry barriers of market
 making, assuring liquidity providers that their profit and loss will be
@@ -94,7 +94,7 @@ for nearly 23% of the spot market at US\$3 trillion. After only half a
 year of development, the percentage has increased to about 37% by June
 2020. However, the derivative products of centralized exchanges today
 generally face the criticism and skepticism of users, especially for its
-“blackbox” of liquidation operations.
+"blackbox” of liquidation operations.
 
 Turning to decentralized digital exchanges, however, the derivatives
 market is negligible compared to the spot with very few service
@@ -121,7 +121,7 @@ principles:
 
 3.  It should reflect the fundamental advantage of blockchain, i.e.
     trustlessness, to realize financial inclusiveness. The
-    “inclusiveness” in this project focuses not on the users, but on the
+    "inclusiveness” in this project focuses not on the users, but on the
     other role of a platform, i.e. financial service providers. We will
     strive to gain the confidence of the network’s idle liquidity by
     solid smart and open smart contracts, and continue to improve our

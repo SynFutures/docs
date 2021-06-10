@@ -7,9 +7,9 @@ slug: /traders
 
 ### 8. How to add/withdraw margin?
 
-You could go to “Trade” page and select the contract you have traded,  or “Pool” page to view the list of existing trades and perform “Deposit” or “Withdraw” function under “Margin Operations”. 
+You could go to "Trade” page and select the contract you have traded,  or "Pool” page to view the list of existing trades and perform "Deposit” or "Withdraw” function under "Margin Operations”. 
 
-Note that when you “withdraw” margin, your PnL would be calculated based on current MarkPrice and the excess would become available for withdrawal. And your original trade’s entry price would be reset to the current Mark Price. 
+Note that when you "withdraw” margin, your PnL would be calculated based on current MarkPrice and the excess would become available for withdrawal. And your original trade’s entry price would be reset to the current Mark Price. 
 
 
 ### 9. How to open/close a position?
@@ -17,9 +17,9 @@ Note that when you “withdraw” margin, your PnL would be calculated based on 
 
 When open a new position, a trader should transfer the margin token (Quote asset) to its account to ensure its margin is sufficient, that is `(AccountBalance + UnrealizedPnL) >= Position * MarkPrice * InitialMarginRatio`.
 
-With the available margin, a trader could go to “Trade” page to input the trading pairs, click on “Buy/Long” or “Sell/Short” button to create a trade.  
+With the available margin, a trader could go to "Trade” page to input the trading pairs, click on "Buy/Long” or "Sell/Short” button to create a trade.  
 
-To close a trade, just follow the reverse procedure – go to “Trade” page , select the contract you have traded, execute opposite position of existing trades, and margin plus your PnL would be released to your account. Alternatively, you could go to “Pool” page to view the list of trades you have and close the position. 
+To close a trade, just follow the reverse procedure – go to "Trade” page , select the contract you have traded, execute opposite position of existing trades, and margin plus your PnL would be released to your account. Alternatively, you could go to "Pool” page to view the list of trades you have and close the position. 
 
 Note that trader can only trade with a pair that have existing market makers, that is, the pair should have been created and provided liquidity by LP. 
 
@@ -58,4 +58,4 @@ For details of the different liquidation approaches, check out [How do I become 
 
 ### 15. Why did my transaction fail?
 
-A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](/docs/docs/advanced#45-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on “View on Etherscan “ for more details. 
+A transaction might be failed due to insufficient gas fee, exceeding pricing slippage you specified or breaching the limitation SynFutures imposed to protect users etc., check advanced topics: [How do you protect users from large price movement? or what are the restrictions imposed by SynFutures?](/docs/docs/advanced#44-how-do-you-protect-users-from-large-price-movement-what-are-the-restrictions-imposed-by-synfutures) for more details.  For a failed transaction, you could click on "View on Etherscan " for more details. 

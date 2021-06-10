@@ -20,13 +20,13 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 **Liquidator**: liquidates traders’ positions when margin is insufficient. SynFutures provides two ways for liquidators:
 
 - Initiate a trade with liquidator’s own account funds and take over the trader’s position as well as remaining margin.
-- Initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself) and earn system rewards.
+- Initiate a transaction for trader to close its position with Auto Liquidator (in v1, the AMM itself).
 
 **System Maintainer**: helps maintain the operations of the system including system’s trade state update and some other required services such as bug fix, code contribution etc. as the system develops in a later stage, and earn rewards.
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
-**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to pay out rewards to liquidators who initiate liquidation with AMM and system maintainers.
+**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to pay out rewards to system maintainers.
 
 **Oracle**: supplies pricing data to the system.
 
@@ -53,7 +53,7 @@ A futures trade typically goes through **three stages**:
 
 3. SETTLED: The state the trade enters after futures expiry, where only settlement of the trade is allowed. Trader can only close its own position and settle funds according to the settlement price; and LP can only withdraw assets provided to the liquidity pool with the LP Token.
 
-And an additional “EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc.) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
+And an additional "EMERGENCY” state would be entered into if unforeseen abnormal conditions on chain (such as Oracle failures, etc.) happens. Normal users and LPs are not allowed to perform any operations, and the system administrator will guide the futures contract into the SETTLED state with a fair and reasonable settlement price.
 
 
 ### 6. How are prices determined?

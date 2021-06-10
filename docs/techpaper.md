@@ -10,9 +10,9 @@ Inspired by the success of the decentralized spot exchange Uniswap, SynFutures i
 
 - Similar to Uniswap where anyone can create a new Spot trading pair, SynFutures@v1 allows any liquidity provider to create digital assets Futures trading pairs with arbitrary assets and arbitrary expiration dates. 
 
-- SynFutures@v1 adopts an “sAMM (Synthetic Automated Market Maker)” model, where the asset pricing follows a Constant Product Formula, while for liquidity provision, only one single asset (Quote Asset) of the trading pairs is required to be supplied, and the other asset (Base Asset) is automatically synthesized by the contract, thus supporting not only Ethereum native assets, but also cross-chain and real-world assets such as gold and foreign currencies.
+- SynFutures@v1 adopts an "sAMM (Synthetic Automated Market Maker)” model, where the asset pricing follows a Constant Product Formula, while for liquidity provision, only one single asset (Quote Asset) of the trading pairs is required to be supplied, and the other asset (Base Asset) is automatically synthesized by the contract, thus supporting not only Ethereum native assets, but also cross-chain and real-world assets such as gold and foreign currencies.
 
-- SynFutures@v1 also introduces the concept of “ALQ (Auto Liquidator)”, who passively performs the role of the liquidator by providing liquidity only and earns trading fees. In V1, sAMM is the liquidator at the same time. With that,  for the first time in DEX to our knowledge, partial liquidation of a trader’s leveraged position becomes possible.
+- SynFutures@v1 also introduces the concept of "ALQ (Auto Liquidator)”, who passively performs the role of the liquidator by providing liquidity only and earns trading fees. In V1, sAMM is the liquidator at the same time. With that,  for the first time in DEX to our knowledge, partial liquidation of a trader’s leveraged position becomes possible.
 
 ### Oracle
 

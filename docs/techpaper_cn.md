@@ -11,7 +11,7 @@ sidebar_label: Tech Paper中文
 
 ### Oracle
 
-合约的价格会受到现货价格波动的影响，受制于当前区块链行业Oracle的发展现状，并不是所有的基准/计价资产交易对（Base/Quote assets，例如交易对ETH/USDT中，ETH为Base资产，以下简称“Base”, USDT为Quote资产，以下简称“Quote”）都有可靠的价格Oracle，SynFutures@v1目前仅支持使用Uniswap和Chainlink作为Oracle，并且要求Quote是Ethereum上的原生资产。
+合约的价格会受到现货价格波动的影响，受制于当前区块链行业Oracle的发展现状，并不是所有的基准/计价资产交易对（Base/Quote assets，例如交易对ETH/USDT中，ETH为Base资产，以下简称"Base”, USDT为Quote资产，以下简称"Quote”）都有可靠的价格Oracle，SynFutures@v1目前仅支持使用Uniswap和Chainlink作为Oracle，并且要求Quote是Ethereum上的原生资产。
 
 SynFutures@v1启动时允许的可以作为Quote的资产包括：ETH、USDC、USDT、DAI。
 
@@ -24,14 +24,14 @@ SynFutures@v1启动时允许的可以作为Quote的资产包括：ETH、USDC、U
 
 ### 交易和做市机制
 
-SynFutures@v1在做市商机制方面采用了名为合成自动做市商“sAMM”(Synthetic Automated Market Maker)的恒定乘积自动做市商模型。合成自动做市商为任意期货合约提供充分的流动性，并成为交易员(trader)的对手方。
+SynFutures@v1在做市商机制方面采用了名为合成自动做市商"sAMM”(Synthetic Automated Market Maker)的恒定乘积自动做市商模型。合成自动做市商为任意期货合约提供充分的流动性，并成为交易员(trader)的对手方。
 
 与Uniswap类似，流动性提供者（Liquidity Provider，LP）可以创建任意资产对和到期日的期货合约，并且可以为期货合约注入流动性。Uniswap的恒定乘积模型中要求LP向资金池中注入两种资产，而在期货合约的视角下，这是不必要的，因为进行差额交割即可，
 
-因此SynFutures@v1采取的策略是：LP向合约中注入的流动性中的一半作为Quote资产，另一半则用于合成仓位，即建立这个期货合约的一倍多头仓位，这也是sAMM名字的由来：“s”表示“synthetic”。 由于LP原本持有的都是Quote资产，并不持有及暴露于Base资产的价格风险，因此同时，sAMM合约会分配一个和新创建的Base多头仓位等量的空头仓位给这个LP，对冲这个风险，使得LP提供流动性这个行为本身并不会改变自己原有的整体仓位情况。不过，为sAMM增加流动性之后，流动性提供者因为建立了空头对冲仓位而同时成为了交易员（trader），需要账户中有足够的保证金来满足保证金要求。
+因此SynFutures@v1采取的策略是：LP向合约中注入的流动性中的一半作为Quote资产，另一半则用于合成仓位，即建立这个期货合约的一倍多头仓位，这也是sAMM名字的由来："s”表示"synthetic”。 由于LP原本持有的都是Quote资产，并不持有及暴露于Base资产的价格风险，因此同时，sAMM合约会分配一个和新创建的Base多头仓位等量的空头仓位给这个LP，对冲这个风险，使得LP提供流动性这个行为本身并不会改变自己原有的整体仓位情况。不过，为sAMM增加流动性之后，流动性提供者因为建立了空头对冲仓位而同时成为了交易员（trader），需要账户中有足够的保证金来满足保证金要求。
 
 
-用户（trader）在其参与的期货合约当中有相应的账户（`Account`），Amm也有自己的`Account`。`Account`中记录当前用户的仓位（position）、资金余额（`balance`）等信息。用户可以向自己的账户中注入资金（`deposit`）、取回资金（`withdraw`）。为账户注入资金之后，trader可以通过与Amm交易（`trade`）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（`addLiquidity`）成为流动性提供者。用于提供流动性的资产，也可以被移除（`removeLiquidity`）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（`liquidate`）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了“自动清算人（Auto Liquidator” 机制：借助Amm清算目标账户（`liquidateByAmm`），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
+用户（trader）在其参与的期货合约当中有相应的账户（`Account`），Amm也有自己的`Account`。`Account`中记录当前用户的仓位（position）、资金余额（`balance`）等信息。用户可以向自己的账户中注入资金（`deposit`）、取回资金（`withdraw`）。为账户注入资金之后，trader可以通过与Amm交易（`trade`）的方式做多（buy/long）或者做空（sell/short），而LP则可以利用注入的资金通过添加流动性（`addLiquidity`）成为流动性提供者。用于提供流动性的资产，也可以被移除（`removeLiquidity`）。添加流动性时LP会获得相应的LP Token，移除流动性时会燃烧掉相应的LP Token。根据价格波动，如果一个账户中的资金余额不足以保证其当前仓位的安全性，任何人（除了该账户自己）都可以发起对该账户的清算（`liquidate`）。清算通常是指清算发起方用自己的账户接管目标账户的仓位，这对于清算发起人的账户状态有较高的要求。为了降低这一门槛，SynFutures@v1中引入了"自动清算人（Auto Liquidator” 机制：借助Amm清算目标账户（`liquidateByAmm`），也即清算发起人可以利用Amm的账户来清算指定账户，并获得奖励。
 
 ### 合约生命周期
 
