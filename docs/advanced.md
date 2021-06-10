@@ -5,12 +5,12 @@ slug: /advanced
 ---
 
 
-### 41. How is SynFutures’s market trading price, or fair price determined?  
+### 41. How is SynFutures’s market trading price, or fair price determined?
+
 
 For fair price SynFutures follows a Constant Product Formula model. Market prices are determined by the amount of sAMM’s asset position in a pool with function: $x*y=k$, where $x$ and $y$ are the amount of AMM’s Quote and Base asset positions of a trading pair, and $k$ is a constant number. To maintain $k$, the balances are adjusted during the execution of the trade, therefore changing the price. 
 
-
-### 42. How is the spot index price determined? 
+### 42. How is the spot index price determined?
 
 
 SynFutures@v1 currently only introduces Uniswap and Chainlink as Oracle and requires Quote to be a native asset on Ethereum: recall a trading pair consist of Base/Quote asset. For example, for ETH/USDC, ETH is the Base asset and USDC is the Quote asset. 
