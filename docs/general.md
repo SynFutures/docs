@@ -26,7 +26,7 @@ SynFutures is a decentralized synthetic asset derivatives trading platform. In t
 
 **Insurance Fund**: part of trader’s remaining margin when liquidation happens would go to insurance fund and be paid out to liquidator and AMM when liquidation results in balance insolvency.
 
-**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to pay out rewards to system maintainers.
+**System Reserve Fund**: part of the trader’s trading fees would go to system reserve fund to serve as insurance fund.
 
 **Oracle**: supplies pricing data to the system.
 
@@ -69,4 +69,4 @@ For detailed calculation of the pricings, please check [advanced topics](/docs/d
 
 ### 7. Has the smart contracts been audited?
 
-Yes, SynFutures@v1 was audited by PeckShield. [Check here for the full report](https://synfutures.com/PeckShield-Audit-SynFuturesV1-v1.0.pdf).
+Yes, SynFutures@v1 was audited by PeckShield. [Check here for the full report](https://www.synfutures.com/peckshield-audit-report-synfutures-v1.1.pdf).

@@ -43,7 +43,7 @@ or,  $y = x / \left(2 \times \text{\small{InitialPrice}} + \frac{\text{InitialPr
 
 ### 19. What is the reward I can get by supplying liquidity? 
 
-You could receive trading fees according to your share of the liquidity pool. Additionally, SynFutures plans to launch onchain governance in the future, when early large LPs could also be rewarded with governance token. Exact details to be finalized. 
+You could receive trading fees according to your share of the liquidity pool. 
 
 ### 20. What is the market risk associated with providing liquidity and being an LP? 
 1. At the start, the action of adding liquidity to the sAMM does not change the total risk profile of the liquidity provider, as the newly created LONG and SHORT positions exactly offset each other.  

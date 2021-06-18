@@ -36,7 +36,7 @@ For SynFutures@v1, when launched, the expiration time of all futures contracts w
 
 ### 12. Why was my futures contract not expiring exactly at the preset expiration time on settlement day?  
 
-Forcing a futures contract to enter SETTLING or SETTLED state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction. To cope with this problem, SynFutures@v1 introduces an additional reward mechanism in order to encourage users to update the state of futures contracts by initiating transactions. Check out [What other system reward I might potentially earn?](/docs/docs/lp_and_maintainer#25-what-other-system-reward-i-might-potentially-earn？) for details.
+Forcing a futures contract to enter SETTLING or SETTLED state may lead to the actual expiration time of the futures contract later than that specified time when the contract was created. This is because the status update of the smart contract itself can only be triggered by a transaction.
 
 
 ### 13. How to determine whether a trader's position should be liquidated?
