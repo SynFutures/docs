@@ -27,9 +27,3 @@ Available Operations would vary given different status of the contract.
   - **Settle** – settle the remaining Margin Balance back to your wallet
 
 ![img](../static/img/guide/image-20210526102422666.png)
-
-## A Shortcut
-
-On the Trade tab, there is a shortcut Deposit Margin function to quickly top-up to complete a trade. You can also click on Manage link to switch to Account tab in order to access full-function margin operations.
-
-![img](../static/img/guide/image-20210524104123095.png)
